@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contact": {
+    "issues": "${issue_tracker}"
+  },
+  "license": "${license}",
+  "icon": "${mod_id}_icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "chargedcharms.ChargedCharmsFabric"
+    ],
+    "fabric-datagen": [
+      "chargedcharms.data.FabricDatagenInitializer"
+    ]
+  },
+  "mixins": [
+    "chargedcharms.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "trinkets": "*",
+    "minecraft": "${fabric_mc_version_range}",
+    "java": ">=17"
+  }
+}

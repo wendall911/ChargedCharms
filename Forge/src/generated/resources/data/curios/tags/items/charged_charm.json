@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "biomemakeover:enchanted_totem",
+      "required": false
+    },
+    "minecraft:totem_of_undying"
+  ]
+}
