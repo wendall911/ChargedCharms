@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "minecraft:apple"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NAN",
+    "NNN"
+  ],
+  "result": {
+    "item": "chargedcharms:charged_absorption_charm"
+  }
+}

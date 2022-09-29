@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "chargedcharms:item/charged_enchanted_totem_charm"
+  }
+}

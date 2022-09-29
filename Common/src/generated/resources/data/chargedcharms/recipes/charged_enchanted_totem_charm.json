@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "chargedcharms:mod_loaded",
+      "modid": "biomemakeover"
+    }
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "S": {
+      "tag": "chargedcharms:enchanted_totems"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
+  ],
+  "result": {
+    "item": "chargedcharms:charged_enchanted_totem_charm"
+  }
+}

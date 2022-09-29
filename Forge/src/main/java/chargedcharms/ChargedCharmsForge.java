@@ -1,9 +1,16 @@
 package chargedcharms;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import chargedcharms.common.crafting.ChargedCharmsCrafting;
+import chargedcharms.data.recipe.condition.ModLoadedCondition;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
@@ -26,6 +33,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -36,16 +44,19 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmProviders;
+import chargedcharms.common.item.ChargedCharmsItems;
+import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 @Mod(ChargedCharms.MODID)
 public class ChargedCharmsForge {
 
-    public static final ResourceLocation EMPTY_CHARGED_CHARM_SLOT = new ResourceLocation(ChargedCharms.MODID, "item/empty_charged_charm_slot");
+    public static final ResourceLocation EMPTY_CHARGED_CHARM_SLOT = prefix("item/empty_charged_charm_slot");
 
     public ChargedCharmsForge() {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ChargedCharms.init();
+        registryInit();
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
@@ -68,10 +79,7 @@ public class ChargedCharmsForge {
     private void enqueue(final InterModEnqueueEvent evt) {
         InterModComms.sendTo(
             CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
-            () -> new SlotTypeMessage.Builder("charged_charm")
-                    .icon(EMPTY_CHARGED_CHARM_SLOT)
-                    .size(2)
-                    .build()
+            () -> new SlotTypeMessage.Builder("charged_charm").icon(EMPTY_CHARGED_CHARM_SLOT).size(2).build()
         );
     }
 
@@ -116,6 +124,21 @@ public class ChargedCharmsForge {
             }
         }
 
+    }
+
+    private void registryInit() {
+        bind(Registry.ITEM_REGISTRY, ChargedCharmsItems::registerItems);
+
+        ChargedCharmsCrafting.register(ModLoadedCondition.Serializer.INSTANCE);
+        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ChargedCharmsCrafting::registerRecipeSerializers);
+    }
+
+    private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+            if (registry.equals(event.getRegistryKey())) {
+                source.accept((t, rl) -> event.register(registry, rl, () -> t));
+            }
+        });
     }
 
 }

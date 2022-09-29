@@ -2,7 +2,10 @@ package chargedcharms;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.BiConsumer;
 
+import chargedcharms.common.crafting.ChargedCharmsCrafting;
+import chargedcharms.data.recipe.condition.ModLoadedCondition;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
@@ -14,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import chargedcharms.common.CharmProviders;
+import chargedcharms.common.item.ChargedCharmsItems;
 
 public class ChargedCharmsFabric implements ModInitializer {
 
@@ -23,6 +27,7 @@ public class ChargedCharmsFabric implements ModInitializer {
         Set<ResourceLocation> charms = new HashSet<>(CharmProviders.getItems());
 
         ChargedCharms.init();
+        registryInit();
 
         if (isClient) {
             Set<ResourceLocation> remove = new HashSet<>();
@@ -47,6 +52,17 @@ public class ChargedCharmsFabric implements ModInitializer {
                 }
             }
         });
+    }
+
+    private void registryInit() {
+        ChargedCharmsItems.registerItems(bind(Registry.ITEM));
+
+        ChargedCharmsCrafting.register(ModLoadedCondition.Serializer.INSTANCE);
+        ChargedCharmsCrafting.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+    }
+
+    private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
+        return (t, id) -> Registry.register(registry, id, t);
     }
 
 }

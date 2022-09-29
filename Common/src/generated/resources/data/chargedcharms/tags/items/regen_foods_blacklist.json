@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:rotten_flesh",
+    "minecraft:chicken",
+    "minecraft:spider_eye",
+    "minecraft:suspicious_stew",
+    "minecraft:pufferfish"
+  ]
+}

@@ -5,8 +5,6 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import chargedcharms.common.CharmProviders;
-import chargedcharms.common.DataHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -19,6 +17,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import chargedcharms.ChargedCharms;
+import chargedcharms.common.CharmProviders;
+import chargedcharms.common.DataHelper;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
 
