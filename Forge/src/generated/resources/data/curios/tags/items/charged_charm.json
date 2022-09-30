@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "biomemakeover:enchanted_totem",
-      "required": false
-    },
-    "minecraft:totem_of_undying"
+    "chargedcharms:charged_enchanted_totem_charm",
+    "chargedcharms:charged_totem_charm"
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "type": "chargedcharms:charge_enchanted_totem_charm",
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "biomemakeover"
+    }
+  ]
+}

@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import chargedcharms.ChargedCharms;
+import chargedcharms.data.recipe.ForgeRecipeProvider;
 
 @Mod.EventBusSubscriber(modid = ChargedCharms.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeDatagenInitializer {
@@ -22,6 +23,7 @@ public class ForgeDatagenInitializer {
         ForgeBlockTagsProvider blockTagsProvider = new ForgeBlockTagsProvider(gen, disabledHelper);
 
         gen.addProvider(event.includeServer(), new ForgeItemTagProvider(gen, blockTagsProvider, ChargedCharms.MODID, disabledHelper));
+        gen.addProvider(event.includeServer(), new ForgeRecipeProvider(gen));
     }
 
 }

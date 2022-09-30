@@ -1,5 +1,9 @@
 package chargedcharms.platform;
 
+import java.nio.file.Path;
+import java.util.Set;
+
+import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.CachedOutput;
@@ -21,15 +25,16 @@ import chargedcharms.common.ForgeCreativeTab;
 import chargedcharms.platform.mixin.RecipeProviderForgeAccessor;
 import chargedcharms.platform.services.IPlatform;
 
-import java.nio.file.Path;
-
 public class ForgePlatform implements IPlatform {
 
     @Override
-    public ItemStack findCharm(LivingEntity livingEntity) {
-        return CuriosApi.getCuriosHelper()
-            .findFirstCurio(livingEntity, stack -> CharmProviders.IS_CHARM.test(stack.getItem()))
-            .map(SlotResult::stack).orElse(ItemStack.EMPTY);
+    public Set<ItemStack> findCharms(LivingEntity livingEntity) {
+        Set<ItemStack> results = Sets.newHashSet();
+
+        CuriosApi.getCuriosHelper().findCurios(livingEntity, stack -> CharmProviders.IS_CHARM.test(stack.getItem()))
+                .stream().map(SlotResult::stack).forEach(results::add);
+
+        return results;
     }
 
     @Override

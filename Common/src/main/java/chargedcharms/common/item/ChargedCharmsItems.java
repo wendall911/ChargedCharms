@@ -15,11 +15,17 @@ public final class ChargedCharmsItems {
 
     private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
 
-    public static final Item regenerationCharm = make("charged_regeneration_charm", new ChargedCharmBase(getProps().durability(5)));
-    public static final Item absorptionCharm = make("charged_absorption_charm", new ChargedCharmBase(getProps().durability(5)));
-    public static final Item glowupCharm = make("charged_glowup_charm", new ChargedCharmBase(getProps().durability(5)));
-    public static final Item totemCharm = make("charged_totem_charm", new ChargedCharmBase(getProps().durability(5)));
-    public static final Item enchantedTotemCharm = make("charged_enchanted_totem_charm", new EnchantedChargedCharmBase(getProps().durability(5)));
+    public static final String regenerationCharmId = "charged_regeneration_charm";
+    public static final String absorptionCharmId = "charged_absorption_charm";
+    public static final String glowupCharmId = "charged_glowup_charm";
+    public static final String totemCharmId = "charged_totem_charm";
+    public static final String enchantedTotemCharmId = "charged_enchanted_totem_charm";
+    
+    public static final Item regenerationCharm = make(regenerationCharmId, new ChargedCharmBase(getProps().durability(5)));
+    public static final Item absorptionCharm = make(absorptionCharmId, new ChargedCharmBase(getProps().durability(5)));
+    public static final Item glowupCharm = make(glowupCharmId, new ChargedCharmBase(getProps().durability(5)));
+    public static final Item totemCharm = make(totemCharmId, new ChargedCharmBase(getProps().durability(5)));
+    public static final Item enchantedTotemCharm = make(enchantedTotemCharmId, new EnchantedChargedCharmBase(getProps().durability(5)));
 
     private static <T extends Item> T make(String id, T item) {
         ResourceLocation loc = prefix(id);

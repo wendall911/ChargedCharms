@@ -15,7 +15,8 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
 
-import static chargedcharms.common.crafting.ChargedCharmsCrafting.serialize;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
 /**
  * MIT License
@@ -165,7 +166,7 @@ public class ConsumerWrapperBuilder {
                 JsonArray conditionsArray = new JsonArray();
 
                 for (ICondition condition : conditions) {
-                    conditionsArray.add(serialize(condition));
+                    conditionsArray.add(CraftingHelper.serialize(condition));
                 }
 
                 json.add("conditions", conditionsArray);

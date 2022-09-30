@@ -13,32 +13,22 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import chargedcharms.common.integration.BMEnchantedTotemEffectProvider;
+import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.platform.Services;
+
+import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class CharmProviders {
 
     private static final Map<ResourceLocation, ICharmEffectProvider> EFFECT_PROVIDERS = new HashMap<>();
     private static Set<ResourceLocation> TOTEMS;
 
-    public static Predicate<Item> IS_CHARM = item -> {
-        ResourceLocation loc = Services.PLATFORM.getResourceLocation(item);
-
-        return EFFECT_PROVIDERS.containsKey(loc) && EFFECT_PROVIDERS.get(loc) != null;
-    };
+    public static Predicate<Item> IS_CHARM = item -> EFFECT_PROVIDERS.containsKey(Services.PLATFORM.getResourceLocation(item));
+    public static Predicate<Item> IS_TOTEM = item -> TOTEMS.contains(Services.PLATFORM.getResourceLocation(item));
 
     public static void init() {
-        boolean bmLoaded = Services.PLATFORM.isModLoaded("biomemakeover");
-        boolean addTotems = !Services.PLATFORM.isModLoaded("charmofundying");
-
-        EFFECT_PROVIDERS.put(
-            new ResourceLocation("minecraft", "totem_of_undying"),
-            addTotems ? new VanillaTotemEffectProvider() : null
-        );
-
-        EFFECT_PROVIDERS.put(
-            new ResourceLocation("biomemakeover", "enchanted_totem"),
-            bmLoaded && addTotems ? new BMEnchantedTotemEffectProvider() : null
-        );
+        EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.totemCharmId), new VanillaTotemEffectProvider());
+        EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.enchantedTotemCharmId), new BMEnchantedTotemEffectProvider());
 
         TOTEMS = ImmutableSet.copyOf(EFFECT_PROVIDERS.keySet());
     }
@@ -52,7 +42,11 @@ public class CharmProviders {
     }
 
     public static boolean hasTotem(ItemStack stack) {
-        return TOTEMS.contains(Services.PLATFORM.getResourceLocation(stack.getItem()));
+        if (IS_TOTEM.test(stack.getItem())) {
+            return stack.getDamageValue() < stack.getMaxDamage();
+        }
+
+        return false;
     }
 
 }

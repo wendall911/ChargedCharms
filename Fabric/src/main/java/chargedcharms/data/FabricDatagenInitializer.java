@@ -1,10 +1,12 @@
 package chargedcharms.data;
 
-import chargedcharms.data.recipe.RecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 import net.minecraft.data.tags.BlockTagsProvider;
+
+import chargedcharms.data.recipe.CommonRecipeProvider;
+import chargedcharms.data.recipe.FabricModRecipeProvider;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
@@ -25,11 +27,12 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     public static void configureCommonDatagen(FabricDataGenerator gen) {
         gen.addProvider(true, new CommonItemTagProvider(gen, blockTagsProvider));
         gen.addProvider(true, new FabricItemModelProvider(gen));
-        gen.addProvider(true, new RecipeProvider(gen));
+        gen.addProvider(true, new CommonRecipeProvider(gen));
     }
 
     public static void configureFabricDatagen(FabricDataGenerator gen) {
         gen.addProvider(true, new FabricItemTagProvider(gen, blockTagsProvider));
+        gen.addProvider(true, new FabricModRecipeProvider(gen));
     }
 
 }

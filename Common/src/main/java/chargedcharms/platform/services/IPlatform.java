@@ -1,6 +1,7 @@
 package chargedcharms.platform.services;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 import com.google.gson.JsonObject;
 
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 
 public interface IPlatform {
 
-    ItemStack findCharm(LivingEntity livingEntity);
+    Set<ItemStack> findCharms(LivingEntity livingEntity);
 
     ResourceLocation getResourceLocation(Item item);
 

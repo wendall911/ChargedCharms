@@ -1,5 +1,7 @@
 package chargedcharms.util;
 
+import java.util.Set;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -13,11 +15,12 @@ import chargedcharms.platform.Services;
 public class CharmHelper {
 
     public static boolean useTotem(LivingEntity livingEntity) {
-        ItemStack stack = Services.PLATFORM.findCharm(livingEntity);
+        Set<ItemStack> stackSet = Services.PLATFORM.findCharms(livingEntity);
+        ItemStack totem = stackSet.stream().filter(stack -> !stack.isEmpty() && CharmProviders.hasTotem(stack)).findFirst().orElse(ItemStack.EMPTY);
 
-        if (!stack.isEmpty() && CharmProviders.hasTotem(stack)) {
-            ItemStack copy = stack.copy();
-            stack.shrink(1);
+        if (!totem.isEmpty()) {
+            ItemStack copy = totem.copy();
+            totem.setDamageValue(totem.getDamageValue() + 1);
 
             if (livingEntity instanceof ServerPlayer player) {
                 player.awardStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING), 1);

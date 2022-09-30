@@ -6,8 +6,6 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import chargedcharms.common.crafting.ChargedCharmsCrafting;
-import chargedcharms.data.recipe.condition.ModLoadedCondition;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -44,6 +42,7 @@ import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmProviders;
+import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
@@ -129,7 +128,6 @@ public class ChargedCharmsForge {
     private void registryInit() {
         bind(Registry.ITEM_REGISTRY, ChargedCharmsItems::registerItems);
 
-        ChargedCharmsCrafting.register(ModLoadedCondition.Serializer.INSTANCE);
         bind(Registry.RECIPE_SERIALIZER_REGISTRY, ChargedCharmsCrafting::registerRecipeSerializers);
     }
 

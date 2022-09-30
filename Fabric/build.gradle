@@ -27,6 +27,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+    //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
+    //modRuntimeOnly "curse.maven:architectury-419699:3984016"
+    //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
 
     modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
@@ -73,6 +76,7 @@ processResources {
     from project(":Common").sourceSets.main.resources
     inputs.property "version", project.version
     exclude '.cache'
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
 
     filesMatching("fabric.mod.json") {
         expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
@@ -128,6 +132,7 @@ curseforge {
             relations {
                 requiredDependency 'fabric-api'
                 requiredDependency 'curios'
+                optionalDependency 'biome-makeover'
             }
 
             afterEvaluate {

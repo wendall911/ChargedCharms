@@ -1,11 +1,11 @@
 package chargedcharms.platform;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Set;
 
+import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
-import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -28,13 +28,15 @@ import chargedcharms.platform.services.IPlatform;
 public class FabricPlatform implements IPlatform {
 
     @Override
-    public ItemStack findCharm(LivingEntity livingEntity) {
-        return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
-            List<Tuple<SlotReference, ItemStack>> res =
-                component.getEquipped(stack -> CharmProviders.IS_CHARM.test(stack.getItem()));
+    public Set<ItemStack> findCharms(LivingEntity livingEntity) {
+        Set<ItemStack> results = Sets.newHashSet();
 
-            return res.size() > 0 ? res.get(0).getB() : ItemStack.EMPTY;
-        }).orElse(ItemStack.EMPTY);
+        return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
+            component.getEquipped(stack -> CharmProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
+                    .forEach(results::add);
+
+            return results;
+        }).orElse(results);
     }
 
     @Override

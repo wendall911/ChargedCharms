@@ -41,14 +41,6 @@ repositories {
 		name = "C4's Maven"
 		url = "https://maven.theillusivec4.top/"
 	}
-    maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-
 }
 
 minecraft {
@@ -124,6 +116,8 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
 
     //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
+    //runtimeOnly fg.deobf("curse.maven:architectury-419699:3984018")
+    //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
 }
 
 tasks.withType(JavaCompile) {
@@ -148,9 +142,10 @@ def replaceResources = tasks.register("replaceResources", Copy) {
 
 processResources {
     from project(":Common").sourceSets.main.resources
-    duplicatesStrategy(DuplicatesStrategy.FAIL)
     exclude('META-INF/mods.toml')
     exclude('pack.mcmeta')
+    exclude '.cache'
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
 
     filesMatching('*.mixins.json') {
         expand "refmap_target": "${mod_id}."
@@ -189,6 +184,7 @@ curseforge {
             }
             relations {
                 requiredDependency 'curios'
+                optionalDependency 'biome-makeover-forge'
             }
         }
     }

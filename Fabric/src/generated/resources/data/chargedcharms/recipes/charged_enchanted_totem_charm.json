@@ -1,9 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
-  "conditions": [
+  "fabric:load_conditions": [
     {
-      "type": "chargedcharms:mod_loaded",
-      "modid": "biomemakeover"
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
     }
   ],
   "key": {

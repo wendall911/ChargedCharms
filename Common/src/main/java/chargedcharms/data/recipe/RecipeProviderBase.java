@@ -1,21 +1,33 @@
 package chargedcharms.data.recipe;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Registry;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
 import chargedcharms.mixin.RecipeProviderAccessor;
 import chargedcharms.platform.Services;
+
+import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public abstract class RecipeProviderBase implements DataProvider {
 
@@ -26,7 +38,7 @@ public abstract class RecipeProviderBase implements DataProvider {
     }
 
     @Override
-    public void run(CachedOutput cache) throws IOException {
+    public void run(@Nonnull CachedOutput cache) throws IllegalStateException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> recipes = Sets.newHashSet();
 
@@ -59,5 +71,20 @@ public abstract class RecipeProviderBase implements DataProvider {
     }
 
     protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
+
+
+    public static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
+        return RecipeProviderAccessor.cc_condition(ItemPredicate.Builder.item().of(item).build());
+    }
+
+    public static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> key) {
+        return RecipeProviderAccessor.cc_condition(ItemPredicate.Builder.item().of(key).build());
+    }
+
+    protected static void specialRecipe(Consumer<FinishedRecipe> consumer, SimpleRecipeSerializer<?> serializer) {
+        ResourceLocation name = Registry.RECIPE_SERIALIZER.getKey(serializer);
+
+        SpecialRecipeBuilder.special(serializer).save(consumer, prefix("dynamic/" + Objects.requireNonNull(name).getPath()).toString());
+    }
 
 }

@@ -1,6 +1,7 @@
 package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.collect.Lists;
 
@@ -16,11 +17,11 @@ import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
 
-public class RegenerationChargeRecipe extends ChargeRecipeBase {
+public class AbsorptionChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleRecipeSerializer<RegenerationChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(RegenerationChargeRecipe::new);
+    public static final SimpleRecipeSerializer<AbsorptionChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(AbsorptionChargeRecipe::new);
 
-    public RegenerationChargeRecipe(ResourceLocation loc) {
+    public AbsorptionChargeRecipe(ResourceLocation loc) {
         super(loc);
     }
 
@@ -39,14 +40,16 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
         for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
             ItemStack ingredient = craftingContainer.getItem(i);
 
-            if (ingredient.getItem().equals(ChargedCharmsItems.regenerationCharm)) {
+            if (ingredient.getItem().equals(ChargedCharmsItems.absorptionCharm)) {
                 charms.add(ingredient);
 
                 if (ingredient.getDamageValue() > 0) {
                     charm = ingredient;
                 }
             }
-            else if (!ingredient.is(TagManager.Items.REGEN_FOODS_BLACKLIST) && ingredient.isEdible()) {
+            else if (!ingredient.is(TagManager.Items.REGEN_FOODS_BLACKLIST)
+                    && ingredient.isEdible()
+                    && Objects.requireNonNull(ingredient.getItem().getFoodProperties()).getNutrition() > 4) {
                 foods.add(ingredient);
                 food = ingredient;
             }
@@ -60,7 +63,7 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
         return Pair.of(charm, food);
     }
 
-    public static class Type implements RecipeType<RegenerationChargeRecipe> {
+    public static class Type implements RecipeType<AbsorptionChargeRecipe> {
 
         public static final Type INSTANCE = new Type();
 

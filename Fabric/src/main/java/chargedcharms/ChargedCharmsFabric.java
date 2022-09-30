@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import chargedcharms.common.crafting.ChargedCharmsCrafting;
-import chargedcharms.data.recipe.condition.ModLoadedCondition;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
@@ -17,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import chargedcharms.common.CharmProviders;
+import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 
 public class ChargedCharmsFabric implements ModInitializer {
@@ -57,7 +56,6 @@ public class ChargedCharmsFabric implements ModInitializer {
     private void registryInit() {
         ChargedCharmsItems.registerItems(bind(Registry.ITEM));
 
-        ChargedCharmsCrafting.register(ModLoadedCondition.Serializer.INSTANCE);
         ChargedCharmsCrafting.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
     }
 
