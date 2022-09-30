@@ -19,7 +19,7 @@ public class CharmRenderer {
             PoseStack poseStack, ItemStack stack, MultiBufferSource buffer,
             int light) {
         Services.CLIENT_PLATFORM.translateToPosition(livingEntity, model, poseStack);
-        poseStack.scale(0.35F, 0.35F, 0.35F);
+        poseStack.scale(0.25F, 0.25F, 0.25F);
         poseStack.mulPose(Direction.DOWN.getRotation());
         Minecraft.getInstance().getItemRenderer()
             .renderStatic(stack, ItemTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY,

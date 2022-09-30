@@ -30,4 +30,5 @@ public abstract class ShapedRecipeOverride {
             cir.setReturnValue(resultCopy);
         }
     }
+
 }

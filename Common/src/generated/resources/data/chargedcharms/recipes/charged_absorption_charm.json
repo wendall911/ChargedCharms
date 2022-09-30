@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "item": "minecraft:apple"
+      "item": "minecraft:cooked_beef"
     },
     "N": {
       "item": "minecraft:iron_nugget"

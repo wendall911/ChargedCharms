@@ -28,20 +28,20 @@ public class CommonRecipeProvider extends RecipeProviderBase {
     protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
         ShapedRecipeBuilder.shaped(ChargedCharmsItems.regenerationCharm)
                 .define('N', Items.IRON_NUGGET)
-                .define('S', Items.COOKED_BEEF)
+                .define('S', Items.APPLE)
                 .pattern("NNN")
                 .pattern("NSN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.COOKED_BEEF))
+                .unlockedBy("has_item", conditionsFromItem(Items.APPLE))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(ChargedCharmsItems.absorptionCharm)
                 .define('N', Items.IRON_NUGGET)
-                .define('A', Items.APPLE)
+                .define('A', Items.COOKED_BEEF)
                 .pattern("NNN")
                 .pattern("NAN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.APPLE))
+                .unlockedBy("has_item", conditionsFromItem(Items.COOKED_BEEF))
                 .save(consumer);
 
         ShapedRecipeBuilder.shaped(ChargedCharmsItems.glowupCharm)

@@ -23,7 +23,7 @@ public class ForgeClientPlatform implements IClientPlatform {
             zPos = -0.20F;
         }
 
-        poseStack.translate(0.0F, 0.4F, zPos);
+        poseStack.translate(0.1F, 0.2F, zPos);
     }
 
 }
