@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "chargedcharms:charged_enchanted_totem_charm",
-    "chargedcharms:charged_totem_charm"
+    "chargedcharms:charged_glowup_charm",
+    "chargedcharms:charged_totem_charm",
+    "chargedcharms:charged_absorption_charm",
+    "chargedcharms:charged_regeneration_charm"
   ]
 }

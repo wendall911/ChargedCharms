@@ -1,4 +1,4 @@
-package chargedcharms.common;
+package chargedcharms.common.effect;
 
 import net.minecraft.world.entity.LivingEntity;
 

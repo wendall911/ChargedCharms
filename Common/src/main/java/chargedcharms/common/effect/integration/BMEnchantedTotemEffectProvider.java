@@ -1,10 +1,10 @@
-package chargedcharms.common.integration;
+package chargedcharms.common.effect.integration;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
-import chargedcharms.common.ICharmEffectProvider;
+import chargedcharms.common.effect.ICharmEffectProvider;
 
 public class BMEnchantedTotemEffectProvider implements ICharmEffectProvider {
 

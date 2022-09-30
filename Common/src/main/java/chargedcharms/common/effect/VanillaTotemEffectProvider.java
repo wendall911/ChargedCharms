@@ -1,5 +1,6 @@
-package chargedcharms.common;
+package chargedcharms.common.effect;
 
+import chargedcharms.common.effect.ICharmEffectProvider;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
