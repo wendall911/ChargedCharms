@@ -1,146 +1,147 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
-    id 'maven-publish'
-    id 'idea'
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'maven-publish'
+	id 'idea'
+	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
+version = "${minecraft_short_version}-${mod_version}-FABRIC"
 archivesBaseName = "${mod_id}"
 
 repositories {
 	maven {
-        url "https://maven.shedaniel.me/" // for rei
-    }
+		url "https://maven.shedaniel.me/" // for rei
+	}
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
-    })
+	minecraft "com.mojang:minecraft:${minecraft_version}"
+	mappings(loom.layered {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
+	})
 
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
-    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    modImplementation "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+	modCompileOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+	modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+	modImplementation "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
-    //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
-    //modRuntimeOnly "curse.maven:architectury-419699:3984016"
-    //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
+	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+	modImplementation "dev.emi:trinkets:${trinkets_version}"
+	//modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
+	//modRuntimeOnly "curse.maven:architectury-419699:3984016"
+	//modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
 
-    modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
-        transitive = false
-    }
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
+	modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
+		transitive = false
+	}
+	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+	implementation project(":Common")
 }
 
 loom {
-    runs {
-        client {
-            client()
-            setConfigName("Fabric Client")
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-        server {
-            server()
-            setConfigName("Fabric Server")
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-        commonDatagen {
-            client()
-            vmArg "-Dchargedcharms.common_datagen=1"
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
-        }
-        fabricDatagen {
-            client()
-            vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
-            vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
-        }
-    }
+	runs {
+		client {
+			client()
+			setConfigName("Fabric Client")
+			ideConfigGenerated(true)
+			runDir("run")
+		}
+		server {
+			server()
+			setConfigName("Fabric Server")
+			ideConfigGenerated(true)
+			runDir("run")
+		}
+		commonDatagen {
+			client()
+			vmArg "-Dchargedcharms.common_datagen=1"
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
+		}
+		fabricDatagen {
+			client()
+			vmArg "-Dfabric-api.datagen"
+			vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+			vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
+		}
+	}
 }
 
 sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+	srcDir 'src/generated/resources'
 }
 
 processResources {
-    from project(":Common").sourceSets.main.resources
-    inputs.property "version", project.version
-    exclude '.cache'
-    duplicatesStrategy(DuplicatesStrategy.FAIL)
+	from project(":Common").sourceSets.main.resources
+	inputs.property "version", project.version
+	exclude '.cache'
+	duplicatesStrategy(DuplicatesStrategy.FAIL)
 
-    filesMatching("fabric.mod.json") {
-        expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
-                'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
-                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker
-    }
+	filesMatching("fabric.mod.json") {
+		expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
+				'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
+				'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker
+	}
 
-    filesMatching("pack.mcmeta") {
-        expand 'mod_name': project.mod_name
-    }
+	filesMatching("pack.mcmeta") {
+		expand 'mod_name': project.mod_name
+	}
 
-    filesMatching('*.mixins.json') {
-        expand "refmap_target": "${archivesBaseName}-"
-    }
+	filesMatching('*.mixins.json') {
+		expand "refmap_target": "${archivesBaseName}-"
+	}
 }
 
 tasks.withType(JavaCompile) {
-    source(project(":Common").sourceSets.main.allSource)
+	source(project(":Common").sourceSets.main.allSource)
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-        }
-    }
+	publications {
+		mavenJava(MavenPublication) {
+			groupId project.group
+			artifactId project.archivesBaseName
+			version project.version
+			from components.java
+		}
+	}
 
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
+	repositories {
+		maven {
+			url "file://" + System.getenv("local_maven")
+		}
+	}
 }
 
 curseforge {
-    if (project.hasProperty('ccCurseApiKey')) {
-        project {
-            apiKey = project.ccCurseApiKey
-            id = project.ccCurseId
-            releaseType = "${cf_release}"
-            changelog = file(project(":").projectDir.toString() + '/files/changelog.txt')
-            addGameVersion "Java 17"
-            addGameVersion "Fabric"
-            "${cf_versions}".split(',').each {
-                addGameVersion "${it}"
-            }
-            addArtifact(sourcesJar)
-            mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+	if (project.hasProperty('ccCurseApiKey')) {
+		project {
+			apiKey = project.ccCurseApiKey
+			id = project.ccCurseId
+			releaseType = "${cf_release}"
+			changelog = file(project(":").projectDir.toString() + '/files/changelog.txt')
+			addGameVersion "Java 17"
+			addGameVersion "Fabric"
+			"${cf_versions}".split(',').each {
+				addGameVersion "${it}"
+			}
+			addArtifact(sourcesJar)
+			mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
 
-            relations {
-                requiredDependency 'fabric-api'
-                requiredDependency 'curios'
-                optionalDependency 'biome-makeover'
-            }
+			relations {
+				requiredDependency 'fabric-api'
+				requiredDependency 'curios'
+				optionalDependency 'biome-makeover'
+			}
 
-            afterEvaluate {
-                uploadTask.dependsOn(remapJar)
-            }
-        }
-        options {
-            forgeGradleIntegration = false
-        }
-    }
+			afterEvaluate {
+				uploadTask.dependsOn(remapJar)
+			}
+		}
+		options {
+			forgeGradleIntegration = false
+		}
+	}
 }
