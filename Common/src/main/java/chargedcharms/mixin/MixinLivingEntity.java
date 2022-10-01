@@ -12,7 +12,7 @@ import chargedcharms.util.CharmHelper;
 
 @SuppressWarnings("unused")
 @Mixin(LivingEntity.class)
-public class MixinLivingEntity {
+public abstract class MixinLivingEntity {
 
     @SuppressWarnings("ConstantConditions")
     @Inject(at = @At(value = "INVOKE", target = "net/minecraft/world/InteractionHand.values()[Lnet/minecraft/world/InteractionHand;"), method = "checkTotemDeathProtection", cancellable = true)

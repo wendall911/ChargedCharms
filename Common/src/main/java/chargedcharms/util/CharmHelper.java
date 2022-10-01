@@ -43,15 +43,24 @@ public class CharmHelper {
     }
 
     public static void triggerCharm(LivingEntity sourceEntity, LivingEntity targetEntity, Item charm) {
-        Set<ItemStack> stackSet = Services.PLATFORM.findCharms(sourceEntity);
-        ItemStack charmStack = stackSet.stream().filter(stack -> !stack.isEmpty()
-                && CharmProviders.hasChargedCharm(stack, charm)).findFirst().orElse(ItemStack.EMPTY);
+        ItemStack charmStack = getCharm(sourceEntity, charm);
 
+        triggerCharm(targetEntity, charmStack);
+    }
+
+    public static void triggerCharm(LivingEntity targetEntity, ItemStack charmStack) {
         if (!charmStack.isEmpty()) {
             charmStack.setDamageValue(charmStack.getDamageValue() + 1);
             CharmProviders.getEffectProvider(charmStack.getItem())
                     .ifPresent(effectProvider -> effectProvider.applyEffects(targetEntity));
         }
+    }
+
+    public static ItemStack getCharm(LivingEntity sourceEntity, Item charm) {
+        Set<ItemStack> stackSet = Services.PLATFORM.findCharms(sourceEntity);
+
+        return stackSet.stream().filter(stack -> !stack.isEmpty()
+                && CharmProviders.hasChargedCharm(stack, charm)).findFirst().orElse(ItemStack.EMPTY);
     }
 
     public static void chargeSolarCharm(ServerPlayer sp, Item charm) {
