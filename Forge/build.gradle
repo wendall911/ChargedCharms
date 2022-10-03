@@ -29,7 +29,7 @@ apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 archivesBaseName = "${mod_id}"
-version = "${minecraft_short_version}-${mod_version}"
+version = "${minecraft_short_version}-${mod_version}-FORGE"
 
 mixin {
 	add sourceSets.main, "${mod_id}.refmap.json"
@@ -151,6 +151,19 @@ def replaceResources = tasks.register("replaceResources", Copy) {
 	it.into "$buildDir/resources/main/"
 }
 
+def updates = tasks.register("generateUpdates", Copy) {
+    it.outputs.upToDateWhen {
+        false
+    }
+
+    it.from("../files/templates/") {
+        include 'updates.json'
+        expand 'version': version
+    }
+
+    it.into '../files/'
+}
+
 processResources {
 	from project(":Common").sourceSets.main.resources
 	exclude('META-INF/mods.toml')
@@ -161,7 +174,10 @@ processResources {
 	filesMatching('*.mixins.json') {
 		expand "refmap_target": "${mod_id}."
 	}
-	configure { finalizedBy(replaceResources) }
+	configure {
+        finalizedBy(replaceResources)
+        finalizedBy(updates)
+    }
 }
 
 jar {
@@ -201,7 +217,7 @@ curseforge {
 			apiKey = project.ccCurseApiKey
 			id = project.ccCurseId
 			releaseType = "${cf_release}"
-			changelog = file(project(":").projectDir.toString() + '/files/changelog.txt')
+			changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
 			addArtifact(sourcesJar)
 			"${cf_versions}".split(',').each {
 				addGameVersion "${it}"
@@ -215,7 +231,7 @@ curseforge {
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file = new File(project(":").projectDir.toString() + '/files/changelog.txt');
+    file = new File(project(":").projectDir.toString() + '/build/libs/changelog.txt');
     templateContent = file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8');
     fromRepo = file("$projectDir");
     toRef = "HEAD";

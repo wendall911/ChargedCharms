@@ -121,7 +121,7 @@ curseforge {
 			apiKey = project.ccCurseApiKey
 			id = project.ccCurseId
 			releaseType = "${cf_release}"
-			changelog = file(project(":").projectDir.toString() + '/files/changelog.txt')
+			changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
 			addGameVersion "Java 17"
 			addGameVersion "Fabric"
 			"${cf_versions}".split(',').each {
