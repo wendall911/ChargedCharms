@@ -10,8 +10,11 @@ public class FabricClientHooks {
 
     public static void registerTrinketRenderer(Item item) {
         TrinketRendererRegistry.registerRenderer(item,
-            (stack, slotReference, contextModel, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch) -> CharmRenderer.render(
-                entity, contextModel, matrices, stack, vertexConsumers, light));
+            (stack, slotReference, contextModel, matrices, vertexConsumers, light, entity, limbAngle, limbDistance, tickDelta, animationProgress, headYaw, headPitch) -> {
+                if (slotReference.inventory().getSlotType().getName().contentEquals("alt_charm")) {
+                    CharmRenderer.render(entity, contextModel, matrices, stack, vertexConsumers, light);
+                }
+            });
     }
 
 }
