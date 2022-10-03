@@ -17,6 +17,7 @@ buildscript {
 		classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
 		classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
 		classpath group: 'gradle.plugin.com.matthewprenger', name: 'CurseGradle', version: '1.4.0'
+        classpath 'se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.71.8'
 	}
 }
 apply plugin: 'java'
@@ -25,6 +26,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 archivesBaseName = "${mod_id}"
 version = "${minecraft_short_version}-${mod_version}"
@@ -211,3 +213,13 @@ curseforge {
 		}
 	}
 }
+
+task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    file = new File(project(":").projectDir.toString() + '/files/changelog.txt');
+    templateContent = file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8');
+    fromRepo = file("$projectDir");
+    toRef = "HEAD";
+    fromRef = "${last_mod_version}";
+}
+
+tasks.build.dependsOn('changelog')
