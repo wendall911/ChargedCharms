@@ -132,7 +132,7 @@ curseforge {
 
 			relations {
 				requiredDependency 'fabric-api'
-				requiredDependency 'curios'
+				requiredDependency 'trinkets'
 				optionalDependency 'biome-makeover'
 			}
 
