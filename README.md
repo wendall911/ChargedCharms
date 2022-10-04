@@ -7,7 +7,7 @@ A Minecraft 1.19+ mod that adds several "Charged" charms that are designed to ha
 
 Download latest:
 
-1.19 - [![Download](https://curse.nikky.moe/api/img/682683?version=1.19&logo)](https://curse.nikky.moe/api/url/682683?version=1.19)
+1.19 - [![Download](https://curse.nikky.moe/api/img/682683?version=1.19&logo)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files/all?filter-status=1&filter-game-version=1738749986%3A73407)
 
 All Downloads:
 
