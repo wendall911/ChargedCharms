@@ -1,4 +1,4 @@
-package chargedcharms.client.integration.jei;
+package chargedcharms.client.integration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +27,8 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class CharmChargingRecipeMaker {
 
-    public static List<CraftingRecipe> createRecipes() {
-        String group = "jei.charm.charging";
+    public static List<CraftingRecipe> createRecipes(String plugin) {
+        String group = plugin + ".charm.charging";
         List<CraftingRecipe> recipes = new ArrayList<>();
         List<ItemStack> regenFoods = Lists.newArrayList();
         List<ItemStack> absorptionFoods = Lists.newArrayList();

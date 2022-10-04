@@ -19,6 +19,12 @@
     ],
     "fabric-datagen": [
       "chargedcharms.data.FabricDatagenInitializer"
+    ],
+    "rei_client": [
+      "chargedcharms.client.integration.rei.REIPlugin"
+    ],
+    "jei_mod_plugin": [
+      "chargedcharms.client.integration.jei.JEIPlugin"
     ]
   },
   "mixins": [

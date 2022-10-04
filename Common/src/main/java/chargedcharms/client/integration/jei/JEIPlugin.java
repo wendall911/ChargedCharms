@@ -22,6 +22,7 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import chargedcharms.ChargedCharms;
+import chargedcharms.client.integration.CharmChargingRecipeMaker;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.integration.ModIntegration;
@@ -54,7 +55,7 @@ public class JEIPlugin implements IModPlugin {
     private static List<CraftingRecipe> addChargingRecipes(List<CraftingRecipe> allCraftingRecipes) {
         Map<Class<? extends CraftingRecipe>, Supplier<List<CraftingRecipe>>> replacers = new IdentityHashMap<>();
 
-        replacers.put(AbsorptionChargeRecipe.class, CharmChargingRecipeMaker::createRecipes);
+        replacers.put(AbsorptionChargeRecipe.class, () -> CharmChargingRecipeMaker.createRecipes("jei"));
 
         return allCraftingRecipes.stream()
                 .map(CraftingRecipe::getClass)
