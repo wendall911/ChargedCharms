@@ -24,7 +24,7 @@ dependencies {
 	modRuntimeOnly "curse.maven:architectury-419699:3984016"
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 	modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-	//modImplementation "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+	modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
 	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
