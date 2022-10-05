@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.google.common.collect.Lists;
+
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.NonNullList;
@@ -45,11 +46,13 @@ public class CharmChargingRecipeMaker {
                 }).forEach(food -> {
                     ItemStack foodStack = new ItemStack(food);
 
-                    if (food.getFoodProperties().getNutrition() > 4) {
-                        absorptionFoods.add(foodStack);
-                    }
+                    if (!foodStack.is(TagManager.Items.CHARM_FOODS_BLACKLIST) && foodStack.isEdible()) {
+                        if (food.getFoodProperties().getNutrition() > 4) {
+                            absorptionFoods.add(foodStack);
+                        }
 
-                    regenFoods.add(foodStack);
+                        regenFoods.add(foodStack);
+                    }
                 });
 
         recipes.add(getRecipe(group, ".regen", ChargedCharmsItems.regenerationCharm, Ingredient.of(regenFoods.stream())));

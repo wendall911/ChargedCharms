@@ -49,7 +49,7 @@ public class AbsorptionChargeRecipe extends ChargeRecipeBase {
                     charm = ingredient;
                 }
             }
-            else if (!ingredient.is(TagManager.Items.REGEN_FOODS_BLACKLIST)
+            else if (!ingredient.is(TagManager.Items.CHARM_FOODS_BLACKLIST)
                     && ingredient.isEdible()
                     && Objects.requireNonNull(ingredient.getItem().getFoodProperties()).getNutrition() > 4) {
                 List<Pair<MobEffectInstance, Float>> effects = ingredient.getItem().getFoodProperties().getEffects();

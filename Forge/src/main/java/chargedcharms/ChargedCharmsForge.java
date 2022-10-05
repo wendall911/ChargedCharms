@@ -44,6 +44,7 @@ import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 @Mod(ChargedCharms.MODID)

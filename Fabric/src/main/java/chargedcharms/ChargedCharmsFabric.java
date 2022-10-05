@@ -24,7 +24,6 @@ public class ChargedCharmsFabric implements ModInitializer {
     public void onInitialize() {
         boolean isClient = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
 
-        ChargedCharms.init();
         registryInit();
 
         Set<ResourceLocation> charms = new HashSet<>(CharmProviders.getItems());

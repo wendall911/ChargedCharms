@@ -25,6 +25,7 @@ import chargedcharms.ChargedCharms;
 import chargedcharms.client.integration.CharmChargingRecipeMaker;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.platform.Services;
 
@@ -46,9 +47,25 @@ public class JEIPlugin implements IModPlugin {
         List<CraftingRecipe> charmChargingRecipes = addChargingRecipes(allCraftingRecipes);
 
         registration.addRecipes(RecipeTypes.CRAFTING, charmChargingRecipes);
-        if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
+        if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) || ConfigHandler.Common.disableEnchTotemCharm()) {
             registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
                     Collections.singleton(new ItemStack(ChargedCharmsItems.enchantedTotemCharm)));
+        }
+        if (ConfigHandler.Common.disableRegenCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.regenerationCharm)));
+        }
+        if (ConfigHandler.Common.disableAbsorptionCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.absorptionCharm)));
+        }
+        if (ConfigHandler.Common.disableGlowupCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.glowupCharm)));
+        }
+        if (ConfigHandler.Common.disableTotemCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.totemCharm)));
         }
     }
 

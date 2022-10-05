@@ -20,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import chargedcharms.common.effect.AbsorptionEffectProvider;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.util.CharmHelper;
 
 @Mixin(ServerPlayer.class)
@@ -76,7 +77,7 @@ public class MixinServerPlayer {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
         long lastTime = coolDownTracker.getOrDefault(uuid, now);
-        long cooldown = 20000;
+        long cooldown = ConfigHandler.Common.absorptionCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
@@ -89,7 +90,7 @@ public class MixinServerPlayer {
     }
 
     private boolean needsHealing(ServerPlayer sp) {
-        return (sp.getHealth() / sp.getMaxHealth()) < 0.35F;
+        return (sp.getHealth() / sp.getMaxHealth()) < ConfigHandler.Common.regenPercentage();
     }
 
 }

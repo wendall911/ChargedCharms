@@ -21,13 +21,16 @@ dependencies {
 		parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
 	})
 
+	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modImplementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_range}"
+
 	modRuntimeOnly "curse.maven:architectury-419699:3984016"
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 	modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 	modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
-	modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 	modImplementation "dev.emi:trinkets:${trinkets_version}"
 	//modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
 	//modRuntimeOnly "curse.maven:architectury-419699:3984016"
@@ -38,6 +41,8 @@ dependencies {
 	}
 	implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 	implementation project(":Common")
+
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
 }
 
 loom {
@@ -111,7 +116,7 @@ publishing {
 
 	repositories {
 		maven {
-			url "file://" + System.getenv("local_maven")
+			url "file://../../localmaven"
 		}
 	}
 }

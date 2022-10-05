@@ -49,7 +49,7 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
                     charm = ingredient;
                 }
             }
-            else if (!ingredient.is(TagManager.Items.REGEN_FOODS_BLACKLIST) && ingredient.isEdible()) {
+            else if (!ingredient.is(TagManager.Items.CHARM_FOODS_BLACKLIST) && ingredient.isEdible()) {
                 List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(ingredient.getItem().getFoodProperties()).getEffects();
 
                 if (effects.isEmpty() || effects.stream().noneMatch(props -> props.getFirst().getEffect().equals(MobEffects.POISON))) {

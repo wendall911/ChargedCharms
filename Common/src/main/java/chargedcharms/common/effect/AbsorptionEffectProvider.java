@@ -8,6 +8,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 
+import chargedcharms.config.ConfigHandler;
+
 public class AbsorptionEffectProvider implements ICharmEffectProvider {
 
     public static final ArrayList<DamageSource> invalidDamageSources = new ArrayList<>(Arrays.asList(
@@ -22,7 +24,12 @@ public class AbsorptionEffectProvider implements ICharmEffectProvider {
 
     @Override
     public void applyEffects(LivingEntity livingEntity) {
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 0));
+        livingEntity.addEffect(
+            new MobEffectInstance(
+                MobEffects.ABSORPTION, ConfigHandler.Common.absorptionDuration() * 20,
+                ConfigHandler.Common.absorptionAmplifier()
+            )
+        );
     }
 
 }

@@ -23,7 +23,7 @@ public class CommonItemTagProvider extends ItemTagsProvider {
 
         CharmProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
 
-        this.tag(TagManager.Items.REGEN_FOODS_BLACKLIST)
+        this.tag(TagManager.Items.CHARM_FOODS_BLACKLIST)
             .add(Items.ROTTEN_FLESH)
             .add(Items.CHICKEN)
             .add(Items.SPIDER_EYE)

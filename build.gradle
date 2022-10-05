@@ -80,6 +80,9 @@ subprojects {
                 includeGroup "curse.maven"
             }
         }
+        maven {
+            url "file://${project.localmaven}"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {

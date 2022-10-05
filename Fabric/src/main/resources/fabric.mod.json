@@ -25,6 +25,9 @@
     ],
     "jei_mod_plugin": [
       "chargedcharms.client.integration.jei.JEIPlugin"
+    ],
+    "spectrelib": [
+      "chargedcharms.FabricConfigInitializer"
     ]
   },
   "mixins": [

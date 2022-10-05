@@ -114,6 +114,11 @@ dependencies {
 	runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
 	compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
 
+    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}")
+    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
+        jarJar.pin(it, "${spectrelib_version}")
+    }
+
 	compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:${jei_version}")
 	implementation fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
 
