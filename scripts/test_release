@@ -1,0 +1,26 @@
+#!/bin/bash
+
+STATUS="$(git status --porcelain)"
+
+if [ -z "$STATUS" ]
+then
+  LAST_TAG="$(git show-ref -s --tags | tail -1)"
+  HEAD="$(git rev-parse HEAD)"
+
+  if [ "$LAST_TAG" = "$HEAD" ]
+  then
+    rm Forge/build/libs/*
+    rm Fabric/build/libs/*
+    ./gradlew :Forge:build :Fabric:build || exit 1
+    cp Forge/build/libs/*FORGE.jar ~/tmp/cc_test/
+    cp Fabric/build/libs/*FABRIC.jar ~/tmp/cc_test/
+  else
+    echo $LAST_TAG
+    echo $HEAD
+    echo "Repo is dirty, or not tagged for release."
+  fi
+else
+  echo "Repo is dirty:"
+  echo $STATUS
+  exit 1
+fi
