@@ -4,6 +4,10 @@
     {
       "type": "forge:mod_loaded",
       "modid": "biomemakeover"
+    },
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableEnchTotemCharm"
     }
   ]
 }

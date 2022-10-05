@@ -2,28 +2,24 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "biomemakeover"
-    },
-    {
       "type": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config": "disableTotemCharm"
     }
   ],
   "key": {
     "N": {
       "item": "minecraft:iron_nugget"
     },
-    "S": {
-      "tag": "chargedcharms:enchanted_totems"
+    "U": {
+      "item": "minecraft:totem_of_undying"
     }
   },
   "pattern": [
     "NNN",
-    "NSN",
+    "NUN",
     "NNN"
   ],
   "result": {
-    "item": "chargedcharms:charged_enchanted_totem_charm"
+    "item": "chargedcharms:charged_totem_charm"
   }
 }

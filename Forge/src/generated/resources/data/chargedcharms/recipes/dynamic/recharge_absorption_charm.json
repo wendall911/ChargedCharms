@@ -1,0 +1,9 @@
+{
+  "type": "chargedcharms:recharge_absorption_charm",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableAbsorptionCharm"
+    }
+  ]
+}

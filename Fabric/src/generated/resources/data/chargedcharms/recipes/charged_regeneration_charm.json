@@ -2,14 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "fabric:load_conditions": [
     {
-      "condition": "fabric:all_mods_loaded",
-      "values": [
-        "biomemakeover"
-      ]
-    },
-    {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config": "disableRegenCharm"
     }
   ],
   "key": {
@@ -17,7 +11,7 @@
       "item": "minecraft:iron_nugget"
     },
     "S": {
-      "tag": "chargedcharms:enchanted_totems"
+      "item": "minecraft:apple"
     }
   },
   "pattern": [
@@ -26,6 +20,6 @@
     "NNN"
   ],
   "result": {
-    "item": "chargedcharms:charged_enchanted_totem_charm"
+    "item": "chargedcharms:charged_regeneration_charm"
   }
 }

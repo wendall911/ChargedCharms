@@ -6,6 +6,10 @@
       "values": [
         "biomemakeover"
       ]
+    },
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableEnchTotemCharm"
     }
   ]
 }

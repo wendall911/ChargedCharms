@@ -1,0 +1,9 @@
+{
+  "type": "chargedcharms:recharge_regeneration_charm",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableRegenCharm"
+    }
+  ]
+}

@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableGlowupCharm"
+    }
+  ],
   "key": {
     "G": {
       "item": "minecraft:glow_berries"

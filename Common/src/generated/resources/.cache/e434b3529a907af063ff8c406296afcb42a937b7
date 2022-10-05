@@ -1,12 +1,1 @@
-// 1.19.2	2022-09-30T11:32:55.390477391	Charged Charms - Recipes
-696352ddf11ecd9bb7fc6cac613e6b9717286ef2 data/chargedcharms/advancements/recipes/chargedcharms/charged_glowup_charm.json
-41a8a0ae75df9469378d274dde7a239db70a1cbf data/chargedcharms/recipes/charged_regeneration_charm.json
-53e1ab529696f3a38770a0bf22ad846fd2d11eb5 data/chargedcharms/recipes/charged_totem_charm.json
-91714c3c06b0903287da98360d81d604073c6472 data/chargedcharms/recipes/charged_absorption_charm.json
-b455c6a7420405b7c30a017d463f2f3e9329b91d data/chargedcharms/advancements/recipes/chargedcharms/charged_absorption_charm.json
-13edf7cb362fdae19535d61ef014685dd016f351 data/chargedcharms/recipes/charged_glowup_charm.json
-884eb8d5f5d55d2eaf0c8cb5767032ceba56e25f data/chargedcharms/advancements/recipes/chargedcharms/charged_regeneration_charm.json
-154e503a7b7e6927622a735e95af4a27fd519ba0 data/chargedcharms/recipes/dynamic/charge_totem_charm.json
-abe16ea051e574e2ae937c87b8352c363dbf6077 data/chargedcharms/advancements/recipes/chargedcharms/charged_totem_charm.json
-54827c0a4fad23d0540e2abf5896e86a4882e58e data/chargedcharms/recipes/dynamic/recharge_regeneration_charm.json
-f70d714027b2447fc6a75a71339c6d0b2c125e54 data/chargedcharms/recipes/dynamic/recharge_absorption_charm.json
+// 1.19.2	2022-10-05T16:08:23.598727343	Charged Charms - Recipes

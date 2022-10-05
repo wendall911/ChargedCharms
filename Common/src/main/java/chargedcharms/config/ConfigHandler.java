@@ -1,5 +1,8 @@
 package chargedcharms.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -8,6 +11,7 @@ public class ConfigHandler {
 
     public static final SpectreConfigSpec CLIENT_SPEC;
     public static final SpectreConfigSpec COMMON_SPEC;
+    public static final Map<String, Boolean> conditionsMap = new HashMap<>();
 
     private static final Client CLIENT;
     private static final Common COMMON;
@@ -20,6 +24,16 @@ public class ConfigHandler {
         CLIENT = specPairClient.getLeft();
         COMMON_SPEC = specPairCommon.getRight();
         COMMON = specPairCommon.getLeft();
+
+    }
+
+    public static void init() {
+        conditionsMap.clear();
+        conditionsMap.put("disableRegenCharm", Common.disableRegenCharm());
+        conditionsMap.put("disableAbsorptionCharm", Common.disableAbsorptionCharm());
+        conditionsMap.put("disableGlowupCharm", Common.disableGlowupCharm());
+        conditionsMap.put("disableTotemCharm", Common.disableTotemCharm());
+        conditionsMap.put("disableEnchTotemCharm", Common.disableEnchTotemCharm());
     }
 
     public static class Client {

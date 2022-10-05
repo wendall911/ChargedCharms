@@ -21,6 +21,7 @@ import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.platform.Services;
 
@@ -55,11 +56,17 @@ public class CharmChargingRecipeMaker {
                     }
                 });
 
-        recipes.add(getRecipe(group, ".regen", ChargedCharmsItems.regenerationCharm, Ingredient.of(regenFoods.stream())));
-        recipes.add(getRecipe(group, ".absorption", ChargedCharmsItems.absorptionCharm, Ingredient.of(absorptionFoods.stream())));
-        recipes.add(getRecipe(group, ".totem", ChargedCharmsItems.totemCharm, Ingredient.of(Items.TOTEM_OF_UNDYING)));
+        if (!ConfigHandler.Common.disableRegenCharm()) {
+            recipes.add(getRecipe(group, ".regen", ChargedCharmsItems.regenerationCharm, Ingredient.of(regenFoods.stream())));
+        }
+        if (!ConfigHandler.Common.disableAbsorptionCharm()) {
+            recipes.add(getRecipe(group, ".absorption", ChargedCharmsItems.absorptionCharm, Ingredient.of(absorptionFoods.stream())));
+        }
+        if (!ConfigHandler.Common.disableTotemCharm()) {
+            recipes.add(getRecipe(group, ".totem", ChargedCharmsItems.totemCharm, Ingredient.of(Items.TOTEM_OF_UNDYING)));
+        }
 
-        if (Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
+        if (Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) && !ConfigHandler.Common.disableEnchTotemCharm()) {
             recipes.add(getRecipe(group, ".enchanted_totem", ChargedCharmsItems.enchantedTotemCharm, Ingredient.of(TagManager.Items.ENCHANTED_TOTEMS)));
         }
 

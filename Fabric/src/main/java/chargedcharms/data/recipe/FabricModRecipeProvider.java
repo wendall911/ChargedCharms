@@ -2,20 +2,18 @@ package chargedcharms.data.recipe;
 
 import java.util.function.Consumer;
 
-import chargedcharms.common.crafting.recipe.EnchantedTotemChargeRecipe;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.item.Items;
 
 import chargedcharms.ChargedCharms;
-import chargedcharms.common.TagManager;
-import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
+import chargedcharms.common.crafting.recipe.EnchantedTotemChargeRecipe;
+import chargedcharms.common.crafting.recipe.RegenerationChargeRecipe;
+import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
-import static chargedcharms.data.recipe.RecipeProviderBase.conditionsFromTag;
 
 public class FabricModRecipeProvider extends FabricRecipeProvider {
 
@@ -30,20 +28,17 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     protected void generateRecipes(Consumer<FinishedRecipe> consumer) {
-        Consumer<FinishedRecipe> bmoWrapped = withConditions(
-            consumer,
-            DefaultResourceConditions.allModsLoaded(ModIntegration.BMO_MODID)
-        );
+        Consumer<FinishedRecipe> bmoWrapped = withConditions(consumer, DefaultResourceConditions.allModsLoaded(ModIntegration.BMO_MODID), ConfigResourceCondition.configDisabled("disableEnchTotemCharm"));
 
-        ShapedRecipeBuilder.shaped(ChargedCharmsItems.enchantedTotemCharm)
-                .define('N', Items.IRON_NUGGET)
-                .define('S', TagManager.Items.ENCHANTED_TOTEMS)
-                .pattern("NNN")
-                .pattern("NSN")
-                .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromTag(TagManager.Items.ENCHANTED_TOTEMS))
-                .save(bmoWrapped);
+        RecipeProviderBase.regenerationCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableRegenCharm")));
+        RecipeProviderBase.absorptionCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableAbsorptionCharm")));
+        RecipeProviderBase.glowupCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableGlowupCharm")));
+        RecipeProviderBase.totemCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableTotemCharm")));
+        RecipeProviderBase.enchantedTotemCharm().save(bmoWrapped);
 
+        RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableRegenCharm")), RegenerationChargeRecipe.SERIALIZER);
+        RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableTotemCharm")), TotemChargeRecipe.SERIALIZER);
+        RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableAbsorptionCharm")), AbsorptionChargeRecipe.SERIALIZER);
         RecipeProviderBase.specialRecipe(bmoWrapped, EnchantedTotemChargeRecipe.SERIALIZER);
     }
 

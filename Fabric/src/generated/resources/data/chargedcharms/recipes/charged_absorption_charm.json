@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableAbsorptionCharm"
+    }
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:cooked_beef"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NAN",
+    "NNN"
+  ],
+  "result": {
+    "item": "chargedcharms:charged_absorption_charm"
+  }
+}

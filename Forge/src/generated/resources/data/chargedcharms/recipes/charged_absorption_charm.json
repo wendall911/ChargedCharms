@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableAbsorptionCharm"
+    }
+  ],
   "key": {
     "A": {
       "item": "minecraft:cooked_beef"

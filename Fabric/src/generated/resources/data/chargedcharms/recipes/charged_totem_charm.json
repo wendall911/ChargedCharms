@@ -1,5 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableTotemCharm"
+    }
+  ],
   "key": {
     "N": {
       "item": "minecraft:iron_nugget"

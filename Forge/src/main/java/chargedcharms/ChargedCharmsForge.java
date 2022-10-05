@@ -28,6 +28,7 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -44,6 +45,7 @@ import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.data.recipe.ConfigResourceCondition;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
@@ -130,6 +132,7 @@ public class ChargedCharmsForge {
         bind(Registry.ITEM_REGISTRY, ChargedCharmsItems::registerItems);
 
         bind(Registry.RECIPE_SERIALIZER_REGISTRY, ChargedCharmsCrafting::registerRecipeSerializers);
+        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ConfigResourceCondition::init);
     }
 
     private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {

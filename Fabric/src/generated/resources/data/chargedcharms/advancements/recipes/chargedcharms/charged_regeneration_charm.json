@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "tag": "chargedcharms:enchanted_totems"
+            "items": [
+              "minecraft:apple"
+            ]
           }
         ]
       },
@@ -13,21 +15,15 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_enchanted_totem_charm"
+        "recipe": "chargedcharms:charged_regeneration_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "fabric:load_conditions": [
     {
-      "condition": "fabric:all_mods_loaded",
-      "values": [
-        "biomemakeover"
-      ]
-    },
-    {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config": "disableRegenCharm"
     }
   ],
   "requirements": [
@@ -38,7 +34,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chargedcharms:charged_enchanted_totem_charm"
+      "chargedcharms:charged_regeneration_charm"
     ]
   }
 }

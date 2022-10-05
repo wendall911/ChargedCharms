@@ -1,0 +1,9 @@
+{
+  "type": "chargedcharms:charge_totem_charm",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableTotemCharm"
+    }
+  ]
+}

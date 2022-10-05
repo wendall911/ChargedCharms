@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-30T11:32:55.409419835	Tags for minecraft:item
+// 1.19.2	2022-10-05T16:08:23.59938482	Tags for minecraft:item
 64c4711f82aa4d3bbaa9b679ca43875f4f85e126 data/chargedcharms/tags/items/enchanted_totems.json
-f7854089cbd11afebfc56b6d2c170a1cb7b682c5 data/chargedcharms/tags/items/regen_foods_blacklist.json
+f7854089cbd11afebfc56b6d2c170a1cb7b682c5 data/chargedcharms/tags/items/charm_foods_blacklist.json
 82f5c8435b87957e32ca842482e2986dae5847f8 data/chargedcharms/tags/items/charged_charms.json

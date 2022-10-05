@@ -17,7 +17,9 @@ public class ChargedCharms {
 
     public static void init() {
         SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
-        SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
+        SpectreConfig commonConfig = SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
+        commonConfig.addLoadListener(config -> ConfigHandler.init());
+        commonConfig.addReloadListener(config -> ConfigHandler.init());
         CharmProviders.init();
     }
 
