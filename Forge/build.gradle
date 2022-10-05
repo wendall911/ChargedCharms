@@ -199,6 +199,18 @@ jar {
 	finalizedBy 'reobfJar'
 }
 
+reobf {
+    jarJar {}
+}
+
+tasks.jarJar.configure {
+    archiveClassifier.set("")
+}
+
+jarJar {
+    enable()
+}
+
 
 publishing {
 	publications {
