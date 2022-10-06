@@ -1,5 +1,6 @@
 package chargedcharms;
 
+import chargedcharms.platform.Services;
 import com.illusivesoulworks.spectrelib.config.SpectreConfig;
 import com.illusivesoulworks.spectrelib.config.SpectreConfigLoader;
 
@@ -16,7 +17,9 @@ public class ChargedCharms {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static void init() {
-        SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
+        if (Services.PLATFORM.isPhysicalClient()) {
+            SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
+        }
         SpectreConfig commonConfig = SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
         commonConfig.addLoadListener(config -> ConfigHandler.init());
         commonConfig.addReloadListener(config -> ConfigHandler.init());

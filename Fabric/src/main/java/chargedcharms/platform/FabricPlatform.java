@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 
 import dev.emi.trinkets.api.TrinketsApi;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -57,6 +58,11 @@ public class FabricPlatform implements IPlatform {
     @Override
     public void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path) {
         RecipeProvider.saveAdvancement(cache, json, path);
+    }
+
+    @Override
+    public boolean isPhysicalClient() {
+        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
     }
 
 }

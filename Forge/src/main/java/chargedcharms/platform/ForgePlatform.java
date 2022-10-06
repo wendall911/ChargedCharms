@@ -14,7 +14,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import top.theillusivec4.curios.api.CuriosApi;
@@ -55,6 +57,11 @@ public class ForgePlatform implements IPlatform {
     @Override
     public void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path) {
         ((RecipeProviderForgeAccessor) new RecipeProvider(gen)).callSaveRecipeAdvancement(cache, json, path);
+    }
+
+    @Override
+    public boolean isPhysicalClient() {
+        return FMLLoader.getDist() == Dist.CLIENT;
     }
 
 }

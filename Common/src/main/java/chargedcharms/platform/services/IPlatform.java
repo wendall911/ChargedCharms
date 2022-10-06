@@ -24,4 +24,6 @@ public interface IPlatform {
 
     void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path);
 
+    boolean isPhysicalClient();
+
 }
