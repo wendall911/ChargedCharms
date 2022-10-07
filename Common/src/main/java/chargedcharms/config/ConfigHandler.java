@@ -123,8 +123,8 @@ public class ConfigHandler {
             speedDuration = builder.comment("Duration in seconds for the Charged Speed Charm effect.")
                     .defineInRange("speedDuration", 180, 1, 360);
 
-            speedCooldown = builder.comment("Cooldown in seconds for the Charged Absorption Charm.")
-                    .defineInRange("absorptionCooldown", 120, 0, 360);
+            speedCooldown = builder.comment("Cooldown in seconds for the Charged Speed Charm.")
+                    .defineInRange("speedCooldown", 120, 0, 360);
 
             builder.pop();
         }
