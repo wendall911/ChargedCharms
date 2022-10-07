@@ -11,7 +11,6 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
@@ -58,14 +57,6 @@ public class TotemChargeRecipe extends ChargeRecipeBase {
         }
 
         return Pair.of(charm, totem);
-    }
-
-    public static class Type implements RecipeType<TotemChargeRecipe> {
-
-        public static final Type INSTANCE = new Type();
-
-        private Type() {}
-
     }
 
 }

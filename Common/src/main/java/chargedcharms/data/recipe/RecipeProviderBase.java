@@ -140,4 +140,15 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .unlockedBy("has_item", conditionsFromItem(Items.TOTEM_OF_UNDYING));
     }
 
+    protected static ShapedRecipeBuilder speedCharm() {
+        return ShapedRecipeBuilder.shaped(ChargedCharmsItems.speedCharm)
+                .define('N', Items.IRON_NUGGET)
+                .define('S', Items.SUGAR)
+                .define('B', Items.LEATHER_BOOTS)
+                .pattern("NSN")
+                .pattern("NBN")
+                .pattern("NNN")
+                .unlockedBy("has_item", conditionsFromItem(Items.SUGAR));
+    }
+
 }

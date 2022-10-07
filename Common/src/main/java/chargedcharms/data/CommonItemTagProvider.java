@@ -6,7 +6,7 @@ import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.world.item.Items;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 import chargedcharms.common.TagManager;
 import chargedcharms.data.integration.ModIntegration;
@@ -21,7 +21,7 @@ public class CommonItemTagProvider extends ItemTagsProvider {
     protected void addTags() {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CHARGED_CHARMS);
 
-        CharmProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
 
         this.tag(TagManager.Items.CHARM_FOODS_BLACKLIST)
             .add(Items.ROTTEN_FLESH)

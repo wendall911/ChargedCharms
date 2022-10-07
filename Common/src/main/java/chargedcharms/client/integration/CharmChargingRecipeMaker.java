@@ -65,9 +65,11 @@ public class CharmChargingRecipeMaker {
         if (!ConfigHandler.Common.disableTotemCharm()) {
             recipes.add(getRecipe(group, ".totem", ChargedCharmsItems.totemCharm, Ingredient.of(Items.TOTEM_OF_UNDYING)));
         }
-
         if (Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) && !ConfigHandler.Common.disableEnchTotemCharm()) {
             recipes.add(getRecipe(group, ".enchanted_totem", ChargedCharmsItems.enchantedTotemCharm, Ingredient.of(TagManager.Items.ENCHANTED_TOTEMS)));
+        }
+        if (!ConfigHandler.Common.disableSpeedCharm()) {
+            recipes.add(getRecipe(group, ".speed", ChargedCharmsItems.speedCharm, Ingredient.of(Items.SUGAR)));
         }
 
         return recipes;

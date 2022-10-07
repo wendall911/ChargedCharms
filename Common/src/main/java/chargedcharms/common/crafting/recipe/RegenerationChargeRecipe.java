@@ -13,7 +13,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 
 import chargedcharms.common.TagManager;
@@ -65,14 +64,6 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
         }
 
         return Pair.of(charm, food);
-    }
-
-    public static class Type implements RecipeType<RegenerationChargeRecipe> {
-
-        public static final Type INSTANCE = new Type();
-
-        private Type() {}
-
     }
 
 }

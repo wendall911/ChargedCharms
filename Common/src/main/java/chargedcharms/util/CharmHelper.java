@@ -15,14 +15,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LightLayer;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.platform.Services;
 
 public class CharmHelper {
 
     public static boolean useTotem(LivingEntity livingEntity) {
         Set<ItemStack> stackSet = Services.PLATFORM.findCharms(livingEntity);
-        ItemStack totem = stackSet.stream().filter(stack -> !stack.isEmpty() && CharmProviders.hasTotem(stack)).findFirst().orElse(ItemStack.EMPTY);
+        ItemStack totem = stackSet.stream().filter(stack -> !stack.isEmpty() && CharmEffectProviders.hasTotem(stack)).findFirst().orElse(ItemStack.EMPTY);
 
         if (!totem.isEmpty()) {
             ItemStack copy = totem.copy();
@@ -32,7 +32,7 @@ public class CharmHelper {
                 player.awardStat(Stats.ITEM_USED.get(Items.TOTEM_OF_UNDYING), 1);
                 CriteriaTriggers.USED_TOTEM.trigger(player, copy);
             }
-            CharmProviders.getEffectProvider(copy.getItem())
+            CharmEffectProviders.getEffectProvider(copy.getItem())
                     .ifPresent(effectProvider -> effectProvider.applyEffects(livingEntity));
             livingEntity.level.broadcastEntityEvent(livingEntity, (byte) 35);
 
@@ -51,7 +51,7 @@ public class CharmHelper {
     public static void triggerCharm(LivingEntity targetEntity, ItemStack charmStack) {
         if (!charmStack.isEmpty()) {
             charmStack.setDamageValue(charmStack.getDamageValue() + 1);
-            CharmProviders.getEffectProvider(charmStack.getItem())
+            CharmEffectProviders.getEffectProvider(charmStack.getItem())
                     .ifPresent(effectProvider -> effectProvider.applyEffects(targetEntity));
         }
     }
@@ -60,7 +60,7 @@ public class CharmHelper {
         Set<ItemStack> stackSet = Services.PLATFORM.findCharms(sourceEntity);
 
         return stackSet.stream().filter(stack -> !stack.isEmpty()
-                && CharmProviders.hasChargedCharm(stack, charm)).findFirst().orElse(ItemStack.EMPTY);
+                && CharmEffectProviders.hasChargedCharm(stack, charm)).findFirst().orElse(ItemStack.EMPTY);
     }
 
     public static void chargeSolarCharm(ServerPlayer sp, Item charm) {

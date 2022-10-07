@@ -22,7 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.FabricCreativeTab;
 import chargedcharms.platform.services.IPlatform;
 
@@ -33,7 +33,7 @@ public class FabricPlatform implements IPlatform {
         Set<ItemStack> results = Sets.newHashSet();
 
         return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
-            component.getEquipped(stack -> CharmProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
+            component.getEquipped(stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
                     .forEach(results::add);
 
             return results;

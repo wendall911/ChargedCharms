@@ -27,15 +27,25 @@ import chargedcharms.util.CharmHelper;
 public class MixinServerPlayer {
 
     private int counter = 0;
-    private final Map<UUID, Long> coolDownTracker = Maps.newHashMap();
+    private final Map<UUID, Long> absorptionCoolDownTracker = Maps.newHashMap();
+    private final Map<UUID, Long> speedCoolDownTracker = Maps.newHashMap();
 
     @Inject(at = @At(value = "TAIL"), method = "doTick")
     private void monitorDoTick(CallbackInfo ci) {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
         // Check every 20 ticks
-        if (counter % 20 == 0 && needsHealing(sp) && !sp.hasEffect(MobEffects.REGENERATION)) {
-            CharmHelper.triggerCharm(sp, sp, ChargedCharmsItems.regenerationCharm);
+        if (counter % 20 == 0) {
+            if (needsHealing(sp) && !sp.hasEffect(MobEffects.REGENERATION)) {
+                CharmHelper.triggerCharm(sp, sp, ChargedCharmsItems.regenerationCharm);
+            }
+            if (isSprintJumping(sp) && !sp.hasEffect(MobEffects.MOVEMENT_SPEED)) {
+                ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.speedCharm);
+
+                if (hasCharge(charmStack) && canTriggerSpeedCharm(sp)) {
+                    CharmHelper.triggerCharm(sp, charmStack);
+                }
+            }
         }
 
         if (counter % 100 == 0) {
@@ -62,7 +72,7 @@ public class MixinServerPlayer {
             if (!sp.hasEffect(MobEffects.ABSORPTION)) {
                 ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.absorptionCharm);
 
-                if (!charmStack.isEmpty() && canTrigger(sp)) {
+                if (hasCharge(charmStack) && canTriggerAbsorptionCharm(sp)) {
                     CharmHelper.triggerCharm(sp, charmStack);
                 }
             }
@@ -73,15 +83,31 @@ public class MixinServerPlayer {
         return !AbsorptionEffectProvider.invalidDamageSources.contains(damageSource);
     }
 
-    private boolean canTrigger(LivingEntity livingEntity) {
+    private boolean canTriggerAbsorptionCharm(LivingEntity livingEntity) {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
-        long lastTime = coolDownTracker.getOrDefault(uuid, now);
+        long lastTime = absorptionCoolDownTracker.getOrDefault(uuid, now);
         long cooldown = ConfigHandler.Common.absorptionCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
-            coolDownTracker.put(uuid, now);
+            absorptionCoolDownTracker.put(uuid, now);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    private boolean canTriggerSpeedCharm(LivingEntity livingEntity) {
+        long now = System.currentTimeMillis();
+        UUID uuid = livingEntity.getUUID();
+        long lastTime = speedCoolDownTracker.getOrDefault(uuid, now);
+        long cooldown = ConfigHandler.Common.speedCooldown();
+        long elapsed = now - lastTime;
+
+        if (elapsed == 0 || elapsed > cooldown) {
+            speedCoolDownTracker.put(uuid, now);
 
             return true;
         }
@@ -91,6 +117,14 @@ public class MixinServerPlayer {
 
     private boolean needsHealing(ServerPlayer sp) {
         return (sp.getHealth() / sp.getMaxHealth()) < ConfigHandler.Common.regenPercentage();
+    }
+
+    private boolean isSprintJumping(ServerPlayer sp) {
+        return !sp.isOnGround() && sp.isSprinting() && !sp.isSwimming();
+    }
+
+    private boolean hasCharge(ItemStack charmStack) {
+        return !charmStack.isEmpty() && charmStack.getDamageValue() < charmStack.getMaxDamage();
     }
 
 }

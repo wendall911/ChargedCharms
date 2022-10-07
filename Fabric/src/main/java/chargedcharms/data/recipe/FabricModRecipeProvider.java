@@ -12,6 +12,7 @@ import chargedcharms.ChargedCharms;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.crafting.recipe.EnchantedTotemChargeRecipe;
 import chargedcharms.common.crafting.recipe.RegenerationChargeRecipe;
+import chargedcharms.common.crafting.recipe.SpeedChargeRecipe;
 import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
 
@@ -35,11 +36,13 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
         RecipeProviderBase.glowupCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableGlowupCharm")));
         RecipeProviderBase.totemCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableTotemCharm")));
         RecipeProviderBase.enchantedTotemCharm().save(bmoWrapped);
+        RecipeProviderBase.speedCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableSpeedCharm")));
 
         RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableRegenCharm")), RegenerationChargeRecipe.SERIALIZER);
         RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableTotemCharm")), TotemChargeRecipe.SERIALIZER);
         RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableAbsorptionCharm")), AbsorptionChargeRecipe.SERIALIZER);
         RecipeProviderBase.specialRecipe(bmoWrapped, EnchantedTotemChargeRecipe.SERIALIZER);
+        RecipeProviderBase.specialRecipe(withConditions(consumer, ConfigResourceCondition.configDisabled("disableSpeedCharm")), SpeedChargeRecipe.SERIALIZER);
     }
 
 }

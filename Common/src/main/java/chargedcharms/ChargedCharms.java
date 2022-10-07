@@ -1,14 +1,14 @@
 package chargedcharms;
 
-import chargedcharms.platform.Services;
 import com.illusivesoulworks.spectrelib.config.SpectreConfig;
 import com.illusivesoulworks.spectrelib.config.SpectreConfigLoader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.config.ConfigHandler;
+import chargedcharms.platform.Services;
 
 public class ChargedCharms {
 
@@ -23,7 +23,7 @@ public class ChargedCharms {
         SpectreConfig commonConfig = SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
         commonConfig.addLoadListener(config -> ConfigHandler.init());
         commonConfig.addReloadListener(config -> ConfigHandler.init());
-        CharmProviders.init();
+        CharmEffectProviders.init();
     }
 
 }

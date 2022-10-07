@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.ForgeCreativeTab;
 import chargedcharms.platform.mixin.RecipeProviderForgeAccessor;
 import chargedcharms.platform.services.IPlatform;
@@ -33,7 +33,7 @@ public class ForgePlatform implements IPlatform {
     public Set<ItemStack> findCharms(LivingEntity livingEntity) {
         Set<ItemStack> results = Sets.newHashSet();
 
-        CuriosApi.getCuriosHelper().findCurios(livingEntity, stack -> CharmProviders.IS_CHARM.test(stack.getItem()))
+        CuriosApi.getCuriosHelper().findCurios(livingEntity, stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem()))
                 .stream().map(SlotResult::stack).forEach(results::add);
 
         return results;

@@ -34,6 +34,7 @@ public class ConfigHandler {
         conditionsMap.put("disableGlowupCharm", Common.disableGlowupCharm());
         conditionsMap.put("disableTotemCharm", Common.disableTotemCharm());
         conditionsMap.put("disableEnchTotemCharm", Common.disableEnchTotemCharm());
+        conditionsMap.put("disableSpeedCharm", Common.disableSpeedCharm());
     }
 
     public static class Client {
@@ -62,6 +63,7 @@ public class ConfigHandler {
         private final SpectreConfigSpec.BooleanValue disableGlowupCharm;
         private final SpectreConfigSpec.BooleanValue disableTotemCharm;
         private final SpectreConfigSpec.BooleanValue disableEnchTotemCharm;
+        private final SpectreConfigSpec.BooleanValue disableSpeedCharm;
         private final SpectreConfigSpec.IntValue absorptionCooldown;
         private final SpectreConfigSpec.IntValue absorptionDuration;
         private final SpectreConfigSpec.IntValue absorptionAmplifier;
@@ -69,6 +71,8 @@ public class ConfigHandler {
         private final SpectreConfigSpec.IntValue regenDuration;
         private final SpectreConfigSpec.IntValue regenAmplifier;
         private final SpectreConfigSpec.IntValue glowUpDuration;
+        private final SpectreConfigSpec.IntValue speedDuration;
+        private final SpectreConfigSpec.IntValue speedCooldown;
 
         public Common(SpectreConfigSpec.Builder builder) {
             builder.push("charms");
@@ -87,6 +91,9 @@ public class ConfigHandler {
 
             disableEnchTotemCharm = builder.comment("Disable Charged Enchanted Totem Charm")
                     .define("disableEnchTotemCharm", false);
+
+            disableSpeedCharm = builder.comment("Disable Charged Speed Charm")
+                    .define("disableSpeedCharm", false);
 
             builder.pop();
 
@@ -113,6 +120,12 @@ public class ConfigHandler {
             glowUpDuration = builder.comment("Duration in seconds for the Charged Glow Up Charm effect.")
                     .defineInRange("glowUpDuration", 30, 1, 300);
 
+            speedDuration = builder.comment("Duration in seconds for the Charged Speed Charm effect.")
+                    .defineInRange("speedDuration", 180, 1, 360);
+
+            speedCooldown = builder.comment("Cooldown in seconds for the Charged Absorption Charm.")
+                    .defineInRange("absorptionCooldown", 120, 0, 360);
+
             builder.pop();
         }
 
@@ -136,8 +149,12 @@ public class ConfigHandler {
             return COMMON.disableEnchTotemCharm.get();
         }
 
+        public static boolean disableSpeedCharm() {
+            return COMMON.disableSpeedCharm.get();
+        }
+
         public static long absorptionCooldown() {
-            return COMMON.absorptionCooldown.get() * 1000L;
+            return (COMMON.absorptionCooldown.get() + COMMON.absorptionDuration.get()) * 1000L;
         }
 
         public static int absorptionDuration() {
@@ -164,6 +181,14 @@ public class ConfigHandler {
 
         public static int glowUpDuration() {
             return COMMON.glowUpDuration.get();
+        }
+
+        public static int speedDuration() {
+            return COMMON.speedDuration.get();
+        }
+
+        public static long speedCooldown() {
+            return (COMMON.speedCooldown.get() + COMMON.speedDuration.get()) * 1000L;
         }
 
     }

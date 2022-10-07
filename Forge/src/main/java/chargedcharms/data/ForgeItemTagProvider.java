@@ -17,7 +17,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import chargedcharms.ChargedCharms;
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
@@ -35,7 +35,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
     protected void addTags() {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(getTagKey(loc("curios", "charged_charm")));
 
-        CharmProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
     }
 
     private static ResourceLocation loc(String namespace, String path) {

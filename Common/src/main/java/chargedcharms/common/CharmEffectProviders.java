@@ -17,13 +17,14 @@ import chargedcharms.common.effect.GlowUpEffectProvider;
 import chargedcharms.common.effect.ICharmEffectProvider;
 import chargedcharms.common.effect.integration.BMEnchantedTotemEffectProvider;
 import chargedcharms.common.effect.RegenerationEffectProvider;
+import chargedcharms.common.effect.SpeedEffectProvider;
 import chargedcharms.common.effect.VanillaTotemEffectProvider;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
-public class CharmProviders {
+public class CharmEffectProviders {
 
     private static final Map<ResourceLocation, ICharmEffectProvider> EFFECT_PROVIDERS = new HashMap<>();
     private static Set<ResourceLocation> TOTEMS;
@@ -40,6 +41,7 @@ public class CharmProviders {
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.regenerationCharmId), new RegenerationEffectProvider());
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.absorptionCharmId), new AbsorptionEffectProvider());
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.glowupCharmId), new GlowUpEffectProvider());
+        EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.speedCharmId), new SpeedEffectProvider());
     }
 
     public static Set<ResourceLocation> getItems() {

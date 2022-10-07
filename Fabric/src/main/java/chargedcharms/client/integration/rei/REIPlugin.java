@@ -52,21 +52,20 @@ public class REIPlugin implements REIClientPlugin {
         if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) || ConfigHandler.Common.disableEnchTotemCharm()) {
             return stack.getItem() == ChargedCharmsItems.enchantedTotemCharm;
         }
-
         if (ConfigHandler.Common.disableRegenCharm()) {
             return stack.getItem() == ChargedCharmsItems.regenerationCharm;
         }
-
         if (ConfigHandler.Common.disableAbsorptionCharm()) {
             return stack.getItem() == ChargedCharmsItems.absorptionCharm;
         }
-
         if (ConfigHandler.Common.disableGlowupCharm()) {
             return stack.getItem() == ChargedCharmsItems.glowupCharm;
         }
-
         if (ConfigHandler.Common.disableTotemCharm()) {
             return stack.getItem() == ChargedCharmsItems.totemCharm;
+        }
+        if (ConfigHandler.Common.disableSpeedCharm()) {
+            return stack.getItem() == ChargedCharmsItems.speedCharm;
         }
 
         return false;

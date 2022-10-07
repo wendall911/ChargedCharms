@@ -28,7 +28,6 @@ import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -42,7 +41,7 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import chargedcharms.client.CurioCharmRenderer;
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.recipe.ConfigResourceCondition;
@@ -69,7 +68,7 @@ public class ChargedCharmsForge {
     }
 
     private void clientSetup(final FMLClientSetupEvent evt) {
-        for (ResourceLocation loc : CharmProviders.getItems()) {
+        for (ResourceLocation loc : CharmEffectProviders.getItems()) {
             Item item = ForgeRegistries.ITEMS.getValue(loc);
 
             if (item != null && item != Items.AIR) {
@@ -86,7 +85,7 @@ public class ChargedCharmsForge {
     }
 
     private void attachCapabilities(AttachCapabilitiesEvent<ItemStack> evt) {
-        if (!CharmProviders.IS_CHARM.test(evt.getObject().getItem())) {
+        if (!CharmEffectProviders.IS_CHARM.test(evt.getObject().getItem())) {
             return;
         }
 

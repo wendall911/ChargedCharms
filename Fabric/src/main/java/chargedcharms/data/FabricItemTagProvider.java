@@ -1,6 +1,5 @@
 package chargedcharms.data;
 
-import chargedcharms.common.DataHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -10,7 +9,8 @@ import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
+import chargedcharms.common.DataHelper;
 
 public class FabricItemTagProvider extends ItemTagsProvider {
 
@@ -25,9 +25,9 @@ public class FabricItemTagProvider extends ItemTagsProvider {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
         TagBuilder altCharmTagBuilder = this.getOrCreateRawBuilder(altCharm);
 
-        CharmProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
 
-        CharmProviders.getItems().forEach(loc -> DataHelper.addElement(altCharmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(altCharmTagBuilder, loc));
     }
 
     private static ResourceLocation loc(String namespace, String path) {

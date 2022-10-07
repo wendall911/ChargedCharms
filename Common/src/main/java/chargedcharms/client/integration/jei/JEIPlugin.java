@@ -67,6 +67,10 @@ public class JEIPlugin implements IModPlugin {
             registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
                     Collections.singleton(new ItemStack(ChargedCharmsItems.totemCharm)));
         }
+        if (ConfigHandler.Common.disableSpeedCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.speedCharm)));
+        }
     }
 
     private static List<CraftingRecipe> addChargingRecipes(List<CraftingRecipe> allCraftingRecipes) {

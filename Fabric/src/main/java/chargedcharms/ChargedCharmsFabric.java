@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-import chargedcharms.common.CharmProviders;
+import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 
@@ -26,7 +26,7 @@ public class ChargedCharmsFabric implements ModInitializer {
 
         registryInit();
 
-        Set<ResourceLocation> charms = new HashSet<>(CharmProviders.getItems());
+        Set<ResourceLocation> charms = new HashSet<>(CharmEffectProviders.getItems());
 
         if (isClient) {
             Set<ResourceLocation> remove = new HashSet<>();

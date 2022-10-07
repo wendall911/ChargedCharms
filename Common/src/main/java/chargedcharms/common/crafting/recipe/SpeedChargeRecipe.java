@@ -9,17 +9,17 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
-import chargedcharms.common.TagManager;
 
-public class EnchantedTotemChargeRecipe extends ChargeRecipeBase {
+public class SpeedChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleRecipeSerializer<EnchantedTotemChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(EnchantedTotemChargeRecipe::new);
+    public static final SimpleRecipeSerializer<SpeedChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpeedChargeRecipe::new);
 
-    public EnchantedTotemChargeRecipe(ResourceLocation loc) {
+    public SpeedChargeRecipe(ResourceLocation loc) {
         super(loc);
     }
 
@@ -30,33 +30,33 @@ public class EnchantedTotemChargeRecipe extends ChargeRecipeBase {
 
     @Override
     public Pair<ItemStack, ItemStack> checkContainer(CraftingContainer craftingContainer) {
-        List<ItemStack> totems = Lists.newArrayList();
+        List<ItemStack> ingredients = Lists.newArrayList();
         List<ItemStack> charms = Lists.newArrayList();
-        ItemStack totem = null;
+        ItemStack sugar = null;
         ItemStack charm = null;
 
         for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
             ItemStack ingredient = craftingContainer.getItem(i);
 
-            if (ingredient.getItem().equals(ChargedCharmsItems.enchantedTotemCharm)) {
+            if (ingredient.getItem().equals(ChargedCharmsItems.speedCharm)) {
                 charms.add(ingredient);
 
                 if (ingredient.getDamageValue() > 0) {
                     charm = ingredient;
                 }
             }
-            else if (ingredient.is(TagManager.Items.ENCHANTED_TOTEMS)) {
-                totems.add(ingredient);
-                totem = ingredient;
+            else if (ingredient.getItem().equals(Items.SUGAR)) {
+                ingredients.add(ingredient);
+                sugar = ingredient;
             }
         }
 
-        if (charms.size() != 1 || totems.size() != 1) {
-            totem = null;
+        if (charms.size() != 1 || ingredients.size() != 1) {
+            sugar = null;
             charm = null;
         }
 
-        return Pair.of(charm, totem);
+        return Pair.of(charm, sugar);
     }
 
 }
