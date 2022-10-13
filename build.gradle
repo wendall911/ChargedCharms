@@ -80,8 +80,10 @@ subprojects {
                 includeGroup "curse.maven"
             }
         }
+
         maven {
-            url "file://${project.localmaven}"
+            name = "C4's Maven"
+            url = "https://maven.theillusivec4.top/"
         }
     }
 
