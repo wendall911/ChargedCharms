@@ -1,7 +1,9 @@
 package chargedcharms.data;
 
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import java.util.concurrent.CompletableFuture;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.world.item.Items;
@@ -13,12 +15,12 @@ import chargedcharms.data.integration.ModIntegration;
 
 public class CommonItemTagProvider extends ItemTagsProvider {
 
-    public CommonItemTagProvider(DataGenerator gen, BlockTagsProvider blockTagsProvider) {
-        super(gen, blockTagsProvider);
+    public CommonItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagsProvider) {
+        super(packOutput, lookupProvider, blockTagsProvider);
     }
 
     @Override
-    protected void addTags() {
+    protected void addTags(HolderLookup.Provider provider) {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CHARGED_CHARMS);
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));

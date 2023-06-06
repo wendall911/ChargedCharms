@@ -2,7 +2,7 @@ package chargedcharms.data.recipe;
 
 import java.util.function.Consumer;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -16,10 +16,12 @@ import chargedcharms.common.crafting.recipe.SpeedChargeRecipe;
 import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
 
+import javax.annotation.Nonnull;
+
 public class ForgeRecipeProvider extends RecipeProviderBase {
 
-    public ForgeRecipeProvider(DataGenerator generator) {
-        super(generator);
+    public ForgeRecipeProvider(@Nonnull final PackOutput packOutput) {
+        super(packOutput);
     }
 
     @Override

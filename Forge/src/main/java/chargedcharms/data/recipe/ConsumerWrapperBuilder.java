@@ -11,6 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
@@ -147,7 +148,7 @@ public class ConsumerWrapperBuilder {
                 json.addProperty("type", overrideName.toString());
             }
             else {
-                ResourceLocation type = Registry.RECIPE_SERIALIZER.getKey(getType());
+                ResourceLocation type = BuiltInRegistries.RECIPE_SERIALIZER.getKey(getType());
 
                 if (type != null) {
                     json.addProperty("type", type.toString());

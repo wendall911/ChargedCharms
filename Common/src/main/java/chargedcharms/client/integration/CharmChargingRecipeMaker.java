@@ -9,12 +9,13 @@ import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
@@ -35,7 +36,7 @@ public class CharmChargingRecipeMaker {
         List<ItemStack> regenFoods = Lists.newArrayList();
         List<ItemStack> absorptionFoods = Lists.newArrayList();
 
-        Registry.ITEM.stream()
+        BuiltInRegistries.ITEM.stream()
                 .filter(Item::isEdible)
                 .filter(item -> {
                     List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(item.getFoodProperties()).getEffects();
@@ -86,7 +87,7 @@ public class CharmChargingRecipeMaker {
 
         NonNullList<Ingredient> chargedCharmInputs = NonNullList.of(Ingredient.EMPTY, baseCharm, chargeItems);
 
-        return new ShapelessRecipe(prefix(group + label), group, chargedCharm, chargedCharmInputs);
+        return new ShapelessRecipe(prefix(group + label), group, CraftingBookCategory.MISC, chargedCharm, chargedCharmInputs);
     }
 
 }

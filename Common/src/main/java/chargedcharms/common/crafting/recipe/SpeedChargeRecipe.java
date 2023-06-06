@@ -10,17 +10,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
 
 public class SpeedChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleRecipeSerializer<SpeedChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpeedChargeRecipe::new);
+    public static final SimpleCraftingRecipeSerializer<SpeedChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(SpeedChargeRecipe::new);
 
-    public SpeedChargeRecipe(ResourceLocation loc) {
-        super(loc);
+    public SpeedChargeRecipe(ResourceLocation loc, CraftingBookCategory category) {
+        super(loc, category);
     }
 
     @Override

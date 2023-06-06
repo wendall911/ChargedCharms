@@ -9,18 +9,19 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.common.TagManager;
 
 public class EnchantedTotemChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleRecipeSerializer<EnchantedTotemChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(EnchantedTotemChargeRecipe::new);
+    public static final SimpleCraftingRecipeSerializer<EnchantedTotemChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(EnchantedTotemChargeRecipe::new);
 
-    public EnchantedTotemChargeRecipe(ResourceLocation loc) {
-        super(loc);
+    public EnchantedTotemChargeRecipe(ResourceLocation loc, CraftingBookCategory category) {
+        super(loc, category);
     }
 
     @Override

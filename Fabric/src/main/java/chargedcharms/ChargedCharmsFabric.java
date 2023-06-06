@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -32,7 +33,7 @@ public class ChargedCharmsFabric implements ModInitializer {
             Set<ResourceLocation> remove = new HashSet<>();
 
             for (ResourceLocation charm : charms) {
-                Item item = Registry.ITEM.get(charm);
+                Item item = BuiltInRegistries.ITEM.get(charm);
 
                 if (item != Items.AIR) {
                     FabricClientHooks.registerTrinketRenderer(item);
@@ -43,7 +44,7 @@ public class ChargedCharmsFabric implements ModInitializer {
             charms.removeAll(remove);
         }
 
-        RegistryEntryAddedCallback.event(Registry.ITEM).register((rawId, id, object) -> {
+        RegistryEntryAddedCallback.event(BuiltInRegistries.ITEM).register((rawId, id, object) -> {
             if (isClient && !charms.isEmpty()) {
                 if (charms.contains(id)) {
                     FabricClientHooks.registerTrinketRenderer(object);
@@ -54,9 +55,9 @@ public class ChargedCharmsFabric implements ModInitializer {
     }
 
     private void registryInit() {
-        ChargedCharmsItems.registerItems(bind(Registry.ITEM));
+        ChargedCharmsItems.registerItems(bind(BuiltInRegistries.ITEM));
 
-        ChargedCharmsCrafting.registerRecipeSerializers(bind(Registry.RECIPE_SERIALIZER));
+        ChargedCharmsCrafting.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

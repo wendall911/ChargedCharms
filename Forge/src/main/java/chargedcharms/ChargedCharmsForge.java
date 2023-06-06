@@ -115,6 +115,8 @@ public class ChargedCharmsForge {
         evt.addCapability(CuriosCapability.ID_ITEM, provider);
     }
 
+    // TODO Figure out how to do this. Forge documentation is shit as usual
+    /*
     @Mod.EventBusSubscriber(modid = ChargedCharms.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientProxy {
 
@@ -126,12 +128,13 @@ public class ChargedCharmsForge {
         }
 
     }
+     */
 
     private void registryInit() {
-        bind(Registry.ITEM_REGISTRY, ChargedCharmsItems::registerItems);
+        bind(ForgeRegistries.ITEMS.getRegistryKey(), ChargedCharmsItems::registerItems);
 
-        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ChargedCharmsCrafting::registerRecipeSerializers);
-        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ConfigResourceCondition::init);
+        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ChargedCharmsCrafting::registerRecipeSerializers);
+        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ConfigResourceCondition::init);
     }
 
     private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {

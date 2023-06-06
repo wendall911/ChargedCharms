@@ -1,14 +1,9 @@
 package chargedcharms.platform;
 
-import java.nio.file.Path;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
-import com.google.gson.JsonObject;
 
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -23,8 +18,6 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotResult;
 
 import chargedcharms.common.CharmEffectProviders;
-import chargedcharms.common.ForgeCreativeTab;
-import chargedcharms.platform.mixin.RecipeProviderForgeAccessor;
 import chargedcharms.platform.services.IPlatform;
 
 public class ForgePlatform implements IPlatform {
@@ -49,14 +42,10 @@ public class ForgePlatform implements IPlatform {
         return ModList.get().isLoaded(name);
     }
 
+    // TODO add to creative tabs
     @Override
     public Item.Properties getProps() {
-        return new Item.Properties().tab(ForgeCreativeTab.INSTANCE);
-    }
-
-    @Override
-    public void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path) {
-        ((RecipeProviderForgeAccessor) new RecipeProvider(gen)).callSaveRecipeAdvancement(cache, json, path);
+        return new Item.Properties();
     }
 
     @Override

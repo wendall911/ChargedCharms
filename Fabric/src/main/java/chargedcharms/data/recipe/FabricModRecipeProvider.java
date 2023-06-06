@@ -2,7 +2,7 @@ package chargedcharms.data.recipe;
 
 import java.util.function.Consumer;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.DefaultResourceConditions;
 
@@ -18,8 +18,8 @@ import chargedcharms.data.integration.ModIntegration;
 
 public class FabricModRecipeProvider extends FabricRecipeProvider {
 
-    public FabricModRecipeProvider(FabricDataGenerator dataGenerator) {
-        super(dataGenerator);
+    public FabricModRecipeProvider(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected void generateRecipes(Consumer<FinishedRecipe> consumer) {
+    public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         Consumer<FinishedRecipe> bmoWrapped = withConditions(consumer, DefaultResourceConditions.allModsLoaded(ModIntegration.BMO_MODID), ConfigResourceCondition.configDisabled("disableEnchTotemCharm"));
 
         RecipeProviderBase.regenerationCharm().save(withConditions(consumer, ConfigResourceCondition.configDisabled("disableRegenCharm")));

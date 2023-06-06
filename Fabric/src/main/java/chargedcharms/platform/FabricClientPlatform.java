@@ -1,8 +1,7 @@
 package chargedcharms.platform;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.PlayerModel;
@@ -24,9 +23,9 @@ public class FabricClientPlatform implements IClientPlatform {
 
             if (player.isCrouching() && !model.riding && !player.isSwimming()) {
                 poseStack.translate(0.0F, 0.2F, 0.0F);
-                poseStack.mulPose(Vector3f.XP.rotationDegrees(playerModel.body.xRot));
+                poseStack.mulPose(Axis.XP.rotationDegrees(playerModel.body.xRot));
             }
-            poseStack.mulPose(Vector3f.YP.rotationDegrees(playerModel.body.yRot));
+            poseStack.mulPose(Axis.YP.rotationDegrees(playerModel.body.yRot));
 
             float zPos = -0.15F;
 

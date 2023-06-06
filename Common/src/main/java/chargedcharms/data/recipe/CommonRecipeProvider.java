@@ -2,15 +2,17 @@ package chargedcharms.data.recipe;
 
 import java.util.function.Consumer;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import chargedcharms.ChargedCharms;
 
+import javax.annotation.Nonnull;
+
 public class CommonRecipeProvider extends RecipeProviderBase {
 
-    public CommonRecipeProvider(DataGenerator generator) {
-        super(generator);
+    public CommonRecipeProvider(@Nonnull final PackOutput packOutput) {
+        super(packOutput);
     }
 
     @Override

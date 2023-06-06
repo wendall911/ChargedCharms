@@ -20,9 +20,4 @@ public interface RecipeProviderAccessor {
         throw new IllegalStateException("");
     }
 
-    @Invoker
-    static void callSaveRecipe(CachedOutput cache, JsonObject json, Path path) {
-        throw new IllegalStateException();
-    }
-
 }

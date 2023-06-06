@@ -13,7 +13,4 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(RecipeProvider.class)
 public interface RecipeProviderForgeAccessor {
 
-    @Invoker("saveAdvancement")
-    void callSaveRecipeAdvancement(CachedOutput cache, JsonObject json, Path path);
-
 }

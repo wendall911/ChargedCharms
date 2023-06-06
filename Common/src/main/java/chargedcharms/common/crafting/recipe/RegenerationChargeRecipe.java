@@ -12,18 +12,19 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
 
 public class RegenerationChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleRecipeSerializer<RegenerationChargeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(RegenerationChargeRecipe::new);
+    public static final SimpleCraftingRecipeSerializer<RegenerationChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(RegenerationChargeRecipe::new);
 
-    public RegenerationChargeRecipe(ResourceLocation loc) {
-        super(loc);
+    public RegenerationChargeRecipe(ResourceLocation loc, CraftingBookCategory category) {
+        super(loc, category);
     }
 
     @Override

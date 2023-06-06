@@ -20,10 +20,10 @@ public class ForgeDatagenInitializer {
     public static void configureForgeDatagen(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         ExistingFileHelper disabledHelper = new ExistingFileHelper(Collections.emptyList(), Collections.emptySet(), false, null, null);
-        ForgeBlockTagsProvider blockTagsProvider = new ForgeBlockTagsProvider(gen, disabledHelper);
+        ForgeBlockTagsProvider blockTagsProvider = new ForgeBlockTagsProvider(gen.getPackOutput(), event.getLookupProvider(), disabledHelper);
 
-        gen.addProvider(event.includeServer(), new ForgeItemTagProvider(gen, blockTagsProvider, ChargedCharms.MODID, disabledHelper));
-        gen.addProvider(event.includeServer(), new ForgeRecipeProvider(gen));
+        gen.addProvider(event.includeServer(), new ForgeItemTagProvider(gen.getPackOutput(), event.getLookupProvider(), blockTagsProvider, ChargedCharms.MODID, disabledHelper));
+        gen.addProvider(event.includeServer(), new ForgeRecipeProvider(gen.getPackOutput()));
     }
 
 }
