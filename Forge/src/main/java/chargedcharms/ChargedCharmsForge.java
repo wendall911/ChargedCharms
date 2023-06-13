@@ -1,29 +1,30 @@
 package chargedcharms;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import chargedcharms.data.integration.ModIntegration;
+import chargedcharms.platform.Services;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -61,6 +62,7 @@ public class ChargedCharmsForge {
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
+        eventBus.addListener(this::buildCreativeTabContents);
     }
 
     private void setup(final FMLCommonSetupEvent evt) {
@@ -82,6 +84,22 @@ public class ChargedCharmsForge {
             CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE,
             () -> new SlotTypeMessage.Builder("charged_charm").icon(EMPTY_CHARGED_CHARM_SLOT).size(2).build()
         );
+    }
+
+    private void buildCreativeTabContents(CreativeModeTabEvent.BuildContents evt) {
+        if (evt.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            for (Map.Entry<ResourceLocation, Item> entry : ChargedCharmsItems.getAll().entrySet()) {
+                Item charm = entry.getValue();
+
+                if (charm == ChargedCharmsItems.enchantedTotemCharm && !Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
+                    charm = null;
+                }
+
+                if (charm != null) {
+                    evt.accept(new ItemStack(charm));
+                }
+            }
+        }
     }
 
     private void attachCapabilities(AttachCapabilitiesEvent<ItemStack> evt) {
@@ -114,21 +132,6 @@ public class ChargedCharmsForge {
 
         evt.addCapability(CuriosCapability.ID_ITEM, provider);
     }
-
-    // TODO Figure out how to do this. Forge documentation is shit as usual
-    /*
-    @Mod.EventBusSubscriber(modid = ChargedCharms.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class ClientProxy {
-
-        @SubscribeEvent
-        public static void textureStitch(TextureStitchEvent.Pre event) {
-            if (event.getAtlas().location() == InventoryMenu.BLOCK_ATLAS) {
-                event.addSprite(EMPTY_CHARGED_CHARM_SLOT);
-            }
-        }
-
-    }
-     */
 
     private void registryInit() {
         bind(ForgeRegistries.ITEMS.getRegistryKey(), ChargedCharmsItems::registerItems);

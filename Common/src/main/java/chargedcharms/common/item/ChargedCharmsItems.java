@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import chargedcharms.data.integration.ModIntegration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -47,6 +48,10 @@ public final class ChargedCharmsItems {
         for (Map.Entry<ResourceLocation, Item> entry : ALL.entrySet()) {
             consumer.accept(entry.getValue(), entry.getKey());
         }
+    }
+
+    public static Map<ResourceLocation, Item> getAll() {
+        return ALL;
     }
 
 }

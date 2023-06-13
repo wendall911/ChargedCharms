@@ -7,17 +7,21 @@ import java.util.function.BiConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.data.integration.ModIntegration;
+import chargedcharms.platform.Services;
 
 public class ChargedCharmsFabric implements ModInitializer {
 
@@ -34,9 +38,20 @@ public class ChargedCharmsFabric implements ModInitializer {
 
             for (ResourceLocation charm : charms) {
                 Item item = BuiltInRegistries.ITEM.get(charm);
+                boolean addItem = true;
 
                 if (item != Items.AIR) {
                     FabricClientHooks.registerTrinketRenderer(item);
+                    if (item == ChargedCharmsItems.enchantedTotemCharm) {
+                        if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
+                            addItem = false;
+                        }
+                    }
+
+                    if (addItem) {
+                        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> entries.accept(item));
+                    }
+
                     remove.add(charm);
                 }
             }
