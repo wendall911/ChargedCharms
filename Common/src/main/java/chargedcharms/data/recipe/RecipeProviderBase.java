@@ -10,10 +10,11 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.core.registries.BuiltInRegistries;
 import org.jetbrains.annotations.Nullable;
+
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -33,7 +34,6 @@ import net.minecraft.world.level.ItemLike;
 
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
-import chargedcharms.mixin.RecipeProviderAccessor;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
@@ -41,13 +41,13 @@ public abstract class RecipeProviderBase implements DataProvider {
 
     private final PackOutput packOutput;
 
-    protected RecipeProviderBase(@Nonnull final PackOutput packOutput) {
+    protected RecipeProviderBase(@Nullable final PackOutput packOutput) {
         this.packOutput = packOutput;
     }
 
     @Override
-    @Nonnull
-    public CompletableFuture<?> run(@Nonnull CachedOutput cache) throws IllegalStateException {
+    @Nullable
+    public CompletableFuture<?> run(@Nullable CachedOutput cache) throws IllegalStateException {
         final PackOutput.PathProvider pathProvider = this.packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes");
         final PackOutput.PathProvider advancementPathProvider = this.packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
         Set<ResourceLocation> resourceLocationSet = Sets.newHashSet();
@@ -83,12 +83,17 @@ public abstract class RecipeProviderBase implements DataProvider {
 
     protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
 
-    public static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
-        return RecipeProviderAccessor.cc_condition(ItemPredicate.Builder.item().of(item).build());
+    protected static InventoryChangeTrigger.TriggerInstance has(TagKey<Item> pTag) {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(pTag).build());
     }
 
-    public static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> key) {
-        return RecipeProviderAccessor.cc_condition(ItemPredicate.Builder.item().of(key).build());
+    protected static InventoryChangeTrigger.TriggerInstance has(ItemLike pItemLike) {
+        return inventoryTrigger(ItemPredicate.Builder.item().of(pItemLike).build());
+    }
+
+    protected static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... predicates) {
+        return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY,
+                MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, predicates);
     }
 
     protected static void specialRecipe(Consumer<FinishedRecipe> consumer, SimpleCraftingRecipeSerializer<?> serializer) {
@@ -104,7 +109,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NNN")
                 .pattern("NSN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromTag(TagManager.Items.ENCHANTED_TOTEMS));
+                .unlockedBy("has_item", has(TagManager.Items.ENCHANTED_TOTEMS));
     }
 
     protected static ShapedRecipeBuilder regenerationCharm() {
@@ -114,7 +119,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NNN")
                 .pattern("NSN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.APPLE));
+                .unlockedBy("has_item", has(Items.APPLE));
     }
 
     protected static ShapedRecipeBuilder absorptionCharm() {
@@ -124,7 +129,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NNN")
                 .pattern("NAN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.COOKED_BEEF));
+                .unlockedBy("has_item", has(Items.COOKED_BEEF));
     }
 
     protected static ShapedRecipeBuilder glowupCharm() {
@@ -134,7 +139,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NNN")
                 .pattern("NGN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.GLOW_BERRIES));
+                .unlockedBy("has_item", has(Items.GLOW_BERRIES));
     }
 
     protected static ShapedRecipeBuilder totemCharm() {
@@ -144,7 +149,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NNN")
                 .pattern("NUN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.TOTEM_OF_UNDYING));
+                .unlockedBy("has_item", has(Items.TOTEM_OF_UNDYING));
     }
 
     protected static ShapedRecipeBuilder speedCharm() {
@@ -155,7 +160,7 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NSN")
                 .pattern("NBN")
                 .pattern("NNN")
-                .unlockedBy("has_item", conditionsFromItem(Items.SUGAR));
+                .unlockedBy("has_item", has(Items.SUGAR));
     }
 
 }

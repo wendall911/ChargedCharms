@@ -1,5 +1,6 @@
 {
   "type": "chargedcharms:charge_speed_charm",
+  "category": "misc",
   "conditions": [
     {
       "type": "chargedcharms:config_disabled",
