@@ -28,8 +28,8 @@ dependencies {
 
 	modRuntimeOnly "curse.maven:architectury-419699:3984016"
 	modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
-	modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-	modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+	modCompileOnly "mezz.jei:jei-${minecraft_short_version}-common-api:${jei_version}"
+	modCompileOnly "mezz.jei:jei-${minecraft_short_version}-fabric:${jei_version}"
 
 	modImplementation "dev.emi:trinkets:${trinkets_version}"
 	//modRuntimeOnly "curse.maven:charmofundying-395547:3927423"

@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -121,7 +120,7 @@ public class MixinServerPlayer {
     }
 
     private boolean isSprintJumping(ServerPlayer sp) {
-        return !sp.isOnGround() && sp.isSprinting() && !sp.isSwimming();
+        return !sp.onGround() && sp.isSprinting() && !sp.isSwimming();
     }
 
     private boolean hasCharge(ItemStack charmStack) {
