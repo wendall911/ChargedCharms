@@ -10,7 +10,6 @@ import chargedcharms.data.recipe.FabricModRecipeProvider;
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
     private static FabricTagProvider.BlockTagProvider fabricBlockTagProvider;
-    private static BlockTagProvider commonBlockTagProvider;
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator gen) {
@@ -26,13 +25,13 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     }
 
     public static void configureCommonDatagen(FabricDataGenerator.Pack pack) {
-        pack.addProvider((dataOutput, registryFuture) -> new CommonItemTagProvider(dataOutput, registryFuture, commonBlockTagProvider));
+        pack.addProvider((dataOutput, registryFuture) -> new CommonItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemModelProvider(dataOutput));
         pack.addProvider((dataOutput, registryFuture) -> new CommonRecipeProvider(dataOutput));
     }
 
     public static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
-        pack.addProvider((dataOutput, registryFuture) -> new FabricItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider));
+        pack.addProvider((dataOutput, registryFuture) -> new FabricItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
         pack.addProvider((dataOutput, registryFuture) -> new FabricModRecipeProvider(dataOutput));
     }
 

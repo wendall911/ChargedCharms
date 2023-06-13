@@ -3,7 +3,6 @@ package chargedcharms.data;
 import java.util.concurrent.CompletableFuture;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -15,10 +14,11 @@ import net.minecraft.world.item.Item;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
+import net.minecraft.world.level.block.Block;
 
 public class FabricItemTagProvider extends ItemTagsProvider {
 
-    public FabricItemTagProvider(FabricDataOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, FabricTagProvider.BlockTagProvider blockTagsProvider) {
+    public FabricItemTagProvider(FabricDataOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture, CompletableFuture<TagLookup<Block>> blockTagsProvider) {
         super(dataGenerator, registriesFuture, blockTagsProvider);
     }
 

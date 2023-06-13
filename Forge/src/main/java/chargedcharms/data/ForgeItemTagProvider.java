@@ -26,7 +26,7 @@ import chargedcharms.common.DataHelper;
 public class ForgeItemTagProvider extends ItemTagsProvider {
 
     public ForgeItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, TagsProvider<Block> blockTagProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTagProvider, modId, existingFileHelper);
+        super(output, lookupProvider, blockTagProvider.contentsGetter(), modId, existingFileHelper);
     }
 
     @Override

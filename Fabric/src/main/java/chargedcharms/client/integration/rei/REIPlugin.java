@@ -13,6 +13,8 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 
@@ -27,6 +29,7 @@ public class REIPlugin implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry helper) {
         List<CraftingRecipe> recipes = CharmChargingRecipeMaker.createRecipes("rei");
+        RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
         recipes.forEach(recipe -> {
             List<EntryIngredient> input = new ArrayList<>();
@@ -35,7 +38,7 @@ public class REIPlugin implements REIClientPlugin {
                 input.add(EntryIngredients.ofIngredient(ingredient));
             });
 
-            helper.add(new DefaultCustomDisplay(null, input, Collections.singletonList(EntryIngredients.of(recipe.getResultItem()))));
+            helper.add(new DefaultCustomDisplay(null, input, Collections.singletonList(EntryIngredients.of(recipe.getResultItem(registryAccess)))));
         });
     }
 

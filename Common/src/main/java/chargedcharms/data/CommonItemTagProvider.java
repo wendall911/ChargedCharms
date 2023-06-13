@@ -12,10 +12,11 @@ import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 import chargedcharms.common.TagManager;
 import chargedcharms.data.integration.ModIntegration;
+import net.minecraft.world.level.block.Block;
 
 public class CommonItemTagProvider extends ItemTagsProvider {
 
-    public CommonItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, BlockTagProvider blockTagsProvider) {
+    public CommonItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagsProvider) {
         super(packOutput, lookupProvider, blockTagsProvider);
     }
 
