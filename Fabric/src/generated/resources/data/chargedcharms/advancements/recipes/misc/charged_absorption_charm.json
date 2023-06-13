@@ -1,4 +1,10 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableAbsorptionCharm"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {
@@ -6,7 +12,7 @@
         "items": [
           {
             "items": [
-              "minecraft:glow_berries"
+              "minecraft:cooked_beef"
             ]
           }
         ]
@@ -15,17 +21,11 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_glowup_charm"
+        "recipe": "chargedcharms:charged_absorption_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableGlowupCharm"
-    }
-  ],
   "requirements": [
     [
       "has_item",
@@ -34,7 +34,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chargedcharms:charged_glowup_charm"
+      "chargedcharms:charged_absorption_charm"
     ]
   }
 }

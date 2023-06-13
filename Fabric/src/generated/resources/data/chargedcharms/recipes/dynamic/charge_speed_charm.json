@@ -1,9 +1,10 @@
 {
-  "type": "chargedcharms:charge_speed_charm",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableSpeedCharm"
     }
-  ]
+  ],
+  "type": "chargedcharms:charge_speed_charm",
+  "category": "misc"
 }

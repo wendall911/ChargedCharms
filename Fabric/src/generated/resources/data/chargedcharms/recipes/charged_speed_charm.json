@@ -1,11 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableSpeedCharm"
     }
   ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "item": "minecraft:leather_boots"
@@ -24,5 +25,6 @@
   ],
   "result": {
     "item": "chargedcharms:charged_speed_charm"
-  }
+  },
+  "show_notification": true
 }

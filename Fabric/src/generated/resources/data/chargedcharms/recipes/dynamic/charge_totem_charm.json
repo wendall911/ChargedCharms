@@ -1,9 +1,10 @@
 {
-  "type": "chargedcharms:charge_totem_charm",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableTotemCharm"
     }
-  ]
+  ],
+  "type": "chargedcharms:charge_totem_charm",
+  "category": "misc"
 }

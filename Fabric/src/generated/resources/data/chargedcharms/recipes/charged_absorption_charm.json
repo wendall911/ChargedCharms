@@ -1,11 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableAbsorptionCharm"
     }
   ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "A": {
       "item": "minecraft:cooked_beef"
@@ -21,5 +22,6 @@
   ],
   "result": {
     "item": "chargedcharms:charged_absorption_charm"
-  }
+  },
+  "show_notification": true
 }
