@@ -1,5 +1,4 @@
 {
-  "type": "chargedcharms:charge_enchanted_totem_charm",
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
@@ -11,5 +10,7 @@
       "condition": "chargedcharms:config_disabled",
       "config": "disableEnchTotemCharm"
     }
-  ]
+  ],
+  "type": "chargedcharms:charge_enchanted_totem_charm",
+  "category": "misc"
 }

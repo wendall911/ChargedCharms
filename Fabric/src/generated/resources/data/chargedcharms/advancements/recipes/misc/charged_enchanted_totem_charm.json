@@ -1,13 +1,23 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "biomemakeover"
+      ]
+    },
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableEnchTotemCharm"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sugar"
-            ]
+            "tag": "chargedcharms:enchanted_totems"
           }
         ]
       },
@@ -15,17 +25,11 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_speed_charm"
+        "recipe": "chargedcharms:charged_enchanted_totem_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
-    }
-  ],
   "requirements": [
     [
       "has_item",
@@ -34,7 +38,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chargedcharms:charged_speed_charm"
+      "chargedcharms:charged_enchanted_totem_charm"
     ]
   }
 }

@@ -1,4 +1,10 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableGlowupCharm"
+    }
+  ],
   "parent": "minecraft:recipes/root",
   "criteria": {
     "has_item": {
@@ -6,7 +12,7 @@
         "items": [
           {
             "items": [
-              "minecraft:totem_of_undying"
+              "minecraft:glow_berries"
             ]
           }
         ]
@@ -15,17 +21,11 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_totem_charm"
+        "recipe": "chargedcharms:charged_glowup_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableTotemCharm"
-    }
-  ],
   "requirements": [
     [
       "has_item",
@@ -34,7 +34,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chargedcharms:charged_totem_charm"
+      "chargedcharms:charged_glowup_charm"
     ]
   }
 }

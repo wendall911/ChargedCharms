@@ -1,11 +1,12 @@
 {
-  "type": "minecraft:crafting_shaped",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableRegenCharm"
     }
   ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "N": {
       "item": "minecraft:iron_nugget"

@@ -1,9 +1,10 @@
 {
-  "type": "chargedcharms:recharge_regeneration_charm",
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
       "config": "disableRegenCharm"
     }
-  ]
+  ],
+  "type": "chargedcharms:recharge_regeneration_charm",
+  "category": "misc"
 }
