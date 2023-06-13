@@ -34,7 +34,7 @@ public class CharmHelper {
             }
             CharmEffectProviders.getEffectProvider(copy.getItem())
                     .ifPresent(effectProvider -> effectProvider.applyEffects(livingEntity));
-            livingEntity.level.broadcastEntityEvent(livingEntity, (byte) 35);
+            livingEntity.level().broadcastEntityEvent(livingEntity, (byte) 35);
 
             return true;
         }
@@ -70,7 +70,7 @@ public class CharmHelper {
 
         if (!charmStack.isEmpty()) {
             CompoundTag tags = charmStack.getOrCreateTag();
-            double radiation = getSunRadiation(sp.getLevel(), sp.getOnPos());
+            double radiation = getSunRadiation(sp.serverLevel(), sp.getOnPos());
             String key = "solar_radiation";
 
             if (tags.contains(key)) {

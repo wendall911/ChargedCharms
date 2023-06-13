@@ -18,7 +18,7 @@ public class AbsorptionEffectProvider implements ICharmEffectProvider {
             DamageTypes.FALL,
             DamageTypes.IN_WALL,
             DamageTypes.CRAMMING,
-            DamageTypes.OUT_OF_WORLD,
+            DamageTypes.FELL_OUT_OF_WORLD,
             DamageTypes.DRAGON_BREATH
     ));
 

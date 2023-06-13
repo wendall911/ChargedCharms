@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.registries.BuiltInRegistries;
 
@@ -92,7 +92,7 @@ public abstract class RecipeProviderBase implements DataProvider {
     }
 
     protected static InventoryChangeTrigger.TriggerInstance inventoryTrigger(ItemPredicate... predicates) {
-        return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY,
+        return new InventoryChangeTrigger.TriggerInstance(ContextAwarePredicate.ANY,
                 MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, predicates);
     }
 

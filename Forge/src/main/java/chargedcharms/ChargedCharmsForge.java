@@ -23,7 +23,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -86,8 +86,8 @@ public class ChargedCharmsForge {
         );
     }
 
-    private void buildCreativeTabContents(CreativeModeTabEvent.BuildContents evt) {
-        if (evt.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+    private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent evt) {
+        if (evt.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             for (Map.Entry<ResourceLocation, Item> entry : ChargedCharmsItems.getAll().entrySet()) {
                 Item charm = entry.getValue();
 
