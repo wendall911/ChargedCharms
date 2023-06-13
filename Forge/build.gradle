@@ -29,7 +29,7 @@ apply plugin: 'com.matthewprenger.cursegradle'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 archivesBaseName = "${mod_id}"
-version = "${minecraft_short_version}-${mod_version}-FORGE"
+version = "${minecraft_version}-${mod_version}-FORGE"
 
 mixin {
 	add sourceSets.main, "${mod_id}.refmap.json"

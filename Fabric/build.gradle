@@ -5,7 +5,7 @@ plugins {
 	id 'com.matthewprenger.cursegradle' version '1.4.0'
 }
 
-version = "${minecraft_short_version}-${mod_version}-FABRIC"
+version = "${minecraft_version}-${mod_version}-FABRIC"
 archivesBaseName = "${mod_id}"
 
 repositories {
