@@ -42,6 +42,7 @@ subprojects {
 
     repositories {
         mavenCentral()
+        mavenLocal()
 
         maven {
             name = 'Sponge / Mixin'
@@ -49,7 +50,7 @@ subprojects {
         }
 
         maven {
-            name = 'BlameJared Maven (CrT / Bookshelf)'
+            name = 'BlameJared Maven (CrT / Bookshelf / JEI (Newer) / vazkii / xyz)'
             url = 'https://maven.blamejared.com'
         }
         
@@ -84,6 +85,12 @@ subprojects {
         maven {
             name = "C4's Maven"
             url = "https://maven.theillusivec4.top/"
+        }
+
+        if (project.hasProperty('localmaven')) {
+            maven {
+                url "file://" + localmaven
+            }
         }
     }
 

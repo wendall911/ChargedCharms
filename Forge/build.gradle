@@ -119,8 +119,8 @@ dependencies {
         jarJar.pin(it, "${spectrelib_version}")
     }
 
-	compileOnly fg.deobf("mezz.jei:jei-${minecraft_short_version}-common-api:${jei_version}")
-	implementation fg.deobf("mezz.jei:jei-${minecraft_short_version}-forge:${jei_version}")
+	compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+	implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
 	//runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
 	//runtimeOnly fg.deobf("curse.maven:architectury-419699:3984018")
@@ -222,9 +222,11 @@ publishing {
 		}
 	}
 	repositories {
-		maven {
-			url "file://" + System.getenv("local_maven")
-		}
+        if (project.hasProperty('localmaven')) {
+            maven {
+                url "file://" + localmaven
+            }
+        }
 	}
 }
 

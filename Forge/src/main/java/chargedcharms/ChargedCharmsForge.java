@@ -7,8 +7,6 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -46,6 +44,8 @@ import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.recipe.ConfigResourceCondition;
+import chargedcharms.data.integration.ModIntegration;
+import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
