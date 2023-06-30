@@ -36,5 +36,6 @@
     "recipes": [
       "chargedcharms:charged_totem_charm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

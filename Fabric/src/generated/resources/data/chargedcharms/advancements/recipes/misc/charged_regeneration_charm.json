@@ -36,5 +36,6 @@
     "recipes": [
       "chargedcharms:charged_regeneration_charm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }
