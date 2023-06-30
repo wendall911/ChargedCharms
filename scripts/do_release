@@ -4,7 +4,7 @@ STATUS="$(git status --porcelain)"
 
 if [ -z "$STATUS" ]
 then
-  LAST_TAG="$(git show-ref -s --tags | tail -1)"
+  LAST_TAG="$(git rev-list --tags --max-count=1)"
   HEAD="$(git rev-parse HEAD)"
 
   if [ "$LAST_TAG" = "$HEAD" ]

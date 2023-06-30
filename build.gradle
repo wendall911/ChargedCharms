@@ -60,7 +60,7 @@ subprojects {
         }
 
         maven {
-            name = "TerraformersMC"
+            name = "TerraformersMC (Trinkets)"
             url = "https://maven.terraformersmc.com/"
         }
 
