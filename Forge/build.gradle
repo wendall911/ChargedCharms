@@ -16,7 +16,7 @@ buildscript {
 		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath group: 'org.parchmentmc', name: 'librarian', version: '1.+'
 		classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-		classpath group: 'gradle.plugin.com.matthewprenger', name: 'CurseGradle', version: '1.4.0'
+        classpath group: 'net.darkhax.curseforgegradle', name: 'CurseForgeGradle', version: '1.+'
         classpath 'se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.71.8'
 	}
 }
@@ -25,7 +25,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'net.darkhax.curseforgegradle'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 
 archivesBaseName = "${mod_id}"
@@ -230,24 +230,20 @@ publishing {
 	}
 }
 
-curseforge {
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	if (project.hasProperty('ccCurseApiKey')) {
-		project {
-			apiKey = project.ccCurseApiKey
-			id = project.ccCurseId
-			releaseType = "${cf_release}"
-			changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
-			addGameVersion "Java 17"
-            addGameVersion "Forge"
-			"${cf_versions}".split(',').each {
-				addGameVersion "${it}"
-			}
-			relations {
-				requiredDependency 'curios'
-				optionalDependency 'biome-makeover-forge'
-			}
-		}
-	}
+        apiToken = project.ccCurseApiKey
+        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+        mainFile.changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
+        mainFile.addJavaVersion('Java 17')
+        mainFile.addModLoader('Forge')
+        mainFile.releaseType = "${cf_release}"
+        "${cf_versions}".split(',').each {
+            mainFile.addGameVersion("${it}")
+        }
+        mainFile.addRequirement('curios')
+        mainFile.addOptional('biome-makeover-forge')
+    }
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {

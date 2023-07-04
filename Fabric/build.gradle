@@ -2,7 +2,7 @@ plugins {
 	id 'fabric-loom' version '0.12-SNAPSHOT'
 	id 'maven-publish'
 	id 'idea'
-	id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'net.darkhax.curseforgegradle' version '1.+'
 }
 
 version = "${minecraft_version}-${mod_version}-FABRIC"
@@ -139,34 +139,21 @@ publishing {
     }
 }
 
-curseforge {
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 	if (project.hasProperty('ccCurseApiKey')) {
-		project {
-			apiKey = project.ccCurseApiKey
-			id = project.ccCurseId
-			releaseType = "${cf_release}"
-			changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
-			addGameVersion "Java 17"
-			addGameVersion "Fabric"
-			"${cf_versions}".split(',').each {
-				addGameVersion "${it}"
-			}
-			addArtifact(sourcesJar)
-
-			relations {
-				requiredDependency 'fabric-api'
-				requiredDependency 'trinkets'
-				optionalDependency 'biome-makeover'
-			}
-
-			afterEvaluate {
-				uploadTask.dependsOn(remapJar)
-			}
-		}
-		options {
-			forgeGradleIntegration = false
-		}
-	}
+        apiToken = project.ccCurseApiKey
+        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+        mainFile.changelog = file(project(":").projectDir.toString() + '/build/libs/changelog.txt')
+        mainFile.addJavaVersion('Java 17')
+        mainFile.addModLoader('Fabric')
+        mainFile.releaseType = "${cf_release}"
+        "${cf_versions}".split(',').each {
+            mainFile.addGameVersion("${it}")
+        }
+        mainFile.addRequirement('fabric-api')
+        mainFile.addRequirement('trinkets')
+        mainFile.addOptional('biome-makeover')
+    }
 }
 
 tasks.curseforge.dependsOn build
