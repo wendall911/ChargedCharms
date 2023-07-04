@@ -152,7 +152,6 @@ curseforge {
 				addGameVersion "${it}"
 			}
 			addArtifact(sourcesJar)
-			mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
 
 			relations {
 				requiredDependency 'fabric-api'
@@ -169,3 +168,5 @@ curseforge {
 		}
 	}
 }
+
+tasks.curseforge.dependsOn build
