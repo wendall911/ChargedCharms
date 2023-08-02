@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.2-SNAPSHOT'
 	id 'maven-publish'
 	id 'idea'
     id 'net.darkhax.curseforgegradle' version '1.+'
@@ -33,6 +33,8 @@ dependencies {
 	modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
 	modImplementation "dev.emi:trinkets:${trinkets_version}"
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:4.1.0"
+
 	//modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
 	//modRuntimeOnly "curse.maven:architectury-419699:3984016"
 	//modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
