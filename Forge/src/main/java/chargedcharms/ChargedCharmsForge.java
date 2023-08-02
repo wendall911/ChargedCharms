@@ -7,14 +7,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,6 +21,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -31,7 +31,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -128,17 +127,21 @@ public class ChargedCharmsForge {
     }
 
     private void registryInit() {
-        bind(Registry.ITEM_REGISTRY, ChargedCharmsItems::registerItems);
+        bindItemRegistry(ChargedCharmsItems::registerItems);
 
-        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ChargedCharmsCrafting::registerRecipeSerializers);
-        bind(Registry.RECIPE_SERIALIZER_REGISTRY, ConfigResourceCondition::init);
+        bindRecipeRegistry(ChargedCharmsCrafting::registerRecipeSerializers);
+        bindRecipeRegistry(ConfigResourceCondition::init);
     }
 
-    private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
-            if (registry.equals(event.getRegistryKey())) {
-                source.accept((t, rl) -> event.register(registry, rl, () -> t));
-            }
+    private static <T> void bindItemRegistry(Consumer<BiConsumer<T, ResourceLocation>> source) {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegistryEvent.Register<Item> event) -> {
+            source.accept((item, rl) -> event.getRegistry().register(((Item) item).setRegistryName(rl)));
+        });
+    }
+
+    private static <T> void bindRecipeRegistry(Consumer<BiConsumer<T, ResourceLocation>> source) {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegistryEvent.Register<RecipeSerializer<?>> event) -> {
+            source.accept((t, rl) -> event.getRegistry().register((RecipeSerializer<?>) t));
         });
     }
 

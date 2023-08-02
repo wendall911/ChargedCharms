@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -25,13 +26,13 @@ public class ChargedCharmBase extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
-        Component textComponent = Component.translatable("tooltip.charged_charm.charges");
+        Component textComponent = new TranslatableComponent("tooltip.charged_charm.charges");
         int charges = stack.getMaxDamage() - stack.getDamageValue();
         String text = charges + "/" + stack.getMaxDamage() + " " + textComponent.getString();
 
         super.appendHoverText(stack, level, components, flag);
 
-        components.add(Component.translatable(text).setStyle(Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
+        components.add(new TranslatableComponent(text).setStyle(Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,7 +55,7 @@ public class ForgePlatform implements IPlatform {
     }
 
     @Override
-    public void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path) {
+    public void saveRecipeAdvancement(DataGenerator gen, HashCache cache, JsonObject json, Path path) {
         ((RecipeProviderForgeAccessor) new RecipeProvider(gen)).callSaveRecipeAdvancement(cache, json, path);
     }
 

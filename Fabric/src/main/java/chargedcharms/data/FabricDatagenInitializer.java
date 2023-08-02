@@ -25,14 +25,14 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     }
 
     public static void configureCommonDatagen(FabricDataGenerator gen) {
-        gen.addProvider(true, new CommonItemTagProvider(gen, blockTagsProvider));
-        gen.addProvider(true, new FabricItemModelProvider(gen));
-        gen.addProvider(true, new CommonRecipeProvider(gen));
+        gen.addProvider(new CommonItemTagProvider(gen, blockTagsProvider));
+        gen.addProvider(new FabricItemModelProvider(gen));
+        gen.addProvider(new CommonRecipeProvider(gen));
     }
 
     public static void configureFabricDatagen(FabricDataGenerator gen) {
-        gen.addProvider(true, new FabricItemTagProvider(gen, blockTagsProvider));
-        gen.addProvider(true, new FabricModRecipeProvider(gen));
+        gen.addProvider(new FabricItemTagProvider(gen, blockTagsProvider));
+        gen.addProvider(new FabricModRecipeProvider(gen));
     }
 
 }

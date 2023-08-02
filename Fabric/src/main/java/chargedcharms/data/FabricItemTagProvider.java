@@ -5,7 +5,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -22,8 +22,8 @@ public class FabricItemTagProvider extends ItemTagsProvider {
     protected void addTags() {
         TagKey<Item> charms = trinket("charged_charm/charm");
         TagKey<Item> altCharm = trinket("charged_charm/alt_charm");
-        TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
-        TagBuilder altCharmTagBuilder = this.getOrCreateRawBuilder(altCharm);
+        Tag.Builder charmTagBuilder = this.getOrCreateRawBuilder(charms);
+        Tag.Builder altCharmTagBuilder = this.getOrCreateRawBuilder(altCharm);
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
 

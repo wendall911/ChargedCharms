@@ -13,8 +13,8 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
@@ -56,7 +56,7 @@ public class FabricPlatform implements IPlatform {
     }
 
     @Override
-    public void saveRecipeAdvancement(DataGenerator gen, CachedOutput cache, JsonObject json, Path path) {
+    public void saveRecipeAdvancement(DataGenerator gen, HashCache cache, JsonObject json, Path path) {
         RecipeProvider.saveAdvancement(cache, json, path);
     }
 

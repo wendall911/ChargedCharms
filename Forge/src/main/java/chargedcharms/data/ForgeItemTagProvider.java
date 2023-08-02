@@ -9,7 +9,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -33,7 +33,7 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags() {
-        TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(getTagKey(loc("curios", "charged_charm")));
+        Tag.Builder charmTagBuilder = this.getOrCreateRawBuilder(getTagKey(loc("curios", "charged_charm")));
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
     }

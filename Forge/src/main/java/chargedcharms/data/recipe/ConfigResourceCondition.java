@@ -40,7 +40,8 @@ public class ConfigResourceCondition implements ICondition {
     }
 
     @Override
-    public boolean test(IContext context) {
+    @SuppressWarnings("removal")
+    public boolean test() {
         return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
     }
 

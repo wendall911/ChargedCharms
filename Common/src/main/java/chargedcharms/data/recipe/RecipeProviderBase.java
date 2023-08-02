@@ -13,9 +13,9 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.Registry;
-import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
@@ -42,7 +42,7 @@ public abstract class RecipeProviderBase implements DataProvider {
     }
 
     @Override
-    public void run(@Nonnull CachedOutput cache) throws IllegalStateException {
+    public void run(@Nonnull HashCache cache) throws IllegalStateException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> recipes = Sets.newHashSet();
 
