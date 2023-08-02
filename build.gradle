@@ -85,6 +85,9 @@ subprojects {
             name = "C4's Maven"
             url = "https://maven.theillusivec4.top/"
         }
+        maven {
+            url "file://${project.localmaven}"
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {
