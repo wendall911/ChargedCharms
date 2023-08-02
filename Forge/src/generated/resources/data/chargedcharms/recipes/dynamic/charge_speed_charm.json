@@ -2,8 +2,8 @@
   "type": "chargedcharms:charge_speed_charm",
   "conditions": [
     {
-      "type": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config": "disableSpeedCharm",
+      "type": "chargedcharms:config_disabled"
     }
   ]
 }

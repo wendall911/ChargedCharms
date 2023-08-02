@@ -2,9 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "type": "chargedcharms:config_disabled",
-      "config": "disableTotemCharm"
+      "config": "disableTotemCharm",
+      "type": "chargedcharms:config_disabled"
     }
+  ],
+  "pattern": [
+    "NNN",
+    "NUN",
+    "NNN"
   ],
   "key": {
     "N": {
@@ -14,11 +19,6 @@
       "item": "minecraft:totem_of_undying"
     }
   },
-  "pattern": [
-    "NNN",
-    "NUN",
-    "NNN"
-  ],
   "result": {
     "item": "chargedcharms:charged_totem_charm"
   }

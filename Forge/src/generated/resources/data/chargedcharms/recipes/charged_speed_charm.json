@@ -2,26 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "type": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config": "disableSpeedCharm",
+      "type": "chargedcharms:config_disabled"
     }
   ],
-  "key": {
-    "B": {
-      "item": "minecraft:leather_boots"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "item": "minecraft:sugar"
-    }
-  },
   "pattern": [
     "NSN",
     "NBN",
     "NNN"
   ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "B": {
+      "item": "minecraft:leather_boots"
+    }
+  },
   "result": {
     "item": "chargedcharms:charged_speed_charm"
   }

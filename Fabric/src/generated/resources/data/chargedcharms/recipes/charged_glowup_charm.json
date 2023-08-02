@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableGlowupCharm"
-    }
-  ],
-  "key": {
-    "G": {
-      "item": "minecraft:glow_berries"
-    },
-    "N": {
-      "item": "minecraft:gold_nugget"
-    }
-  },
   "pattern": [
     "NNN",
     "NGN",
     "NNN"
   ],
+  "key": {
+    "N": {
+      "item": "minecraft:gold_nugget"
+    },
+    "G": {
+      "item": "minecraft:glow_berries"
+    }
+  },
   "result": {
     "item": "chargedcharms:charged_glowup_charm"
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableGlowupCharm"
+    }
+  ]
 }

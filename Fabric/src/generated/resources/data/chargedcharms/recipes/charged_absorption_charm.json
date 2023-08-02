@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableAbsorptionCharm"
-    }
-  ],
-  "key": {
-    "A": {
-      "item": "minecraft:cooked_beef"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    }
-  },
   "pattern": [
     "NNN",
     "NAN",
     "NNN"
   ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "A": {
+      "item": "minecraft:cooked_beef"
+    }
+  },
   "result": {
     "item": "chargedcharms:charged_absorption_charm"
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableAbsorptionCharm"
+    }
+  ]
 }

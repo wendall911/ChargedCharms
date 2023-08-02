@@ -1,5 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "S": {
+      "tag": "chargedcharms:enchanted_totems"
+    }
+  },
+  "result": {
+    "item": "chargedcharms:charged_enchanted_totem_charm"
+  },
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
@@ -11,21 +27,5 @@
       "condition": "chargedcharms:config_disabled",
       "config": "disableEnchTotemCharm"
     }
-  ],
-  "key": {
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "tag": "chargedcharms:enchanted_totems"
-    }
-  },
-  "pattern": [
-    "NNN",
-    "NSN",
-    "NNN"
-  ],
-  "result": {
-    "item": "chargedcharms:charged_enchanted_totem_charm"
-  }
+  ]
 }

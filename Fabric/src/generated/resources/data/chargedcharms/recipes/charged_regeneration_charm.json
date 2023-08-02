@@ -1,10 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
-  "fabric:load_conditions": [
-    {
-      "condition": "chargedcharms:config_disabled",
-      "config": "disableRegenCharm"
-    }
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
   ],
   "key": {
     "N": {
@@ -14,12 +13,13 @@
       "item": "minecraft:apple"
     }
   },
-  "pattern": [
-    "NNN",
-    "NSN",
-    "NNN"
-  ],
   "result": {
     "item": "chargedcharms:charged_regeneration_charm"
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableRegenCharm"
+    }
+  ]
 }

@@ -2,13 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "biomemakeover"
+      "modid": "biomemakeover",
+      "type": "forge:mod_loaded"
     },
     {
-      "type": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config": "disableEnchTotemCharm",
+      "type": "chargedcharms:config_disabled"
     }
+  ],
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
   ],
   "key": {
     "N": {
@@ -18,11 +23,6 @@
       "tag": "chargedcharms:enchanted_totems"
     }
   },
-  "pattern": [
-    "NNN",
-    "NSN",
-    "NNN"
-  ],
   "result": {
     "item": "chargedcharms:charged_enchanted_totem_charm"
   }

@@ -2,12 +2,12 @@
   "type": "chargedcharms:charge_enchanted_totem_charm",
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "biomemakeover"
+      "modid": "biomemakeover",
+      "type": "forge:mod_loaded"
     },
     {
-      "type": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config": "disableEnchTotemCharm",
+      "type": "chargedcharms:config_disabled"
     }
   ]
 }
