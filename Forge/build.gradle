@@ -121,6 +121,7 @@ def replaceProperties = [
 ]
 
 processResources {
+    exclude('.cache')
     from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties

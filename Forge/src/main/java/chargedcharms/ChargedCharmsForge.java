@@ -1,8 +1,5 @@
 package chargedcharms;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -56,7 +53,6 @@ public class ChargedCharmsForge {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ChargedCharms.init();
-        registryInit();
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
@@ -126,23 +122,20 @@ public class ChargedCharmsForge {
 
     }
 
-    private void registryInit() {
-        bindItemRegistry(ChargedCharmsItems::registerItems);
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
 
-        bindRecipeRegistry(ChargedCharmsCrafting::registerRecipeSerializers);
-        bindRecipeRegistry(ConfigResourceCondition::init);
-    }
+        @SubscribeEvent
+        public static void onItemsRegistry(RegistryEvent.Register<Item> event) {
+            ChargedCharmsItems.registerItems((item, rl) -> event.getRegistry().register(item.setRegistryName(rl)));
+        }
 
-    private static <T> void bindItemRegistry(Consumer<BiConsumer<T, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegistryEvent.Register<Item> event) -> {
-            source.accept((item, rl) -> event.getRegistry().register(((Item) item).setRegistryName(rl)));
-        });
-    }
+        @SubscribeEvent
+        public static void onRecipeRegistry(RegistryEvent.Register<RecipeSerializer<?>> event) {
+            ChargedCharmsCrafting.registerRecipeSerializers((t, rl) -> event.getRegistry().register(t.setRegistryName(rl)));
+            ConfigResourceCondition.init((t, rl) -> event.getRegistry().register(t));
+        }
 
-    private static <T> void bindRecipeRegistry(Consumer<BiConsumer<T, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegistryEvent.Register<RecipeSerializer<?>> event) -> {
-            source.accept((t, rl) -> event.getRegistry().register((RecipeSerializer<?>) t));
-        });
     }
 
 }
