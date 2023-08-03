@@ -32,8 +32,8 @@ dependencies {
     modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:4.1.0"
 
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
@@ -98,7 +98,7 @@ processResources {
     }
 
     filesMatching('*.mixins.json') {
-        expand "mod_id": "${archivesBaseName}-"
+        expand "mod_id": "${archivesBaseName}"
     }
 }
 
@@ -133,8 +133,6 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     }
 }
 
-tasks.curseforge.dependsOn build
-
 modrinth {
     if (project.hasProperty('ccModrinthId')) {
         token = project.modrinthKey
@@ -153,5 +151,3 @@ modrinth {
         }
     }
 }
-
-tasks.modrinth.dependsOn build

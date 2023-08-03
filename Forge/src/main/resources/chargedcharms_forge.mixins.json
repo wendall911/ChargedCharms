@@ -6,5 +6,10 @@
   "mixins": [
     "RecipeProviderForgeAccessor"
   ],
-  "refmap": "${mod_id}.refmap.json"
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "${mod_id}-refmap.json"
 }

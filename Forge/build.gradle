@@ -20,7 +20,7 @@ archivesBaseName = "${mod_id}"
 version = "${minecraft_version}-${mod_version}-FORGE"
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    add sourceSets.main, "${mod_id}-refmap.json"
 
     config "${mod_id}.mixins.json"
     config "${mod_id}_forge.mixins.json"
@@ -83,7 +83,7 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
@@ -97,7 +97,7 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
-    //runtimeOnly fg.deobf("curse.maven:architectury-419699:3984018")
+    //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
     //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
 }
 
@@ -110,7 +110,7 @@ def replaceProperties = [
     'version': version, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
     'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
     'mod_name': mod_name, 'issue_tracker': issue_tracker, 'curios_version_range': curios_version_range,
-    'mod_update_branch': mod_update_branch
+    'loader_version_range': loader_version_range, 'mod_update_branch': mod_update_branch
 ]
 
 processResources {
@@ -118,6 +118,7 @@ processResources {
     from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
+    exclude '.cache'
     replaceProperties.put 'project', project
 
     filesMatching(resourceTargets) {
@@ -164,7 +165,7 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("../files/templates/") {
         include 'updates.json'
-        expand 'version': version
+        expand 'version': version, 'minecraft_version': minecraft_version
     }
 
     it.into '../files/'
@@ -192,8 +193,6 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     }
 }
 
-//tasks.curseforge.dependsOn build
-
 modrinth {
     if (project.hasProperty('ccModrinthId')) {
         token = project.modrinthKey
@@ -211,5 +210,3 @@ modrinth {
         }
     }
 }
-
-//tasks.modrinth.dependsOn build
