@@ -17,10 +17,10 @@ repositories {
 }
 
 archivesBaseName = "${mod_id}"
-version = "${minecraft_short_version}-${minecraft_version}-${mod_version}-FORGE"
+version = "${minecraft_version}-${mod_version}-FORGE"
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    add sourceSets.main, "${mod_id}-refmap.json"
 
     config "${mod_id}.mixins.json"
     config "${mod_id}_forge.mixins.json"
@@ -28,13 +28,6 @@ mixin {
 
 minecraft {
     mappings channel: "${mappings_channel}", version: "${mappings_version}-${minecraft_version}"
-
-    if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
-        // This location is hardcoded in Forge and can not be changed.
-        // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
-        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-        project.logger.debug('Forge Access Transformers are enabled for this project.')
-    }
 
     runs {
         client {
@@ -90,7 +83,7 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${minecraft_version}-${curios_version}:api")
@@ -104,7 +97,7 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-1.19.2-forge:${jei_version}")
 
     //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
-    //runtimeOnly fg.deobf("curse.maven:architectury-419699:3984018")
+    //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
     //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
 }
 
@@ -116,14 +109,15 @@ def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
 def replaceProperties = [
     'version': version, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
     'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
-    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'curios_version_range': curios_version_range
-
+    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'curios_version_range': curios_version_range,
+    'loader_version_range': loader_version_range, 'mod_update_branch': mod_update_branch
 ]
 
 processResources {
     from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
+    exclude '.cache'
     replaceProperties.put 'project', project
 
     filesMatching(resourceTargets) {
@@ -148,14 +142,6 @@ jarJar {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            artifact jar
-        }
-    }
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
@@ -178,7 +164,7 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("../files/templates/") {
         include 'updates.json'
-        expand 'version': version
+        expand 'version': version, 'minecraft_version': minecraft_version
     }
 
     it.into '../files/'
@@ -206,8 +192,6 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     }
 }
 
-//tasks.curseforge.dependsOn build
-
 modrinth {
     if (project.hasProperty('ccModrinthId')) {
         token = project.modrinthKey
@@ -225,5 +209,3 @@ modrinth {
         }
     }
 }
-
-//tasks.modrinth.dependsOn build
