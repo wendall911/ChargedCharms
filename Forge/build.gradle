@@ -14,6 +14,11 @@ repositories {
         name = "C4's Maven"
         url = "https://maven.theillusivec4.top/"
     }
+    maven {
+        // location of the maven that hosts Mantle and JEI files
+        name = 'Progwml6 maven'
+        url = 'https://dvs1.progwml6.com/files/maven'
+    }
 }
 
 archivesBaseName = "${mod_id}"
@@ -99,6 +104,8 @@ dependencies {
     //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
     //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
     //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
+    //runtimeOnly fg.deobf("slimeknights.tconstruct:TConstruct:${minecraft_version}-${tic_version}")
+    //runtimeOnly fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
 }
 
 tasks.withType(JavaCompile) {
