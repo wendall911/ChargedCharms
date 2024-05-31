@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -23,8 +22,8 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
 
     public static final SimpleCraftingRecipeSerializer<RegenerationChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(RegenerationChargeRecipe::new);
 
-    public RegenerationChargeRecipe(ResourceLocation loc, CraftingBookCategory category) {
-        super(loc, category);
+    public RegenerationChargeRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override

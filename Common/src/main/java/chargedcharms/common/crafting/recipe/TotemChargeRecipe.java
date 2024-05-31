@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -20,8 +19,8 @@ public class TotemChargeRecipe extends ChargeRecipeBase {
 
     public static final SimpleCraftingRecipeSerializer<TotemChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(TotemChargeRecipe::new);
 
-    public TotemChargeRecipe(ResourceLocation loc, CraftingBookCategory category) {
-        super(loc, category);
+    public TotemChargeRecipe(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override

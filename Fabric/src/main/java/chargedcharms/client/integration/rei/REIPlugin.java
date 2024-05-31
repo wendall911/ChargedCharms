@@ -15,8 +15,9 @@ import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.ItemStack;
 
 import chargedcharms.client.integration.CharmChargingRecipeMaker;
 import chargedcharms.common.item.ChargedCharmsItems;
@@ -28,17 +29,17 @@ public class REIPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry helper) {
-        List<CraftingRecipe> recipes = CharmChargingRecipeMaker.createRecipes("rei");
+        List<RecipeHolder<CraftingRecipe>> recipes = CharmChargingRecipeMaker.createRecipes("rei");
         RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
 
         recipes.forEach(recipe -> {
             List<EntryIngredient> input = new ArrayList<>();
 
-            recipe.getIngredients().forEach(ingredient -> {
+            recipe.value().getIngredients().forEach(ingredient -> {
                 input.add(EntryIngredients.ofIngredient(ingredient));
             });
 
-            helper.add(new DefaultCustomDisplay(null, input, Collections.singletonList(EntryIngredients.of(recipe.getResultItem(registryAccess)))));
+            helper.add(new DefaultCustomDisplay(null, input, Collections.singletonList(EntryIngredients.of(recipe.value().getResultItem(registryAccess)))));
         });
     }
 

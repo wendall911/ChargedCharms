@@ -18,6 +18,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
@@ -43,8 +44,8 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         Minecraft minecraft = Minecraft.getInstance();
         RecipeManager recipeManager = Objects.requireNonNull(minecraft.level).getRecipeManager();
-        List<CraftingRecipe> allCraftingRecipes = recipeManager.getAllRecipesFor(RecipeType.CRAFTING);
-        List<CraftingRecipe> charmChargingRecipes = addChargingRecipes(allCraftingRecipes);
+        List<RecipeHolder<CraftingRecipe>> allCraftingRecipes = recipeManager.getAllRecipesFor(RecipeType.CRAFTING);
+        List<RecipeHolder<CraftingRecipe>> charmChargingRecipes = addChargingRecipes(allCraftingRecipes);
 
         registration.addRecipes(RecipeTypes.CRAFTING, charmChargingRecipes);
         if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) || ConfigHandler.Common.disableEnchTotemCharm()) {
@@ -73,21 +74,22 @@ public class JEIPlugin implements IModPlugin {
         }
     }
 
-    private static List<CraftingRecipe> addChargingRecipes(List<CraftingRecipe> allCraftingRecipes) {
-        Map<Class<? extends CraftingRecipe>, Supplier<List<CraftingRecipe>>> replacers = new IdentityHashMap<>();
+    private static List<RecipeHolder<CraftingRecipe>> addChargingRecipes(List<RecipeHolder<CraftingRecipe>> allCraftingRecipes) {
+        Map<Class<? extends CraftingRecipe>, Supplier<List<RecipeHolder<CraftingRecipe>>>> replacers = new IdentityHashMap<>();
 
         replacers.put(AbsorptionChargeRecipe.class, () -> CharmChargingRecipeMaker.createRecipes("jei"));
 
         return allCraftingRecipes.stream()
+                .map(RecipeHolder::value)
                 .map(CraftingRecipe::getClass)
                 .distinct()
                 .filter(replacers::containsKey)
                 .limit(replacers.size())
                 .flatMap(recipeClass -> {
-                    Supplier<List<CraftingRecipe>> supplier = replacers.get(recipeClass);
+                    Supplier<List<RecipeHolder<CraftingRecipe>>> supplier = replacers.get(recipeClass);
 
                     try {
-                        List<CraftingRecipe> results = supplier.get();
+                        List<RecipeHolder<CraftingRecipe>> results = supplier.get();
 
                         return results.stream();
                     }

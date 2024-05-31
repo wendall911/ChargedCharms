@@ -1,13 +1,20 @@
+import javax.net.ssl.HttpsURLConnection
+import java.nio.charset.StandardCharsets
+
+plugins {
+    // Required for NeoGradle
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
+}
 allprojects {
     apply plugin: 'java'
 
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
-        options.release = 17
     }
 }
 
 subprojects {
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
 
     jar {
@@ -75,6 +82,11 @@ subprojects {
         }
 
         maven {
+            name = "C4's Maven"
+            url = "https://maven.theillusivec4.top/"
+        }
+
+        maven {
             name = "Curse Maven"
             url = "https://cursemaven.com"
             content {
@@ -97,6 +109,35 @@ subprojects {
     tasks.withType(JavaCompile).configureEach {
         it.options.encoding = 'UTF-8'
         it.options.release = 17
+    }
+
+	processResources {
+        def expandProps = [
+            'version': version,
+            'neoforge_mod_version': neoforge_mod_version,
+            'fabric_mod_version': fabric_mod_version,
+            'forge_mc_version_range': forge_mc_version_range,
+            'forge_version_range': forge_version_range,
+            'license': license,
+            'mod_id': mod_id,
+            'mod_author': mod_author,
+            'mod_description': mod_description,
+            'mod_name': mod_name,
+            'issue_tracker': issue_tracker,
+            'curios_version_range': curios_version_range,
+            'loader_version_range': loader_version_range,
+            'mod_update_branch': mod_update_branch,
+            'mod_url': mod_url,
+            'fabric_mc_version_range': project.fabric_mc_version_range,
+            'fabric_loader_min_version': fabric_loader_min_version,
+            'neoforge_loader_version_range': neoforge_loader_version_range,
+            'neoforge_mc_version_range': neoforge_mc_version_range
+        ]
+
+        filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
+            expand expandProps
+        }
+        inputs.properties(expandProps)
     }
 
     // Disables Gradle's custom module metadata from being published to maven. The

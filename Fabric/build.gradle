@@ -1,12 +1,13 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'java'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'com.modrinth.minotaur' version '2.+'
 }
 
-version = "${minecraft_version}-${mod_version}-FABRIC"
+version = fabric_mod_version
 archivesBaseName = "${mod_id}"
 
 repositories {
@@ -32,7 +33,8 @@ dependencies {
     modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
-    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:architectury-419699:3984016"
@@ -44,7 +46,7 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":Common")
 
-    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}+${minecraft_version}"
 }
 
 loom {
@@ -83,23 +85,6 @@ sourceSets.main.resources {
 
 processResources {
     from project(":Common").sourceSets.main.resources
-    inputs.property "version", project.version
-    exclude '.cache'
-    duplicatesStrategy(DuplicatesStrategy.FAIL)
-
-    filesMatching("fabric.mod.json") {
-        expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
-                'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
-                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker, 'fabric_loader_min_version': fabric_loader_min_version
-    }
-
-    filesMatching("pack.mcmeta") {
-        expand 'mod_name': project.mod_name
-    }
-
-    filesMatching('*.mixins.json') {
-        expand "mod_id": "${archivesBaseName}"
-    }
 }
 
 tasks.withType(JavaCompile) {

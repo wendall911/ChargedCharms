@@ -4,7 +4,6 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
-import chargedcharms.data.recipe.CommonRecipeProvider;
 import chargedcharms.data.recipe.FabricModRecipeProvider;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
@@ -27,7 +26,6 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     public static void configureCommonDatagen(FabricDataGenerator.Pack pack) {
         pack.addProvider((dataOutput, registryFuture) -> new CommonItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemModelProvider(dataOutput));
-        pack.addProvider((dataOutput, registryFuture) -> new CommonRecipeProvider(dataOutput));
     }
 
     public static void configureFabricDatagen(FabricDataGenerator.Pack pack) {

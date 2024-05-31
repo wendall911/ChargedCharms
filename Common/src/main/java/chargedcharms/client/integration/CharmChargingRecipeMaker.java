@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
 import chargedcharms.common.TagManager;
@@ -32,9 +33,9 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class CharmChargingRecipeMaker {
 
-    public static List<CraftingRecipe> createRecipes(String plugin) {
+    public static List<RecipeHolder<CraftingRecipe>> createRecipes(String plugin) {
         String group = plugin + ".charm.charging";
-        List<CraftingRecipe> recipes = new ArrayList<>();
+        List<RecipeHolder<CraftingRecipe>> recipes = new ArrayList<>();
         List<ItemStack> regenFoods = Lists.newArrayList();
         List<ItemStack> absorptionFoods = Lists.newArrayList();
 
@@ -78,7 +79,7 @@ public class CharmChargingRecipeMaker {
         return recipes;
     }
 
-    private static CraftingRecipe getRecipe(String group, String label, Item charm, Ingredient chargeItems) {
+    private static RecipeHolder<CraftingRecipe> getRecipe(String group, String label, Item charm, Ingredient chargeItems) {
         ItemStack unchargedCharm = new ItemStack(charm);
         unchargedCharm.setDamageValue(unchargedCharm.getMaxDamage());
 
@@ -89,7 +90,7 @@ public class CharmChargingRecipeMaker {
 
         NonNullList<Ingredient> chargedCharmInputs = NonNullList.of(Ingredient.EMPTY, baseCharm, chargeItems);
 
-        return new ShapelessRecipe(prefix(group + label), group, CraftingBookCategory.MISC, chargedCharm, chargedCharmInputs);
+        return new RecipeHolder<>(prefix(group + label), new ShapelessRecipe(group, CraftingBookCategory.MISC, chargedCharm, chargedCharmInputs));
     }
 
 }

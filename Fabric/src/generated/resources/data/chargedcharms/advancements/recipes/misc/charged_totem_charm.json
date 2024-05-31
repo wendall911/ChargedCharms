@@ -28,14 +28,13 @@
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
       "chargedcharms:charged_totem_charm"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

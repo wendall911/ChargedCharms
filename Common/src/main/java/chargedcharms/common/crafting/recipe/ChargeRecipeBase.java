@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 
 public class ChargeRecipeBase extends CustomRecipe {
 
-    public ChargeRecipeBase(ResourceLocation loc, CraftingBookCategory category) {
-        super(loc, category);
+    public ChargeRecipeBase(CraftingBookCategory category) {
+        super(category);
     }
 
     @Override
