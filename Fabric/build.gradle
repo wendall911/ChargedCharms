@@ -85,6 +85,7 @@ sourceSets.main.resources {
 
 processResources {
     from project(":Common").sourceSets.main.resources
+    exclude '.cache'
 }
 
 tasks.withType(JavaCompile) {
