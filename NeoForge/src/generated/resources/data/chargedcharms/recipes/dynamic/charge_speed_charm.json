@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config_disabled": "disableSpeedCharm"
+    }
+  ],
+  "type": "chargedcharms:charge_speed_charm",
+  "category": "misc"
+}

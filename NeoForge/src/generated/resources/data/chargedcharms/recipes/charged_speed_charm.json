@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config_disabled": "disableSpeedCharm"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:leather_boots"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    },
+    "S": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "NSN",
+    "NBN",
+    "NNN"
+  ],
+  "result": {
+    "item": "chargedcharms:charged_speed_charm"
+  }
+}

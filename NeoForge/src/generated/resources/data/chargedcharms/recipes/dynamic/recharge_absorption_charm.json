@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config_disabled": "disableAbsorptionCharm"
+    }
+  ],
+  "type": "chargedcharms:recharge_absorption_charm",
+  "category": "misc"
+}
