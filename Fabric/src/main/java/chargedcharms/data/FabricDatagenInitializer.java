@@ -30,7 +30,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
 
     public static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
-        pack.addProvider((dataOutput, registryFuture) -> new FabricModRecipeProvider(dataOutput));
+        pack.addProvider((dataOutput, registryFuture) -> new FabricModRecipeProvider(dataOutput, registryFuture));
     }
 
 }

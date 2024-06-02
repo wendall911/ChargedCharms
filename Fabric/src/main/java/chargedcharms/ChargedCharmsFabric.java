@@ -18,6 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import chargedcharms.common.CharmEffectProviders;
+import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.integration.ModIntegration;
@@ -71,8 +72,8 @@ public class ChargedCharmsFabric implements ModInitializer {
 
     private void registryInit() {
         ChargedCharmsItems.registerItems(bind(BuiltInRegistries.ITEM));
-
         ChargedCharmsCrafting.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
+        ChargedCharmsComponents.init();
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

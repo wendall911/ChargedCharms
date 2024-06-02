@@ -2,7 +2,7 @@ package chargedcharms.common.item;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -10,7 +10,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
 public class ChargedCharmBase extends Item {
 
@@ -24,19 +23,14 @@ public class ChargedCharmBase extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> components, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> components, @NotNull TooltipFlag flag) {
         Component textComponent = Component.translatable("tooltip.charged_charm.charges");
         int charges = stack.getMaxDamage() - stack.getDamageValue();
         String text = charges + "/" + stack.getMaxDamage() + " " + textComponent.getString();
 
-        super.appendHoverText(stack, level, components, flag);
+        super.appendHoverText(stack, context, components, flag);
 
         components.add(Component.translatable(text).setStyle(Style.EMPTY.applyFormat(ChatFormatting.GRAY)));
-    }
-
-    @Override
-    public boolean isEdible() {
-        return false;
     }
 
 }

@@ -1,5 +1,6 @@
 package chargedcharms.data.recipe;
 
+import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.NotNull;
 
 import com.mojang.serialization.Codec;
@@ -12,7 +13,7 @@ import chargedcharms.config.ConfigHandler;
 public record ConfigResourceCondition(String configValue) implements ICondition {
 
     public static final String ID = "config_disabled";
-    public static final Codec<ConfigResourceCondition> CODEC = RecordCodecBuilder.create(b -> b.group(
+    public static final MapCodec<ConfigResourceCondition> CODEC = RecordCodecBuilder.mapCodec(b -> b.group(
         Codec.STRING.fieldOf(ID).forGetter(ConfigResourceCondition::configValue)
     ).apply(b, ConfigResourceCondition::new));
 
@@ -27,7 +28,7 @@ public record ConfigResourceCondition(String configValue) implements ICondition 
     }
 
     @Override
-    public @NotNull Codec<? extends ICondition> codec() {
+    public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
     }
 

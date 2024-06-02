@@ -2,6 +2,7 @@ package chargedcharms.common.crafting.recipe;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -27,7 +28,7 @@ public class ChargeRecipeBase extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer craftingContainer, RegistryAccess registryAccess) {
+    public ItemStack assemble(CraftingContainer craftingContainer, HolderLookup.Provider provider) {
         Pair<ItemStack, ItemStack> check = checkContainer(craftingContainer);
         ItemStack charmCopy = check.getFirst().copy();
 

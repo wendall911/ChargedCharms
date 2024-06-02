@@ -1,15 +1,17 @@
 package chargedcharms.platform;
 
 import java.util.Set;
+import java.util.function.UnaryOperator;
 
 import com.google.common.collect.Sets;
 
 import dev.emi.trinkets.api.TrinketsApi;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.loader.api.FabricLoader;
 
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
@@ -44,15 +46,18 @@ public class FabricPlatform implements IPlatform {
         return FabricLoader.getInstance().isModLoaded(name);
     }
 
-    // TODO add to creative tabs
-    @Override
-    public FabricItemSettings getProps() {
-        return new FabricItemSettings();
-    }
-
     @Override
     public boolean isPhysicalClient() {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+    }
+
+    @Override
+    public <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
+        return (DataComponentType) Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE,
+            name,
+            builder.apply(DataComponentType.builder()).build()
+        );
     }
 
 }

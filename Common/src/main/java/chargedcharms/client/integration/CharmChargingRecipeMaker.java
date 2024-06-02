@@ -2,17 +2,14 @@ package chargedcharms.client.integration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import chargedcharms.ChargedCharms;
 import com.google.common.collect.Lists;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -40,19 +37,31 @@ public class CharmChargingRecipeMaker {
         List<ItemStack> absorptionFoods = Lists.newArrayList();
 
         RegistryHelper.getRegistry(Registries.ITEM).stream()
-                .filter(Item::isEdible)
                 .filter(item -> {
-                    List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(item.getFoodProperties()).getEffects();
-                    if (!effects.isEmpty()) {
-                        return effects.stream().noneMatch(props -> props.getFirst().getEffect().equals(MobEffects.POISON));
+                    ItemStack stack = new ItemStack(item);
+
+                    return stack.has(DataComponents.FOOD);
+                })
+                .filter(item -> {
+                    ItemStack foodStack = new ItemStack(item);
+                    List<FoodProperties.PossibleEffect> effects = null;
+                    FoodProperties foodProperties = foodStack.get(DataComponents.FOOD);
+
+                    if (foodProperties != null) {
+                        effects = foodProperties.effects();
+                    }
+
+                    if (effects != null && !effects.isEmpty()) {
+                        return effects.stream().noneMatch(props -> props.effect().equals(MobEffects.POISON));
                     }
 
                     return true;
                 }).forEach(food -> {
                     ItemStack foodStack = new ItemStack(food);
+                    FoodProperties foodProperties = foodStack.get(DataComponents.FOOD);
 
-                    if (!foodStack.is(TagManager.Items.CHARM_FOODS_BLACKLIST) && foodStack.isEdible()) {
-                        if (food.getFoodProperties().getNutrition() > 4) {
+                    if (!foodStack.is(TagManager.Items.CHARM_FOODS_BLACKLIST) && foodProperties != null) {
+                        if (foodProperties.nutrition() > 4) {
                             absorptionFoods.add(foodStack);
                         }
 

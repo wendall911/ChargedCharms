@@ -4,11 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import chargedcharms.data.integration.ModIntegration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-
-import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
@@ -41,7 +38,7 @@ public final class ChargedCharmsItems {
     }
 
     public static Item.Properties getProps() {
-        return Services.PLATFORM.getProps();
+        return new Item.Properties();
     }
 
     public static void registerItems(BiConsumer<Item, ResourceLocation> consumer) {

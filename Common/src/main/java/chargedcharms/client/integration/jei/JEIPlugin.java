@@ -1,5 +1,5 @@
 package chargedcharms.client.integration.jei;
-
+/*
 import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -33,8 +33,9 @@ import chargedcharms.platform.Services;
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 @JeiPlugin
-public class JEIPlugin implements IModPlugin {
-
+*/
+public class JEIPlugin /*implements IModPlugin*/ {
+/*
     @Override
     public ResourceLocation getPluginUid() {
         return prefix("jei_plugin");
@@ -101,5 +102,5 @@ public class JEIPlugin implements IModPlugin {
                 })
                 .toList();
     }
-
+*/
 }

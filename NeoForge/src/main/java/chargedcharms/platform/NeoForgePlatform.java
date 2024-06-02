@@ -1,10 +1,12 @@
 package chargedcharms.platform;
 
 import java.util.Set;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +22,8 @@ import top.theillusivec4.curios.api.SlotResult;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.platform.services.IPlatform;
+import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
+
 
 public class NeoForgePlatform implements IPlatform {
 
@@ -40,15 +44,17 @@ public class NeoForgePlatform implements IPlatform {
         return ModList.get().isLoaded(name);
     }
 
-    // TODO add to creative tabs
-    @Override
-    public Item.Properties getProps() {
-        return new Item.Properties();
-    }
-
     @Override
     public boolean isPhysicalClient() {
         return FMLLoader.getDist() == Dist.CLIENT;
+    }
+
+    @Override
+    public <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
+        return (DataComponentType) ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
+            name,
+            () -> builder.apply(DataComponentType.builder()).build()
+        );
     }
 
 }

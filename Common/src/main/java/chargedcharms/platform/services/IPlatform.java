@@ -1,7 +1,9 @@
 package chargedcharms.platform.services;
 
 import java.util.Set;
+import java.util.function.UnaryOperator;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -15,8 +17,8 @@ public interface IPlatform {
 
     boolean isModLoaded(String name);
 
-    Item.Properties getProps();
-
     boolean isPhysicalClient();
+
+    <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder);
 
 }

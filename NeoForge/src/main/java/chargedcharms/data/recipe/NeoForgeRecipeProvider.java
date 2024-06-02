@@ -23,8 +23,8 @@ public class NeoForgeRecipeProvider extends RecipeProvider {
     protected final PackOutput.PathProvider recipePathProvider;
     protected final PackOutput.PathProvider advancementPathProvider;
 
-    public NeoForgeRecipeProvider(@NotNull final PackOutput packOutput) {
-        super(packOutput);
+    public NeoForgeRecipeProvider(@NotNull final PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider);
         this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes");
         this.advancementPathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
     }

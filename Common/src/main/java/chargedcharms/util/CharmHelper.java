@@ -4,7 +4,6 @@ import java.util.Set;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -16,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LightLayer;
 
 import chargedcharms.common.CharmEffectProviders;
+import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.platform.Services;
 
 public class CharmHelper {
@@ -69,20 +69,15 @@ public class CharmHelper {
                 && stack.is(charm) && stack.getDamageValue() > 0).findFirst().orElse(ItemStack.EMPTY);
 
         if (!charmStack.isEmpty()) {
-            CompoundTag tags = charmStack.getOrCreateTag();
-            double radiation = getSunRadiation(sp.serverLevel(), sp.getOnPos());
-            String key = "solar_radiation";
-
-            if (tags.contains(key)) {
-                radiation += tags.getDouble(key);
-            }
+            int charmRadiation = charmStack.getOrDefault(ChargedCharmsComponents.SOLAR_RADIATION, 0);
+            int radiation = (int)getSunRadiation(sp.serverLevel(), sp.getOnPos()) + charmRadiation;
 
             if (radiation > 10000) {
                 charmStack.setDamageValue(charmStack.getDamageValue() - 1);
-                tags.putDouble(key, 0);
+                charmStack.set(ChargedCharmsComponents.SOLAR_RADIATION, 0);
             }
             else {
-                tags.putDouble(key, radiation);
+                charmStack.set(ChargedCharmsComponents.SOLAR_RADIATION, radiation);
             }
         }
     }

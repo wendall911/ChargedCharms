@@ -1,7 +1,6 @@
 package chargedcharms.client.integration.rei;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -9,9 +8,6 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
-import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
-import me.shedaniel.rei.api.common.util.EntryIngredients;
-import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,11 +31,7 @@ public class REIPlugin implements REIClientPlugin {
         recipes.forEach(recipe -> {
             List<EntryIngredient> input = new ArrayList<>();
 
-            recipe.value().getIngredients().forEach(ingredient -> {
-                input.add(EntryIngredients.ofIngredient(ingredient));
-            });
-
-            helper.add(new DefaultCustomDisplay(null, input, Collections.singletonList(EntryIngredients.of(recipe.value().getResultItem(registryAccess)))));
+            Services.CLIENT_PLATFORM.addCustomDisplay(helper, input, recipe, registryAccess);
         });
     }
 
@@ -49,7 +41,7 @@ public class REIPlugin implements REIClientPlugin {
     }
 
     private boolean shouldHideEntry(EntryStack<?> entryStack) {
-        if (entryStack.getType() != VanillaEntryTypes.ITEM) return false;
+        if (!Services.CLIENT_PLATFORM.isVanillaItemType(entryStack)) return false;
 
         ItemStack stack = entryStack.castValue();
 
