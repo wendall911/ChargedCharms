@@ -10,7 +10,7 @@ A Minecraft 1.18.2+ mod that adds several "Charged" charms that are designed to 
 Download latest:
 
 [![](https://img.shields.io/badge/Downloads_for-All-orange.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files)
-[![](https://img.shields.io/badge/Dowload_for-NeoForge-green.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=1)
+[![](https://img.shields.io/badge/Dowload_for-NeoForge-green.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=6)
 [![](https://img.shields.io/badge/Dowload_for-Fabric-yellowgreen.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=4)
 
 ## Links of Interest
