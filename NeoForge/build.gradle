@@ -1,8 +1,6 @@
 plugins {
-    id 'idea'
-    id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.81'
-    id 'java-library'
+    id 'multiloader-loader'
+    id 'net.neoforged.gradle.userdev' version '7.0.133'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
     id 'com.modrinth.minotaur' version '2.+'
@@ -30,52 +28,41 @@ runs {
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+subsystems {
+    parchment {
+        minecraftVersion = "${parchment_mc_version}"
+        mappingsVersion = "${parchment_version}"
+    }
+}
 
 dependencies {
-	implementation "net.neoforged:neoforge:${neoforge_version}"
-    compileOnly project(":Common")
+    implementation "net.neoforged:neoforge:${neoforge_version}"
 
-	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
-	compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
 
-    implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_range}"
-    jarJar (group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_range}") {
-        jarJar.pin(it, "${spectrelib_version}+${minecraft_version}")
-    }
+    implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}+${minecraft_version}"
+    jarJar group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}+${minecraft_version}"
 
-	compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-	implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
+    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+
+    //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    //runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+    //runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
-    //runtimeOnly "curse.maven:architectury-419699:${architectury_forge_version"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
 }
 
-Spec<Task> notNeoTask = { Task it -> !it.name.startsWith("neo") } as Spec<Task>
-
-tasks.withType(JavaCompile).matching(notNeoTask).configureEach {
-    source(project(":Common").sourceSets.main.allSource)
-}
-
-tasks.withType(ProcessResources).matching(notNeoTask).configureEach {
-    from project(":Common").sourceSets.main.resources
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
 }
 
 tasks.jarJar.configure {
     archiveClassifier.set("")
-}
-
-tasks.named("sourcesJar", Jar) {
-    from(project(":Common").sourceSets.main.allSource)
-}
-
-publishing {
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
