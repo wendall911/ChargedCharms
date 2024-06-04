@@ -1,7 +1,7 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/chargedcharms",
   "promos": {
-    "1.20.4-latest": "${version}",
-    "1.20.4-recommended": "${version}"
+    "1.20.6-latest": "${version}",
+    "1.20.6-recommended": "${version}"
   }
 }
