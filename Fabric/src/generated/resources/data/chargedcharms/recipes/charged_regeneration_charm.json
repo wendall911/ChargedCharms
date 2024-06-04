@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableRegenCharm"
+      "config_disabled": "disableRegenCharm"
     }
   ],
   "type": "minecraft:crafting_shaped",
@@ -21,6 +21,7 @@
     "NNN"
   ],
   "result": {
-    "item": "chargedcharms:charged_regeneration_charm"
+    "count": 1,
+    "id": "chargedcharms:charged_regeneration_charm"
   }
 }

@@ -22,6 +22,7 @@ import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.integration.ModIntegration;
+import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.platform.Services;
 
 public class ChargedCharmsFabric implements ModInitializer {
@@ -73,7 +74,8 @@ public class ChargedCharmsFabric implements ModInitializer {
     private void registryInit() {
         ChargedCharmsItems.registerItems(bind(BuiltInRegistries.ITEM));
         ChargedCharmsCrafting.registerRecipeSerializers(bind(BuiltInRegistries.RECIPE_SERIALIZER));
-        ChargedCharmsComponents.init();
+        ChargedCharmsComponents.registerDataComponents();
+        ConfigResourceCondition.register();
     }
 
     private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {

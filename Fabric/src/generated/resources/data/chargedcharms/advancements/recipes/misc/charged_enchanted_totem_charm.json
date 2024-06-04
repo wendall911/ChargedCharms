@@ -8,7 +8,7 @@
     },
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config_disabled": "disableEnchTotemCharm"
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -17,7 +17,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "chargedcharms:enchanted_totems"
+            "items": "#chargedcharms:enchanted_totems"
           }
         ]
       },

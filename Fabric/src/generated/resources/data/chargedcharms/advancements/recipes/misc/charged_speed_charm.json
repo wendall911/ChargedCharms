@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config_disabled": "disableSpeedCharm"
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:sugar"
-            ]
+            "items": "minecraft:sugar"
           }
         ]
       },

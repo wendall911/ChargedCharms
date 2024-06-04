@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config_disabled": "disableSpeedCharm"
     }
   ],
   "type": "chargedcharms:charge_speed_charm",

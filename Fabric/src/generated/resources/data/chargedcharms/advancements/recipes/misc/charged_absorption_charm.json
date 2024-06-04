@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableAbsorptionCharm"
+      "config_disabled": "disableAbsorptionCharm"
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cooked_beef"
-            ]
+            "items": "minecraft:cooked_beef"
           }
         ]
       },

@@ -11,10 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
-import net.minecraft.world.level.block.Block;
 
 public class FabricItemTagProvider extends ItemTagsProvider {
 
@@ -29,8 +29,9 @@ public class FabricItemTagProvider extends ItemTagsProvider {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
         TagBuilder altCharmTagBuilder = this.getOrCreateRawBuilder(altCharm);
 
-        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.init();
 
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(altCharmTagBuilder, loc));
     }
 

@@ -8,7 +8,7 @@
     },
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableEnchTotemCharm"
+      "config_disabled": "disableEnchTotemCharm"
     }
   ],
   "type": "chargedcharms:charge_enchanted_totem_charm",

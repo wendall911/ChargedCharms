@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config_disabled": "disableSpeedCharm"
     }
   ],
   "type": "minecraft:crafting_shaped",
@@ -24,6 +24,7 @@
     "NNN"
   ],
   "result": {
-    "item": "chargedcharms:charged_speed_charm"
+    "count": 1,
+    "id": "chargedcharms:charged_speed_charm"
   }
 }

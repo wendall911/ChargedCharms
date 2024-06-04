@@ -15,6 +15,7 @@ public class TagManager {
         public static final TagKey<Item> CHARM_FOODS_BLACKLIST = itemTag(prefix("charm_foods_blacklist"));
         public static final TagKey<Item> ENCHANTED_TOTEMS = itemTag(prefix("enchanted_totems"));
         public static final TagKey<Item> CURIOS = itemTag(new ResourceLocation("curios", "charged_charm"));
+        public static final TagKey<Item> CURIOS_ALT = itemTag(new ResourceLocation("curios", "charged_charm_alt"));
 
         private static TagKey<Item> itemTag (ResourceLocation loc) {
             return TagKey.create(Registries.ITEM, loc);

@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableTotemCharm"
+      "config_disabled": "disableTotemCharm"
     }
   ],
   "parent": "minecraft:recipes/root",
@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:totem_of_undying"
-            ]
+            "items": "minecraft:totem_of_undying"
           }
         ]
       },

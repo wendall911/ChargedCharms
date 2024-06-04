@@ -96,6 +96,7 @@ sourcesJar {
 }
 
 jar {
+    archiveClassifier.set("slim")
     from(rootProject.file("LICENSE"))
     from(rootProject.file("COPYING"))
     from(rootProject.file("COPYING.LESSER"))

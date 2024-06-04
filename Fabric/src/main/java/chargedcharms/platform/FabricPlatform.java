@@ -1,8 +1,11 @@
 package chargedcharms.platform;
 
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
+import chargedcharms.ChargedCharms;
+import chargedcharms.common.component.ChargedCharmsComponents;
 import com.google.common.collect.Sets;
 
 import dev.emi.trinkets.api.TrinketsApi;
@@ -52,11 +55,11 @@ public class FabricPlatform implements IPlatform {
     }
 
     @Override
-    public <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
-        return (DataComponentType) Registry.register(
+    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+        Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,
             name,
-            builder.apply(DataComponentType.builder()).build()
+            component
         );
     }
 

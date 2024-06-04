@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableAbsorptionCharm"
+      "config_disabled": "disableAbsorptionCharm"
     }
   ],
   "type": "chargedcharms:recharge_absorption_charm",

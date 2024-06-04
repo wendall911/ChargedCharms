@@ -2,8 +2,6 @@ package chargedcharms.data.recipe;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.gson.JsonObject;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,7 +12,6 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 
 import chargedcharms.config.ConfigHandler;
 
@@ -24,11 +21,11 @@ public record ConfigResourceCondition(String configValue) implements ResourceCon
 
     private static final ResourceLocation ID = prefix("config_disabled");
     public static final MapCodec<ConfigResourceCondition> CODEC = RecordCodecBuilder.mapCodec(b -> b.group(
-        Codec.STRING.fieldOf("config").forGetter(ConfigResourceCondition::configValue)
+        Codec.STRING.fieldOf("config_disabled").forGetter(ConfigResourceCondition::configValue)
     ).apply(b, ConfigResourceCondition::new));
     private static final ResourceConditionType<ConfigResourceCondition> TYPE = ResourceConditionType.create(ID, CODEC);
 
-    public static void init() {
+    public static void register() {
         ResourceConditions.register(TYPE);
     }
 

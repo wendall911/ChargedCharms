@@ -2,7 +2,7 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config": "disableRegenCharm"
+      "config_disabled": "disableRegenCharm"
     }
   ],
   "type": "chargedcharms:recharge_regeneration_charm",

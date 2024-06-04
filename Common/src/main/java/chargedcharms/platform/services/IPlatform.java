@@ -1,7 +1,6 @@
 package chargedcharms.platform.services;
 
 import java.util.Set;
-import java.util.function.UnaryOperator;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +18,6 @@ public interface IPlatform {
 
     boolean isPhysicalClient();
 
-    <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder);
+    <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component);
 
 }

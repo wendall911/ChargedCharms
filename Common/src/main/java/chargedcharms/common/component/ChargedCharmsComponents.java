@@ -1,23 +1,24 @@
 package chargedcharms.common.component;
 
-import java.util.function.UnaryOperator;
+import chargedcharms.platform.Services;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 
-import chargedcharms.platform.Services;
+import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class ChargedCharmsComponents {
 
-    public static void init() {}
+    public static void registerDataComponents() {
+        register(prefix("solar_radiation"), SOLAR_RADIATION);
+    }
 
-    public static final DataComponentType<Integer> SOLAR_RADIATION = register("solar_radiation", (builder) -> {
-        return builder.persistent(ExtraCodecs.intRange(0, 20000)).networkSynchronized(ByteBufCodecs.VAR_INT);
-    });
+    public static final DataComponentType<Integer> SOLAR_RADIATION = DataComponentType.<Integer>builder().persistent(ExtraCodecs.intRange(0, 20000)).networkSynchronized(ByteBufCodecs.VAR_INT).build();
 
-    private static <T> DataComponentType<T> register(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
-        return Services.PLATFORM.registerDataComponent(name, builder);
+    private static <T> void register(ResourceLocation name, DataComponentType<T> component) {
+        Services.PLATFORM.registerDataComponent(name, component);
     }
 
 }

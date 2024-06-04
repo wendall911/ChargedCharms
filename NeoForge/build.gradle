@@ -49,8 +49,9 @@ dependencies {
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
-    runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
-    runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
+    //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    //runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
+    //runtimeOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
@@ -58,6 +59,10 @@ dependencies {
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
+}
+
+tasks.jarJar.configure {
+    archiveClassifier.set("")
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {

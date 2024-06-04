@@ -11,9 +11,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:cooked_beef"
-            ]
+            "items": "minecraft:cooked_beef"
           }
         ]
       },

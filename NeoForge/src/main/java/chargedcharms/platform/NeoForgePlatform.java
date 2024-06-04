@@ -1,7 +1,6 @@
 package chargedcharms.platform;
 
 import java.util.Set;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Sets;
@@ -23,7 +22,6 @@ import top.theillusivec4.curios.api.SlotResult;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.platform.services.IPlatform;
 import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
-
 
 public class NeoForgePlatform implements IPlatform {
 
@@ -50,10 +48,10 @@ public class NeoForgePlatform implements IPlatform {
     }
 
     @Override
-    public <T> DataComponentType<T> registerDataComponent(String name, UnaryOperator<DataComponentType.Builder<T>> builder) {
-        return (DataComponentType) ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
-            name,
-            () -> builder.apply(DataComponentType.builder()).build()
+    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+        ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
+            name.getPath(),
+            () -> component
         );
     }
 

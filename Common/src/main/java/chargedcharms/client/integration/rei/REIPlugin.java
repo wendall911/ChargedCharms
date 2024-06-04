@@ -31,7 +31,7 @@ public class REIPlugin implements REIClientPlugin {
         recipes.forEach(recipe -> {
             List<EntryIngredient> input = new ArrayList<>();
 
-            Services.CLIENT_PLATFORM.addCustomDisplay(helper, input, recipe, registryAccess);
+            Services.REI_HELPER.addCustomDisplay(helper, input, recipe, registryAccess);
         });
     }
 
@@ -41,7 +41,7 @@ public class REIPlugin implements REIClientPlugin {
     }
 
     private boolean shouldHideEntry(EntryStack<?> entryStack) {
-        if (!Services.CLIENT_PLATFORM.isVanillaItemType(entryStack)) return false;
+        if (!Services.REI_HELPER.isVanillaItemType(entryStack)) return false;
 
         ItemStack stack = entryStack.castValue();
 
