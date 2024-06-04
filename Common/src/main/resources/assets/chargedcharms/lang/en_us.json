@@ -9,5 +9,6 @@
   "trinkets.slot.charged_charm.charm": "Charged Charm",
   "trinkets.slot.charged_charm.alt_charm": "Charged Charm",
   "curios.identifier.charged_charm": "Charged Charm",
+  "curios.identifier.charged_charm_alt": "Charged Charm",
   "tooltip.charged_charm.charges": "Charges"
 }
