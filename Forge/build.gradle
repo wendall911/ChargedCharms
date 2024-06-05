@@ -160,7 +160,6 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         mainFile.changelog = file(changelogFile)
         mainFile.addJavaVersion('Java 17')
         mainFile.addModLoader('Forge')
-        mainFile.addModLoader('NeoForge')
         mainFile.releaseType = "${release_type}"
         "${release_versions}".split(',').each {
             mainFile.addGameVersion("${it}")
@@ -183,7 +182,7 @@ modrinth {
         }
         uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
         gameVersions = "${release_versions}".split(",") as List<String>
-        loaders = ['neoforge', 'forge']
+        loaders = ['forge']
         dependencies {
             required.project "curios"
             optional.project "biome-makeover"
