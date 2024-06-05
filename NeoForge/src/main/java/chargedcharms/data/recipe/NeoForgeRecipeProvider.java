@@ -20,13 +20,8 @@ import chargedcharms.data.integration.ModIntegration;
 
 public class NeoForgeRecipeProvider extends RecipeProvider {
 
-    protected final PackOutput.PathProvider recipePathProvider;
-    protected final PackOutput.PathProvider advancementPathProvider;
-
     public NeoForgeRecipeProvider(@NotNull final PackOutput packOutput) {
         super(packOutput);
-        this.recipePathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "recipes");
-        this.advancementPathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "advancements");
     }
 
     @Override
