@@ -6,23 +6,26 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "A": {
-          "item": "minecraft:cooked_beef"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "A": {
+            "item": "minecraft:cooked_beef"
+          },
+          "N": {
+            "item": "minecraft:iron_nugget"
+          }
         },
-        "N": {
-          "item": "minecraft:iron_nugget"
+        "pattern": [
+          "NNN",
+          "NAN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_absorption_charm"
         }
-      },
-      "pattern": [
-        "NNN",
-        "NAN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_absorption_charm"
       }
     }
   ]

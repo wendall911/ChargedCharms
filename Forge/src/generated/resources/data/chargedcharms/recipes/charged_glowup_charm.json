@@ -6,23 +6,26 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "G": {
-          "item": "minecraft:glow_berries"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "G": {
+            "item": "minecraft:glow_berries"
+          },
+          "N": {
+            "item": "minecraft:gold_nugget"
+          }
         },
-        "N": {
-          "item": "minecraft:gold_nugget"
+        "pattern": [
+          "NNN",
+          "NGN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_glowup_charm"
         }
-      },
-      "pattern": [
-        "NNN",
-        "NGN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_glowup_charm"
       }
     }
   ]

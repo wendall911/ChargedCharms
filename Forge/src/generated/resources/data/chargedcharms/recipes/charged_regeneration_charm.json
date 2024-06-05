@@ -6,23 +6,26 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "N": {
-          "item": "minecraft:iron_nugget"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "N": {
+            "item": "minecraft:iron_nugget"
+          },
+          "S": {
+            "item": "minecraft:apple"
+          }
         },
-        "S": {
-          "item": "minecraft:apple"
+        "pattern": [
+          "NNN",
+          "NSN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_regeneration_charm"
         }
-      },
-      "pattern": [
-        "NNN",
-        "NSN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_regeneration_charm"
       }
     }
   ]

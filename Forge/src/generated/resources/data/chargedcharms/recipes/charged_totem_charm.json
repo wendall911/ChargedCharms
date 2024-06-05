@@ -6,23 +6,26 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "N": {
-          "item": "minecraft:iron_nugget"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "N": {
+            "item": "minecraft:iron_nugget"
+          },
+          "U": {
+            "item": "minecraft:totem_of_undying"
+          }
         },
-        "U": {
-          "item": "minecraft:totem_of_undying"
+        "pattern": [
+          "NNN",
+          "NUN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_totem_charm"
         }
-      },
-      "pattern": [
-        "NNN",
-        "NUN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_totem_charm"
       }
     }
   ]

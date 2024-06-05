@@ -7,7 +7,7 @@
           "conditions": {
             "items": [
               {
-                "tag": "chargedcharms:enchanted_totems"
+                "items": "#chargedcharms:enchanted_totems"
               }
             ]
           },

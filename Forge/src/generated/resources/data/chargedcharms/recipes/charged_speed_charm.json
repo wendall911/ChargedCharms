@@ -6,26 +6,29 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "B": {
-          "item": "minecraft:leather_boots"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "B": {
+            "item": "minecraft:leather_boots"
+          },
+          "N": {
+            "item": "minecraft:iron_nugget"
+          },
+          "S": {
+            "item": "minecraft:sugar"
+          }
         },
-        "N": {
-          "item": "minecraft:iron_nugget"
-        },
-        "S": {
-          "item": "minecraft:sugar"
+        "pattern": [
+          "NSN",
+          "NBN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_speed_charm"
         }
-      },
-      "pattern": [
-        "NSN",
-        "NBN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_speed_charm"
       }
     }
   ]

@@ -6,23 +6,30 @@
   },
   "recipes": [
     {
-      "type": "minecraft:crafting_shaped",
-      "category": "misc",
-      "key": {
-        "N": {
-          "item": "minecraft:iron_nugget"
-        },
-        "S": {
-          "tag": "chargedcharms:enchanted_totems"
-        }
+      "forge:condition": {
+        "type": "chargedcharms:config_disabled",
+        "config_disabled": "disableEnchTotemCharm"
       },
-      "pattern": [
-        "NNN",
-        "NSN",
-        "NNN"
-      ],
-      "result": {
-        "item": "chargedcharms:charged_enchanted_totem_charm"
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "N": {
+            "item": "minecraft:iron_nugget"
+          },
+          "S": {
+            "tag": "chargedcharms:enchanted_totems"
+          }
+        },
+        "pattern": [
+          "NNN",
+          "NSN",
+          "NNN"
+        ],
+        "result": {
+          "count": 1,
+          "id": "chargedcharms:charged_enchanted_totem_charm"
+        }
       }
     }
   ]
