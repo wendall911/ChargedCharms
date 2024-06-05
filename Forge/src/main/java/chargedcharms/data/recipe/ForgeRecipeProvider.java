@@ -1,5 +1,6 @@
 package chargedcharms.data.recipe;
 
+import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.data.recipes.RecipeProvider;
@@ -17,12 +18,14 @@ import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.integration.ModIntegration;
 
+import java.util.concurrent.CompletableFuture;
+
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class ForgeRecipeProvider extends RecipeProvider {
 
-    public ForgeRecipeProvider(@NotNull final PackOutput packOutput) {
-        super(packOutput);
+    public ForgeRecipeProvider(@NotNull final PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider);
     }
 
     @Override

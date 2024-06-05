@@ -16,7 +16,7 @@ public class ForgeDatagenInitializer {
     public static void configureForgeDatagen(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
 
-        gen.addProvider(event.includeServer(), new ForgeRecipeProvider(gen.getPackOutput()));
+        gen.addProvider(event.includeServer(), new ForgeRecipeProvider(gen.getPackOutput(), event.getLookupProvider()));
     }
 
 }

@@ -3,8 +3,10 @@ package chargedcharms.platform;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import chargedcharms.registries.ChargedCharmsForgeRegistries;
 import com.google.common.collect.Sets;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -40,15 +42,17 @@ public class ForgePlatform implements IPlatform {
         return ModList.get().isLoaded(name);
     }
 
-    // TODO add to creative tabs
-    @Override
-    public Item.Properties getProps() {
-        return new Item.Properties();
-    }
-
     @Override
     public boolean isPhysicalClient() {
         return FMLLoader.getDist() == Dist.CLIENT;
+    }
+
+    @Override
+    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+        ChargedCharmsForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
+            name.getPath(),
+            () -> component
+        );
     }
 
 }
