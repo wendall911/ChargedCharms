@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "forge:condition": {
+    "type": "chargedcharms:config_disabled",
+    "config_disabled": "disableRegenCharm"
+  },
+  "recipes": [
+    {
+      "type": "minecraft:crafting_shaped",
+      "category": "misc",
+      "key": {
+        "N": {
+          "item": "minecraft:iron_nugget"
+        },
+        "S": {
+          "item": "minecraft:apple"
+        }
+      },
+      "pattern": [
+        "NNN",
+        "NSN",
+        "NNN"
+      ],
+      "result": {
+        "item": "chargedcharms:charged_regeneration_charm"
+      }
+    }
+  ]
+}

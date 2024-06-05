@@ -74,7 +74,6 @@ public class ChargedCharmsNeoForge {
         for (Item item : BuiltInRegistries.ITEM) {
 
             if (CharmEffectProviders.IS_CHARM.test(item)) {
-                ChargedCharms.LOGGER.warn("registering " + Services.PLATFORM.getResourceLocation(item).toString());
                 evt.registerItem(CuriosCapability.ITEM, (stack, ctx) -> new ICurio() {
                     @Override
                     public ItemStack getStack() {
