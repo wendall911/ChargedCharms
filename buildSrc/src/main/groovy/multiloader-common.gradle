@@ -93,7 +93,7 @@ sourcesJar {
     from(rootProject.file("COPYING"))
     from(rootProject.file("COPYING.LESSER"))
     from(rootProject.file("README.md"))
-    from(rootProject.file('files/changelog.txt'))
+    from(rootProject.file('build/libs/changelog.txt'))
 }
 
 jar {
@@ -102,7 +102,7 @@ jar {
     from(rootProject.file("COPYING"))
     from(rootProject.file("COPYING.LESSER"))
     from(rootProject.file("README.md"))
-    from(rootProject.file('files/changelog.txt'))
+    from(rootProject.file('build/libs/changelog.txt'))
     manifest {
         attributes([
             'Specification-Title'     : mod_name,
