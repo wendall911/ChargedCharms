@@ -1,0 +1,8 @@
+{
+  "icon": "chargedcharms:slot/empty_charged_charm_slot",
+  "order": 200,
+  "size": 2,
+  "validators": [
+    "curios:tag"
+  ]
+}
