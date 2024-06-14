@@ -25,14 +25,11 @@ public class FabricItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         TagKey<Item> charms = trinket("charged_charm/charm");
-        TagKey<Item> altCharm = trinket("charged_charm/alt_charm");
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
-        TagBuilder altCharmTagBuilder = this.getOrCreateRawBuilder(altCharm);
 
         CharmEffectProviders.init();
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
-        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(altCharmTagBuilder, loc));
     }
 
     private static ResourceLocation loc(String namespace, String path) {
