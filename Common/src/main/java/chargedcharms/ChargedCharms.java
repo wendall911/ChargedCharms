@@ -17,12 +17,15 @@ public class ChargedCharms {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static void init() {
+        CharmEffectProviders.init();
+    }
+
+    public static void initConfig() {
+        SpectreConfig commonConfig = SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
         if (Services.PLATFORM.isPhysicalClient()) {
             SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
         }
-        SpectreConfig commonConfig = SpectreConfigLoader.add(SpectreConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
         commonConfig.addLoadListener((config, flag) -> ConfigHandler.init());
-        CharmEffectProviders.init();
     }
 
 }

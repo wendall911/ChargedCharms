@@ -1,9 +1,9 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13,6.2)'
+    id 'net.minecraftforge.gradle'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
     id 'com.modrinth.minotaur' version '2.+'
@@ -81,7 +81,7 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    minecraft "net.neoforged:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
@@ -126,8 +126,7 @@ processResources {
 }
 
 tasks.jarJar.finalizedBy('reobfJar')
-reobfJarJar.dependsOn('jar')
-jar.finalizedBy('reobfJar')
+jar.finalizedBy('reobfJarJar')
 
 reobf {
     jarJar {}
