@@ -8,7 +8,7 @@ public class FabricConfigInitializer implements SpectreLibInitializer {
 
     @Override
     public void onInitializeConfig() {
-        ChargedCharms.init();
+        ChargedCharms.initConfig();
         ConfigResourceCondition.init();
     }
 

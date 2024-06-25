@@ -67,6 +67,8 @@ public class ChargedCharmsFabric implements ModInitializer {
                 }
             }
         });
+
+        ChargedCharms.init();
     }
 
     private void registryInit() {
