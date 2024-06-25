@@ -1,0 +1,12 @@
+{
+  "itemGroup.chargedcharms": "Заряженные шармы",
+  "item.chargedcharms.charged_regeneration_charm": "Заряженный шарм регенерации",
+  "item.chargedcharms.charged_absorption_charm": "Заряженный шарм поглощения",
+  "item.chargedcharms.charged_glowup_charm": "Заряженный шарм свечения",
+  "item.chargedcharms.charged_totem_charm": "Заряженный тотемный шарм",
+  "item.chargedcharms.charged_enchanted_totem_charm": "Заряженный зачарованный тотемный шарм",
+  "item.chargedcharms.charged_speed_charm": "Заряженный шарм скорости",
+  "trinkets.slot.charged_charm.charm": "Заряженный шарм",
+  "curios.identifier.charged_charm": "Заряженный шарм",
+  "tooltip.charged_charm.charges": "Зарядов"
+}
