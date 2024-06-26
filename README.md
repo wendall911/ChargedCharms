@@ -1,6 +1,5 @@
 # Charged Charms [![](http://cf.way2muchnoise.eu/full_682683_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/charged-charms)
 [![](http://cf.way2muchnoise.eu/versions/682683.svg)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files)
-[![](https://img.shields.io/badge/Forge-38.0.1-47.x+-green.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=1)
 [![](https://img.shields.io/badge/NeoForge-20.4+-orange.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=6)
 [![](https://img.shields.io/badge/Fabric-0.46.0+-yellowgreen.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/charged-charms/files?gameVersionTypeId=4)
 [![](https://img.shields.io/badge/license-LGPL_v3-blue.svg?longCache=true&style=flat)](https://www.gnu.org/licenses/lgpl-3.0)
