@@ -1,5 +1,5 @@
-// 1.20.6	2024-06-13T17:48:43.001534652	Charged Charms/Tags for minecraft:item
-64f15ab8f2a6718fe768fe70b5d4afec6558e2f6 data/chargedcharms/tags/items/charged_charms.json
-84d42688f4933f35180a119ba88fdd41f86c768b data/chargedcharms/tags/items/enchanted_totems.json
-64f15ab8f2a6718fe768fe70b5d4afec6558e2f6 data/curios/tags/items/charged_charm.json
-e35b2ef12a4b119648f43e3f68b4c262d354b042 data/chargedcharms/tags/items/charm_foods_blacklist.json
+// 1.21	2024-06-27T09:50:28.510557641	Charged Charms/Tags for minecraft:item
+64f15ab8f2a6718fe768fe70b5d4afec6558e2f6 data/curios/tags/item/charged_charm.json
+84d42688f4933f35180a119ba88fdd41f86c768b data/chargedcharms/tags/item/enchanted_totems.json
+64f15ab8f2a6718fe768fe70b5d4afec6558e2f6 data/chargedcharms/tags/item/charged_charms.json
+e35b2ef12a4b119648f43e3f68b4c262d354b042 data/chargedcharms/tags/item/charm_foods_blacklist.json

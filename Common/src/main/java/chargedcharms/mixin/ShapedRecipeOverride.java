@@ -17,6 +17,7 @@ import chargedcharms.common.item.ChargedCharmsItems;
 @Mixin(ShapedRecipe.class)
 public abstract class ShapedRecipeOverride {
 
+
     @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
     private void checkAssemble(CraftingInput craftingInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack resultCopy = cir.getReturnValue();
@@ -34,7 +35,7 @@ public abstract class ShapedRecipeOverride {
     }
 
     @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
-    private void CheckRecipeAssemble(RecipeInput recipeInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
+    private void checkRecipeAssemble(RecipeInput recipeInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack resultCopy = cir.getReturnValue();
 
         if (resultCopy.is(ChargedCharmsItems.glowupCharm)) {
