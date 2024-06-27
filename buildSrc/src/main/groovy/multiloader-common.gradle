@@ -2,6 +2,8 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
+    id 'net.darkhax.curseforgegradle'
+    id 'com.modrinth.minotaur'
 }
 
 base {
@@ -133,7 +135,7 @@ processResources {
         'curios_version_range': curios_version_range,
         'mod_update_branch': mod_update_branch,
         'mod_url': mod_url,
-        'fabric_mc_version_range': project.fabric_mc_version_range,
+        'minecraft_version': minecraft_version,
         'fabric_loader_min_version': fabric_loader_min_version,
         'neoforge_loader_version_range': neoforge_loader_version_range,
         'neoforge_mc_version_range': neoforge_mc_version_range

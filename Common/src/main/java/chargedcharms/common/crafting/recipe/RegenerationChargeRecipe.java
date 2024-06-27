@@ -1,19 +1,17 @@
 package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
-import java.util.Objects;
 
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
@@ -34,14 +32,14 @@ public class RegenerationChargeRecipe extends ChargeRecipeBase {
     }
 
     @Override
-    public Pair<ItemStack, ItemStack> checkContainer(CraftingContainer craftingContainer) {
+    public Pair<ItemStack, ItemStack> checkContainer(CraftingInput craftingInput) {
         List<ItemStack> foods = Lists.newArrayList();
         List<ItemStack> charms = Lists.newArrayList();
         ItemStack food = null;
         ItemStack charm = null;
 
-        for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
-            ItemStack ingredient = craftingContainer.getItem(i);
+        for (int i = 0; i < craftingInput.size(); i++) {
+            ItemStack ingredient = craftingInput.getItem(i);
             ItemStack stack = new ItemStack(ingredient.getItem());
             FoodProperties foodProperties = stack.get(DataComponents.FOOD);
 

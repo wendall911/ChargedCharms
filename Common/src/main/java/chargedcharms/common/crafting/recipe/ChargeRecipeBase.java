@@ -3,10 +3,9 @@ package chargedcharms.common.crafting.recipe;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -18,8 +17,8 @@ public class ChargeRecipeBase extends CustomRecipe {
     }
 
     @Override
-    public boolean matches(CraftingContainer craftingContainer, Level level) {
-        Pair<ItemStack, ItemStack> check = checkContainer(craftingContainer);
+    public boolean matches(CraftingInput craftingInput, Level level) {
+        Pair<ItemStack, ItemStack> check = checkContainer(craftingInput);
         boolean hasCharm = check.getFirst() != null;
         boolean hasChargeItem = check.getSecond() != null;
 
@@ -27,8 +26,8 @@ public class ChargeRecipeBase extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer craftingContainer, HolderLookup.Provider provider) {
-        Pair<ItemStack, ItemStack> check = checkContainer(craftingContainer);
+    public ItemStack assemble(CraftingInput craftingInput, HolderLookup.Provider provider) {
+        Pair<ItemStack, ItemStack> check = checkContainer(craftingInput);
         ItemStack charmCopy = check.getFirst().copy();
 
         charmCopy.setDamageValue(charmCopy.getDamageValue() - 1);
@@ -46,7 +45,7 @@ public class ChargeRecipeBase extends CustomRecipe {
         return null;
     }
 
-    public Pair<ItemStack, ItemStack> checkContainer(CraftingContainer craftingContainer) {
+    public Pair<ItemStack, ItemStack> checkContainer(CraftingInput craftingInput) {
         return Pair.of(null, null);
     }
 

@@ -8,7 +8,7 @@ public final class ModIntegration {
 
     public static final class Items {
 
-        public static final ResourceLocation BMO_ENCHANTED_TOTEM = new ResourceLocation(BMO_MODID, "enchanted_totem");
+        public static final ResourceLocation BMO_ENCHANTED_TOTEM = ResourceLocation.fromNamespaceAndPath(BMO_MODID, "enchanted_totem");
 
     }
 

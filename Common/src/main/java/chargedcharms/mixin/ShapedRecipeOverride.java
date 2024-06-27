@@ -1,8 +1,9 @@
 package chargedcharms.mixin;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,8 +17,24 @@ import chargedcharms.common.item.ChargedCharmsItems;
 @Mixin(ShapedRecipe.class)
 public abstract class ShapedRecipeOverride {
 
-    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/Container;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
-    private void checkAssemble(Container container, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
+    private void checkAssemble(CraftingInput craftingInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
+        ItemStack resultCopy = cir.getReturnValue();
+
+        if (resultCopy.is(ChargedCharmsItems.glowupCharm)) {
+            resultCopy.setDamageValue(resultCopy.getMaxDamage());
+
+            cir.setReturnValue(resultCopy);
+        }
+        else if (resultCopy.getItem() instanceof ChargedCharmBase) {
+            resultCopy.setDamageValue(resultCopy.getMaxDamage() - 1);
+
+            cir.setReturnValue(resultCopy);
+        }
+    }
+
+    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
+    private void CheckRecipeAssemble(RecipeInput recipeInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack resultCopy = cir.getReturnValue();
 
         if (resultCopy.is(ChargedCharmsItems.glowupCharm)) {

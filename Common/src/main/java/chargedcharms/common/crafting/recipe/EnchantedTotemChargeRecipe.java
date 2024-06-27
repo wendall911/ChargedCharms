@@ -9,6 +9,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
@@ -29,14 +30,14 @@ public class EnchantedTotemChargeRecipe extends ChargeRecipeBase {
     }
 
     @Override
-    public Pair<ItemStack, ItemStack> checkContainer(CraftingContainer craftingContainer) {
+    public Pair<ItemStack, ItemStack> checkContainer(CraftingInput craftingInput) {
         List<ItemStack> totems = Lists.newArrayList();
         List<ItemStack> charms = Lists.newArrayList();
         ItemStack totem = null;
         ItemStack charm = null;
 
-        for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
-            ItemStack ingredient = craftingContainer.getItem(i);
+        for (int i = 0; i < craftingInput.size(); i++) {
+            ItemStack ingredient = craftingInput.getItem(i);
 
             if (ingredient.getItem().equals(ChargedCharmsItems.enchantedTotemCharm)) {
                 charms.add(ingredient);

@@ -33,7 +33,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
     }
 
     private static ResourceLocation loc(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
+        return ResourceLocation.fromNamespaceAndPath(namespace, path);
     }
 
     private static TagKey<Item> trinket(String name) {

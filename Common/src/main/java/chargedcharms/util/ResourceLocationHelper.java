@@ -7,7 +7,7 @@ import chargedcharms.ChargedCharms;
 public class ResourceLocationHelper {
 
     public static ResourceLocation prefix(String path) {
-        return new ResourceLocation(ChargedCharms.MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(ChargedCharms.MODID, path);
     }
 
 }

@@ -1,11 +1,7 @@
 package chargedcharms.platform;
 
 import java.util.Set;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 
-import chargedcharms.ChargedCharms;
-import chargedcharms.common.component.ChargedCharmsComponents;
 import com.google.common.collect.Sets;
 
 import dev.emi.trinkets.api.TrinketsApi;
