@@ -2,7 +2,6 @@ package chargedcharms.data;
 
 import java.util.concurrent.CompletableFuture;
 
-import chargedcharms.common.TagManager;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.HolderLookup;
@@ -20,7 +19,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.common.CharmEffectProviders;
-import chargedcharms.common.DataHelper;
+import chargedcharms.common.TagManager;
 
 public class NeoForgeItemTagProvider extends ItemTagsProvider {
 
@@ -42,7 +41,7 @@ public class NeoForgeItemTagProvider extends ItemTagsProvider {
     }
 
     private static ResourceLocation loc(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
+        return ResourceLocation.fromNamespaceAndPath(namespace, path);
     }
 
     private static TagKey<Item> getTagKey(ResourceLocation loc) {

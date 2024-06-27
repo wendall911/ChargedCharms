@@ -1,18 +1,19 @@
 package chargedcharms.data.integration;
 
-import chargedcharms.ChargedCharms;
+import java.util.concurrent.CompletableFuture;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import top.theillusivec4.curios.api.CuriosDataProvider;
 
-import java.util.concurrent.CompletableFuture;
+import chargedcharms.ChargedCharms;
 
 public class ChargedCharmsCuriosProvider extends CuriosDataProvider {
 
-    public static final ResourceLocation CHARM_VALIDATOR = new ResourceLocation("curios", "tag");
-    public static final ResourceLocation CHARGED_CHARM_SLOT_ICON = new ResourceLocation(ChargedCharms.MODID, "slot/empty_charged_charm_slot");
+    public static final ResourceLocation CHARM_VALIDATOR = ResourceLocation.fromNamespaceAndPath("curios", "tag");
+    public static final ResourceLocation CHARGED_CHARM_SLOT_ICON = ResourceLocation.fromNamespaceAndPath(ChargedCharms.MODID, "slot/empty_charged_charm_slot");
 
     public ChargedCharmsCuriosProvider(PackOutput packOutput, ExistingFileHelper fileHelper, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(ChargedCharms.MODID, packOutput, fileHelper, lookupProvider);
