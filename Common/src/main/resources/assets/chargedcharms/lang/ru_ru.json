@@ -7,6 +7,8 @@
   "item.chargedcharms.charged_enchanted_totem_charm": "Заряженный зачарованный тотемный шарм",
   "item.chargedcharms.charged_speed_charm": "Заряженный шарм скорости",
   "trinkets.slot.charged_charm.charm": "Заряженный шарм",
+  "trinkets.slot.charged_charm.alt_charm": "Заряженный шарм",
   "curios.identifier.charged_charm": "Заряженный шарм",
+  "curios.identifier.charged_charm_alt": "Заряженный шарм",
   "tooltip.charged_charm.charges": "Зарядов"
 }
