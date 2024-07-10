@@ -4,6 +4,7 @@ plugins {
     id 'idea'
     id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
+    id 'com.github.ben-manes.versions'
 }
 
 base {

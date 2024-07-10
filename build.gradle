@@ -7,4 +7,5 @@ plugins {
     id 'com.modrinth.minotaur' version '2.+' apply false
     id 'io.github.goooler.shadow' version '8.1.7' apply false
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8' apply false
+    id 'com.github.ben-manes.versions' version '0.51.0' apply false
 }
