@@ -81,6 +81,12 @@ repositories {
         url 'https://maven.shedaniel.me/' // for rei
     }
 
+    maven {
+        // Temporary (or permanent?) use of Curios fork for 1.21
+        // Not sure what C4 is planning
+        url 'https://maven.octo-studios.com/releases'
+    }
+
     if (project.hasProperty('localmaven')) {
         maven {
             url 'file://' + localmaven
