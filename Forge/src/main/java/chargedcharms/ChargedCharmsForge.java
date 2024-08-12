@@ -22,6 +22,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -43,6 +44,7 @@ import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.platform.Services;
@@ -63,6 +65,7 @@ public class ChargedCharmsForge {
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
         eventBus.addListener(this::buildCreativeTabContents);
+        ChargedCharms.initConfig();
     }
 
     private void setup(final FMLCommonSetupEvent evt) {
@@ -131,6 +134,10 @@ public class ChargedCharmsForge {
         };
 
         evt.addCapability(CuriosCapability.ID_ITEM, provider);
+    }
+
+    private void init(ServerStartingEvent event) {
+        ConfigHandler.init();
     }
 
     private void registryInit() {
