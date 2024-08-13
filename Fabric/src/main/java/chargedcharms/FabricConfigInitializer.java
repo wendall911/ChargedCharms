@@ -1,5 +1,6 @@
 package chargedcharms;
 
+import chargedcharms.config.ConfigHandler;
 import com.illusivesoulworks.spectrelib.config.SpectreLibInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -10,8 +11,10 @@ public class FabricConfigInitializer implements SpectreLibInitializer {
 
     @Override
     public void onInitializeConfig() {
+        ChargedCharms.initConfig();
+
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
-            ChargedCharms.initConfig();
+            ConfigHandler.init();
         });
 
         ConfigResourceCondition.init();

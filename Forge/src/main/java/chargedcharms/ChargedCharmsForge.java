@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -24,6 +24,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -52,6 +53,7 @@ import chargedcharms.platform.Services;
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 @Mod(ChargedCharms.MODID)
+@Mod.EventBusSubscriber(modid = ChargedCharms.MODID)
 public class ChargedCharmsForge {
 
     public static final ResourceLocation EMPTY_CHARGED_CHARM_SLOT = prefix("item/empty_charged_charm_slot");
@@ -125,9 +127,9 @@ public class ChargedCharmsForge {
         ICapabilityProvider provider = new ICapabilityProvider() {
             private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
 
-            @Nonnull
+            @NotNull
             @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap,
+            public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap,
                     @Nullable Direction side) {
                 return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
             }
@@ -136,7 +138,8 @@ public class ChargedCharmsForge {
         evt.addCapability(CuriosCapability.ID_ITEM, provider);
     }
 
-    private void init(ServerStartingEvent event) {
+    @SubscribeEvent
+    public static void initConfig(final ServerStartingEvent event) {
         ConfigHandler.init();
     }
 
