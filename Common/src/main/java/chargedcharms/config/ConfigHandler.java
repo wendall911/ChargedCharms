@@ -15,6 +15,7 @@ public class ConfigHandler {
 
     private static final Client CLIENT;
     private static final Common COMMON;
+    private static boolean loaded = false;
 
     static {
         final Pair<Client, SpectreConfigSpec> specPairClient = new SpectreConfigSpec.Builder().configure(Client::new);
@@ -24,7 +25,6 @@ public class ConfigHandler {
         CLIENT = specPairClient.getLeft();
         COMMON_SPEC = specPairCommon.getRight();
         COMMON = specPairCommon.getLeft();
-
     }
 
     public static void init() {
@@ -35,6 +35,8 @@ public class ConfigHandler {
         conditionsMap.put("disableTotemCharm", Common.disableTotemCharm());
         conditionsMap.put("disableEnchTotemCharm", Common.disableEnchTotemCharm());
         conditionsMap.put("disableSpeedCharm", Common.disableSpeedCharm());
+
+        loaded = true;
     }
 
     public static class Client {
@@ -130,27 +132,51 @@ public class ConfigHandler {
         }
 
         public static boolean disableRegenCharm() {
-            return COMMON.disableRegenCharm.get();
+            if (loaded) {
+                return COMMON.disableRegenCharm.get();
+            }
+            
+            return false;
         }
 
         public static boolean disableAbsorptionCharm() {
-            return COMMON.disableAbsorptionCharm.get();
+            if (loaded) {
+                return COMMON.disableAbsorptionCharm.get();
+            }
+
+            return false;
         }
 
         public static boolean disableGlowupCharm() {
-            return COMMON.disableGlowupCharm.get();
+            if (loaded) {
+                return COMMON.disableGlowupCharm.get();
+            }
+
+            return false;
         }
 
         public static boolean disableTotemCharm() {
-            return COMMON.disableTotemCharm.get();
+            if (loaded) {
+                return COMMON.disableTotemCharm.get();
+            }
+
+            return false;
         }
 
         public static boolean disableEnchTotemCharm() {
-            return COMMON.disableEnchTotemCharm.get();
+            if (loaded) {
+                return COMMON.disableEnchTotemCharm.get();
+            }
+
+            return false;
         }
 
         public static boolean disableSpeedCharm() {
-            return COMMON.disableSpeedCharm.get();
+            if (loaded) {
+                return COMMON.disableSpeedCharm.get();
+            }
+
+            return false;
         }
 
         public static long absorptionCooldown() {
