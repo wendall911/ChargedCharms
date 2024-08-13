@@ -9,18 +9,6 @@ plugins {
     id 'com.modrinth.minotaur' version '2.+'
 }
 
-repositories {
-    maven {
-        name = "C4's Maven"
-        url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        // location of the maven that hosts Mantle and JEI files
-        name = 'Progwml6 maven'
-        url = 'https://dvs1.progwml6.com/files/maven'
-    }
-}
-
 archivesBaseName = "${mod_id}"
 version = "${minecraft_version}-${mod_version}-FORGE"
 

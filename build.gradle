@@ -8,6 +8,7 @@ allprojects {
 }
 
 subprojects {
+    java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
 
     jar {
@@ -73,6 +74,11 @@ subprojects {
             url "https://dvs1.progwml6.com/files/maven/"
         }
 
+        maven {
+            name = "C4's Maven"
+            url = "https://maven.theillusivec4.top/"
+        }
+        
         maven {
             name = "Curse Maven"
             url = "https://cursemaven.com"
