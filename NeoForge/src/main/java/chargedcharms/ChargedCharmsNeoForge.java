@@ -16,11 +16,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -34,11 +36,13 @@ import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.platform.Services;
 
 @Mod(ChargedCharms.MODID)
+@Mod.EventBusSubscriber(modid = ChargedCharms.MODID)
 public class ChargedCharmsNeoForge {
 
     public ChargedCharmsNeoForge(IEventBus eventBus) {
@@ -99,6 +103,11 @@ public class ChargedCharmsNeoForge {
         bind(eventBus, Registries.RECIPE_SERIALIZER, ChargedCharmsCrafting::registerRecipeSerializers);
         CONDITION_SERIALIZERS.register(eventBus);
         CONDITION_SERIALIZERS.register(ConfigResourceCondition.ID, () -> ConfigResourceCondition.CODEC);
+    }
+
+    @SubscribeEvent
+    public static void initConfig(final ServerStartingEvent event) {
+        ConfigHandler.init();
     }
 
     private static <T> void bind(IEventBus eventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
