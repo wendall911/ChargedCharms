@@ -14,10 +14,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import top.theillusivec4.curios.api.CuriosCapability;
@@ -30,12 +33,14 @@ import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.platform.Services;
 import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 
 @Mod(ChargedCharms.MODID)
+@EventBusSubscriber(modid = ChargedCharms.MODID)
 public class ChargedCharmsNeoForge {
 
     public ChargedCharmsNeoForge(IEventBus eventBus) {
@@ -96,6 +101,11 @@ public class ChargedCharmsNeoForge {
         ChargedCharmsNeoForgeRegistries.CONDITION_SERIALIZERS_DEFERRED_REGISTER.register(ConfigResourceCondition.ID, () -> ConfigResourceCondition.CODEC);
         ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(eventBus);
         ChargedCharmsComponents.registerDataComponents();
+    }
+
+    @SubscribeEvent
+    public static void initConfig(final ServerStartingEvent event) {
+        ConfigHandler.init();
     }
 
     private static <T> void bind(IEventBus eventBus, ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
