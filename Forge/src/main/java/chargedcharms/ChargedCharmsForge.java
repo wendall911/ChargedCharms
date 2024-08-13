@@ -1,7 +1,7 @@
 package chargedcharms;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -9,8 +9,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-
 import net.minecraft.world.item.crafting.RecipeSerializer;
+
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -19,6 +19,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -40,6 +41,7 @@ import chargedcharms.client.CurioCharmRenderer;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
+import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
@@ -99,9 +101,9 @@ public class ChargedCharmsForge {
         ICapabilityProvider provider = new ICapabilityProvider() {
             private final LazyOptional<ICurio> curioOpt = LazyOptional.of(() -> curio);
 
-            @Nonnull
+            @NotNull
             @Override
-            public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap,
+            public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap,
                     @Nullable Direction side) {
                 return CuriosCapability.ITEM.orEmpty(cap, curioOpt);
             }
@@ -120,6 +122,11 @@ public class ChargedCharmsForge {
             }
         }
 
+    }
+
+    @SubscribeEvent
+    public static void initConfig(final ServerStartingEvent event) {
+        ConfigHandler.init();
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
