@@ -2,9 +2,7 @@ package chargedcharms.client.integration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-import chargedcharms.ChargedCharms;
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
@@ -13,6 +11,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -41,7 +40,14 @@ public class CharmChargingRecipeMaker {
         RegistryHelper.getRegistry(Registries.ITEM).stream()
                 .filter(Item::isEdible)
                 .filter(item -> {
-                    List<Pair<MobEffectInstance, Float>> effects = Objects.requireNonNull(item.getFoodProperties()).getEffects();
+                    FoodProperties foodProperties = item.getFoodProperties();
+
+                    if (foodProperties == null) {
+                        return false;
+                    }
+
+                    List<Pair<MobEffectInstance, Float>> effects = foodProperties.getEffects();
+
                     if (!effects.isEmpty()) {
                         return effects.stream().noneMatch(props -> props.getFirst().getEffect().equals(MobEffects.POISON));
                     }
