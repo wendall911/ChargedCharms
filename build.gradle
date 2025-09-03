@@ -1,8 +1,9 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT' apply(false)
+    id 'fabric-loom' version '1.11-SNAPSHOT' apply(false)
     id 'net.minecraftforge.gradle' version '[6.0,6.2)' apply(false)
     id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
     id 'org.spongepowered.mixin' version "0.7-SNAPSHOT" apply(false)
+    id 'me.modmuss50.mod-publish-plugin' version '0.7.3' apply(false)
 }
 allprojects {
     apply plugin: 'java'
@@ -14,6 +15,7 @@ allprojects {
 }
 
 subprojects {
+    apply plugin: 'java'
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
 
@@ -57,6 +59,7 @@ subprojects {
         }
 
         maven {
+            // Patchouli && Provider
             name = 'BlameJared Maven (CrT / Bookshelf / JEI (Newer) / vazkii / xyz)'
             url = 'https://maven.blamejared.com'
         }
@@ -77,6 +80,7 @@ subprojects {
         }
 
         maven {
+            // location of the maven that hosts Mantle and JEI files
             name = "JEI"
             url "https://dvs1.progwml6.com/files/maven/"
         }
@@ -92,6 +96,12 @@ subprojects {
         maven {
             name = "C4's Maven"
             url = "https://maven.theillusivec4.top/"
+        }
+
+        maven {
+            // Location of LambDynamicLights
+            name = "Gegy"
+            url = "https://maven.gegy.dev"
         }
 
         if (project.hasProperty('localmaven')) {

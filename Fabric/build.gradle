@@ -2,8 +2,7 @@ plugins {
     id 'fabric-loom'
     id 'maven-publish'
     id 'idea'
-    id 'net.darkhax.curseforgegradle' version '1.+'
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 version = "${minecraft_version}-${mod_version}-FABRIC"
@@ -37,6 +36,8 @@ dependencies {
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:architectury-419699:3984016"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
+    modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${sdl_version}+${minecraft_version}")
+    modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
 
     modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
@@ -44,7 +45,7 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":Common")
 
-    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}+${minecraft_version}"
 }
 
 loom {
@@ -63,23 +64,21 @@ loom {
         }
         commonDatagen {
             client()
-            vmArg "-Dchargedcharms.common_datagen=1"
+            vmArg "-D${mod_id}.common_datagen=1"
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
         }
         fabricDatagen {
             client()
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
         }
     }
 }
 
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 processResources {
     from project(":Common").sourceSets.main.resources
@@ -115,39 +114,35 @@ publishing {
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+publishMods {
+    file = file(publishFile)
+    changelog = file(changelogFile).text
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.add('fabric')
+
     if (project.hasProperty('ccCurseApiKey')) {
-        apiToken = project.ccCurseApiKey
-        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java 17')
-        mainFile.addModLoader('Fabric')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
+        curseforge {
+            accessToken = project.ccCurseApiKey
+            projectId = project.ccCurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            embeds('spectrelib')
+            requires('fabric-api')
+            requires('trinkets')
+            optional('biome-makeover')
         }
-        mainFile.addRequirement('fabric-api')
-        mainFile.addRequirement('trinkets')
-        mainFile.addOptional('biome-makeover')
     }
-}
-
-modrinth {
     if (project.hasProperty('ccModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.ccModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
-        }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        dependencies {
-            required.project "fabric-api"
-            required.project "trinkets"
-            optional.project "biome-makeover"
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.ccModrinthId
+            requires("fabric-api")
+            requires("trinkets")
+            optional("biome-makeover")
         }
     }
 }

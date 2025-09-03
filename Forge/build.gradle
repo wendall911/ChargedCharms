@@ -4,9 +4,8 @@ plugins {
     id 'net.minecraftforge.gradle'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin'
-    id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 repositories {
@@ -83,23 +82,32 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 
-	runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
-	compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
 
-    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}")
-    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}") {
-        jarJar.pin(it, "${spectrelib_version}")
+    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}+${minecraft_version}")
+    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}+${minecraft_version}") {
+        jarJar.pin(it, "${spectrelib_version}+${minecraft_version}")
         jarJar.ranged(it, "${spectrelib_range}")
     }
 
-	compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-	implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
     //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
     //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
+    runtimeOnly fg.deobf("curse.maven:radiant_gear-602199:${radiant_gear_forge_version}")
+    runtimeOnly fg.deobf("curse.maven:embeddium-908741:${embeddium_version}") // Required by Dynamic Lights
+    //runtimeOnly fg.deobf("curse.maven:dynamic_lights-551736:${sdl_forge_version}")
+    runtimeOnly fg.deobf("curse.maven:obsidianui-684718:${obsidianui_version}") // For ryoamiclights
+    runtimeOnly fg.deobf("curse.maven:ryoamiclights-913587:${ryoamiclights_version}")
+    //runtimeOnly fg.deobf("curse.maven:geckolib-388172:${geckolib_version}") // For ars nouveau
+    //runtimeOnly "com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}"
+    //runtimeOnly fg.deobf("curse.maven:lucent-493280:${lucent_version}")
+    //runtimeOnly fg.deobf("curse.maven:dynamic_lights-227874:${dynamic_lights_forge_version}")
 }
 
 tasks.withType(JavaCompile) {
@@ -175,39 +183,34 @@ tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
 tasks.build.dependsOn('changelog', 'generateUpdates')
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/Forge/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+publishMods {
+    file = file(publishFile)
+    changelog = file(changelogFile).text
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.addAll(['neoforge', 'forge'])
+
     if (project.hasProperty('ccCurseApiKey')) {
-        apiToken = project.ccCurseApiKey
-        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java 17')
-        mainFile.addModLoader('Forge')
-        mainFile.addModLoader('NeoForge')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
+        curseforge {
+            accessToken = project.ccCurseApiKey
+            projectId = ccCurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            embeds('spectrelib')
+            requires('curios')
+            optional('biome-makeover-forge')
         }
-        mainFile.addRequirement('curios')
-        mainFile.addOptional('biome-makeover-forge')
     }
-}
-
-modrinth {
     if (project.hasProperty('ccModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.ccModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
-        }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        loaders = ['neoforge', 'forge']
-        dependencies {
-            required.project "curios"
-            optional.project "biome-makeover"
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.ccModrinthId
+            minecraftVersions.addAll("${release_versions}".split(','))
+            requires("curios")
+            optional("biome-makeover")
         }
     }
 }
