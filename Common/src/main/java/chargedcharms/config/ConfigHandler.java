@@ -70,12 +70,17 @@ public class ConfigHandler {
         private final SpectreConfigSpec.IntValue absorptionCooldown;
         private final SpectreConfigSpec.IntValue absorptionDuration;
         private final SpectreConfigSpec.IntValue absorptionAmplifier;
+        private final SpectreConfigSpec.IntValue absorptionCharges;
         private final SpectreConfigSpec.DoubleValue regenPercentage;
         private final SpectreConfigSpec.IntValue regenDuration;
         private final SpectreConfigSpec.IntValue regenAmplifier;
+        private final SpectreConfigSpec.IntValue regenCharges;
         private final SpectreConfigSpec.IntValue glowUpDuration;
+        private final SpectreConfigSpec.IntValue glowUpCharges;
         private final SpectreConfigSpec.IntValue speedDuration;
         private final SpectreConfigSpec.IntValue speedCooldown;
+        private final SpectreConfigSpec.IntValue speedCharges;
+        private final SpectreConfigSpec.IntValue totemCharges;
 
         public Common(SpectreConfigSpec.Builder builder) {
             builder.push("charms");
@@ -111,6 +116,9 @@ public class ConfigHandler {
             absorptionAmplifier = builder.comment("Charged Absorption Charm effect amplifier.")
                     .defineInRange("absorptionAmplifier", 0, 0, 255);
 
+            absorptionCharges = builder.comment("Number of charges for the Charged Absorption Charm.")
+                    .defineInRange("absorptionCharges", 15, 1, 100);
+
             regenPercentage = builder.comment("Low health percentage to trigger Charged Regeneration Charm.")
                     .defineInRange("regenPercentage", 0.35, 0.2, 0.8);
 
@@ -120,14 +128,26 @@ public class ConfigHandler {
             regenAmplifier = builder.comment("Charged Regeneration Charm effect amplifier.")
                     .defineInRange("regenAmplifier", 0, 0, 255);
 
+            regenCharges = builder.comment("Number of charges for the Charged Regeneration Charm.")
+                    .defineInRange("regenCharges", 15, 1, 100);
+
             glowUpDuration = builder.comment("Duration in seconds for the Charged Glow Up Charm effect.")
                     .defineInRange("glowUpDuration", 30, 1, 300);
+
+            glowUpCharges = builder.comment("Number of charges for the Charged Glow Up Charm.")
+                    .defineInRange("glowUpCharges", 20, 1, 100);
 
             speedDuration = builder.comment("Duration in seconds for the Charged Speed Charm effect.")
                     .defineInRange("speedDuration", 180, 1, 360);
 
             speedCooldown = builder.comment("Cooldown in seconds for the Charged Speed Charm.")
                     .defineInRange("speedCooldown", 120, 0, 360);
+
+            speedCharges = builder.comment("Number of charges for the Charged Speed Charm.")
+                    .defineInRange("speedCharges", 20, 1, 100);
+
+            totemCharges = builder.comment("Number of charges for the Charged Totem Charm and Charged Enchanted Totem Charm.")
+                    .defineInRange("totemCharges", 5, 1, 100);
 
             builder.pop();
         }
@@ -192,6 +212,10 @@ public class ConfigHandler {
             return COMMON.absorptionAmplifier.get();
         }
 
+        public static int absorptionCharges() {
+            return COMMON.absorptionCharges.get();
+        }
+
         public static Float regenPercentage() {
             if (loaded) {
                 double regenPercentage = COMMON.regenPercentage.get();
@@ -211,8 +235,16 @@ public class ConfigHandler {
             return COMMON.regenAmplifier.get();
         }
 
+        public static int regenCharges() {
+            return COMMON.regenCharges.get();
+        }
+
         public static int glowUpDuration() {
             return COMMON.glowUpDuration.get();
+        }
+
+        public static int glowUpCharges() {
+            return COMMON.glowUpCharges.get();
         }
 
         public static int speedDuration() {
@@ -221,6 +253,14 @@ public class ConfigHandler {
 
         public static long speedCooldown() {
             return (COMMON.speedCooldown.get() + COMMON.speedDuration.get()) * 1000L;
+        }
+
+        public static int speedCharges() {
+            return COMMON.speedCharges.get();
+        }
+
+        public static int totemCharges() {
+            return COMMON.totemCharges.get();
         }
 
     }
