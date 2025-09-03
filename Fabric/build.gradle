@@ -18,6 +18,7 @@ dependencies {
 
     modImplementation "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}"
     include "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}"
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
 
     modApi "dev.architectury:architectury-fabric:${architectury_version}"
     modApi("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
@@ -27,20 +28,23 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
-    modCompileOnly "mezz.jei:jei-1.21-common-api:${jei_version}"
-    modCompileOnly "mezz.jei:jei-1.21-fabric:${jei_version}"
+    modCompileOnly "mezz.jei:jei-1.21.1-common-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-1.21.1-fabric:${jei_version}"
 
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
+
+    runtimeOnly "curse.maven:sodium-394468:${sodium_fabric_version}"
+    modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${sdl_version}+${minecraft_version}")
+    modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
+
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
 
     modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
     }
-
-    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
 }
 
 loom {
@@ -62,15 +66,15 @@ loom {
         }
         commonDatagen {
             client()
-            vmArg "-Dchargedcharms.common_datagen=1"
+            vmArg "-D${mod_id}.common_datagen=1"
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
         }
         fabricDatagen {
             client()
             vmArg "-Dfabric-api.datagen"
-            vmArg "-Dfabric-api.datagen.modid=chargedcharms"
+            vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
         }
     }
@@ -81,39 +85,36 @@ sourceSets.main.resources {
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+publishMods {
+    file = file(publishFile)
+    changelog = file(changelogFile).text
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.add('fabric')
+
     if (project.hasProperty('ccCurseApiKey')) {
-        apiToken = project.ccCurseApiKey
-        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion("Java ${java_version}")
-        mainFile.addModLoader('Fabric')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
+        curseforge {
+            accessToken = project.ccCurseApiKey
+            projectId = project.ccCurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            embeds('spectrelib')
+            requires('fabric-api')
+            requires('trinkets')
+            optional('biome-makeover')
         }
-        mainFile.addRequirement('fabric-api')
-        mainFile.addRequirement('trinkets')
-        mainFile.addOptional('biome-makeover')
     }
-}
-
-modrinth {
     if (project.hasProperty('ccModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.ccModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
-        }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        dependencies {
-            required.project "fabric-api"
-            required.project "trinkets"
-            optional.project "biome-makeover"
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.ccModrinthId
+            minecraftVersions.addAll("${release_versions}".split(','))
+            requires("fabric-api")
+            requires("trinkets")
+            optional("biome-makeover")
         }
     }
 }

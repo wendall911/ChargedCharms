@@ -2,8 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.darkhax.curseforgegradle'
-    id 'com.modrinth.minotaur'
+    id 'me.modmuss50.mod-publish-plugin'
     id 'com.github.ben-manes.versions'
 }
 
@@ -50,7 +49,7 @@ repositories {
     }
 
     maven {
-        name = 'TerraformersMC (Trinkets)'
+        name = 'TerraformersMC (Trinkets / ModMenu)'
         url = 'https://maven.terraformersmc.com/'
     }
 
@@ -82,9 +81,9 @@ repositories {
     }
 
     maven {
-        // Temporary (or permanent?) use of Curios fork for 1.21
-        // Not sure what C4 is planning
-        url 'https://maven.octo-studios.com/releases'
+        // Location of LambDynamicLights
+        name = 'Gegy'
+        url = 'https://maven.gegy.dev'
     }
 
     if (project.hasProperty('localmaven')) {

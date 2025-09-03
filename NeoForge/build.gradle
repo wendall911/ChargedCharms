@@ -39,14 +39,14 @@ neoForge {
 }
 
 dependencies {
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+1.21"
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+1.21:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
 
     implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}"
     jarJar group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}"
 
-    compileOnly "mezz.jei:jei-1.21-common-api:${jei_version}"
-    implementation "mezz.jei:jei-1.21-neoforge:${jei_version}"
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
@@ -56,6 +56,16 @@ dependencies {
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
+    //runtimeOnly "curse.maven:radiant_gear-602199:${radiant_gear_neoforge_version}"
+    runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}" // Required by Dynamic Lights
+    runtimeOnly "curse.maven:dynamic_lights-551736:${sdl_neoforge_version}"
+    //runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
+    //runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
+    //runtimeOnly "curse.maven:geckolib-388172:${geckolib_version}" // For ars nouveau
+    //runtimeOnly "com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}
+    //runtimeOnly "curse.maven:lucent-493280:${lucent_version}"
+    //runtimeOnly "curse.maven:dynamic_lights-227874:${dynamic_lights_forge_version}"
+
 }
 
 sourceSets.main.resources {
@@ -94,38 +104,34 @@ tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
 tasks.build.dependsOn('changelog', 'generateUpdates')
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+publishMods {
+    file = file(publishFile)
+    changelog = file(changelogFile).text
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.add('neoforge')
+
     if (project.hasProperty('ccCurseApiKey')) {
-        apiToken = project.ccCurseApiKey
-        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion("Java ${java_version}")
-        mainFile.addModLoader('NeoForge')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
+        curseforge {
+            accessToken = project.ccCurseApiKey
+            projectId = ccCurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            embeds('spectrelib')
+            requires('curios')
+            optional('biome-makeover-forge')
         }
-        mainFile.addRequirement('curios')
-        mainFile.addOptional('biome-makeover-forge')
     }
-}
-
-modrinth {
     if (project.hasProperty('ccModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.ccModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
-        }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        loaders = ['neoforge']
-        dependencies {
-            required.project "curios"
-            optional.project "biome-makeover"
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.ccModrinthId
+            minecraftVersions.addAll("${release_versions}".split(','))
+            requires("curios")
+            optional("biome-makeover")
         }
     }
 }
