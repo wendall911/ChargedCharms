@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import chargedcharms.data.integration.ModIntegration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
