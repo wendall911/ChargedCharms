@@ -1,0 +1,11 @@
+{
+  "luminance": {
+    "type": "value",
+    "value": 15
+  },
+  "match": {
+    "enchantments": [],
+    "items": "chargedcharms:charged_glowup_charm",
+    "stored_enchantments": []
+  }
+}
