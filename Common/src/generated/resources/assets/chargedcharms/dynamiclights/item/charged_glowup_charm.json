@@ -1,0 +1,9 @@
+{
+  "luminance": {
+    "type": "value",
+    "value": 15
+  },
+  "match": {
+    "items": "chargedcharms:charged_glowup_charm"
+  }
+}
