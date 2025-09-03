@@ -7,6 +7,8 @@ import java.util.function.BiConsumer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
+import chargedcharms.config.ConfigHandler;
+
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public final class ChargedCharmsItems {
@@ -20,12 +22,30 @@ public final class ChargedCharmsItems {
     public static final String enchantedTotemCharmId = "charged_enchanted_totem_charm";
     public static final String speedCharmId = "charged_speed_charm";
     
-    public static final Item regenerationCharm = make(regenerationCharmId, new ChargedCharmBase(getProps().durability(5)));
-    public static final Item absorptionCharm = make(absorptionCharmId, new ChargedCharmBase(getProps().durability(5)));
-    public static final Item glowupCharm = make(glowupCharmId, new ChargedCharmBase(getProps().durability(5)));
-    public static final Item totemCharm = make(totemCharmId, new ChargedCharmBase(getProps().durability(5)));
-    public static final Item enchantedTotemCharm = make(enchantedTotemCharmId, new EnchantedChargedCharmBase(getProps().durability(5)));
-    public static final Item speedCharm = make(speedCharmId, new ChargedCharmBase(getProps().durability(5)));
+    public static final Item regenerationCharm = make(
+        regenerationCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.regenCharges()))
+    );
+    public static final Item absorptionCharm = make(
+        absorptionCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.absorptionCharges()))
+    );
+    public static final Item glowupCharm = make(
+        glowupCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.glowUpCharges()))
+    );
+    public static final Item totemCharm = make(
+        totemCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+    );
+    public static final Item enchantedTotemCharm = make(
+        enchantedTotemCharmId,
+        new EnchantedChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+    );
+    public static final Item speedCharm = make(
+        speedCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.speedCharges()))
+    );
 
     private static <T extends Item> T make(String id, T item) {
         ResourceLocation loc = prefix(id);
