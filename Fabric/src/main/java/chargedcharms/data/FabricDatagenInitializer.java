@@ -1,5 +1,6 @@
 package chargedcharms.data;
 
+import chargedcharms.data.integration.DynamicLightsDataProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -26,6 +27,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     public static void configureCommonDatagen(FabricDataGenerator.Pack pack) {
         pack.addProvider((dataOutput, registryFuture) -> new CommonItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemModelProvider(dataOutput));
+        pack.addProvider(DynamicLightsDataProvider::new);
     }
 
     public static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
