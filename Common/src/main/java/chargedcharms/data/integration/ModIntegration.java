@@ -4,7 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class ModIntegration {
 
+    public static final String ARS_MODID = "ars_nouveau";
     public static final String BMO_MODID = "biomemakeover";
+    public static final String RYOAMIC_MODID = "ryoamiclights";
 
     public static final class Items {
 
