@@ -29,6 +29,8 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
 import chargedcharms.client.CurioCharmRenderer;
+import chargedcharms.client.integration.arsnouveau.ArsDynamicLightsModule;
+import chargedcharms.client.integration.ryoamiclights.RyoamicDynamicLightsModule;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
@@ -56,6 +58,14 @@ public class ChargedCharmsNeoForge {
             Item item = BuiltInRegistries.ITEM.get(loc);
 
             CuriosRendererRegistry.register(item, CurioCharmRenderer::new);
+        }
+
+        if (Services.PLATFORM.isModLoaded(ModIntegration.ARS_MODID)) {
+            ArsDynamicLightsModule.setup();
+        }
+
+        if (Services.PLATFORM.isModLoaded(ModIntegration.RYOAMIC_MODID)) {
+            RyoamicDynamicLightsModule.setup();
         }
     }
 
