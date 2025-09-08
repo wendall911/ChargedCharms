@@ -63,51 +63,50 @@ subprojects {
             name = 'BlameJared Maven (CrT / Bookshelf / JEI (Newer) / vazkii / xyz)'
             url = 'https://maven.blamejared.com'
         }
-        
+
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org/'
         }
 
         maven {
-            name = "TerraformersMC (Trinkets)"
-            url = "https://maven.terraformersmc.com/"
+            name = 'TerraformersMC (Trinkets / ModMenu)'
+            url = 'https://maven.terraformersmc.com/'
         }
 
         maven {
-            name = "Ladysnake Libs"
-            url = "https://maven.ladysnake.org/releases"
+            name = 'Ladysnake Libs'
+            url = 'https://maven.ladysnake.org/releases'
         }
 
         maven {
             // location of the maven that hosts Mantle and JEI files
-            name = "JEI"
-            url "https://dvs1.progwml6.com/files/maven/"
+            name = 'JEI'
+            url 'https://dvs1.progwml6.com/files/maven/'
         }
 
         maven {
-            name = "Curse Maven"
-            url = "https://cursemaven.com"
+            name = 'Curse Maven'
+            url = 'https://cursemaven.com'
             content {
-                includeGroup "curse.maven"
+                includeGroup 'curse.maven'
             }
         }
 
         maven {
-            name = "C4's Maven"
-            url = "https://maven.theillusivec4.top/"
+            name = 'Illusive Soulworks'
+            url = 'https://maven.theillusivec4.top/'
+        }
+
+        maven {
+            name = 'WhiteNoise' // Library for wendall911 mods
+            url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
         }
 
         maven {
             // Location of LambDynamicLights
-            name = "Gegy"
-            url = "https://maven.gegy.dev"
-        }
-
-        if (project.hasProperty('localmaven')) {
-            maven {
-                url "file://" + localmaven
-            }
+            name = 'Gegy'
+            url = 'https://maven.gegy.dev'
         }
     }
 

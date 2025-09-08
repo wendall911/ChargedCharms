@@ -34,6 +34,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
@@ -48,7 +50,6 @@ import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
@@ -58,11 +59,12 @@ public class ChargedCharmsForge {
 
     public static final ResourceLocation EMPTY_CHARGED_CHARM_SLOT = prefix("item/empty_charged_charm_slot");
 
+    @SuppressWarnings("removal")
     public ChargedCharmsForge() {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ChargedCharms.init();
-        registryInit();
+        registryInit(eventBus);
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
@@ -143,15 +145,15 @@ public class ChargedCharmsForge {
         ConfigHandler.init();
     }
 
-    private void registryInit() {
-        bind(ForgeRegistries.ITEMS.getRegistryKey(), ChargedCharmsItems::registerItems);
+    private void registryInit(IEventBus eventBus) {
+        bind(ForgeRegistries.ITEMS.getRegistryKey(), ChargedCharmsItems::registerItems, eventBus);
 
-        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ChargedCharmsCrafting::registerRecipeSerializers);
-        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ConfigResourceCondition::init);
+        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ChargedCharmsCrafting::registerRecipeSerializers, eventBus);
+        bind(ForgeRegistries.RECIPE_SERIALIZERS.getRegistryKey(), ConfigResourceCondition::init, eventBus);
     }
 
-    private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener((RegisterEvent event) -> {
+    private static <T> void bind(ResourceKey<Registry<T>> registry, Consumer<BiConsumer<T, ResourceLocation>> source, IEventBus eventBus) {
+        eventBus.addListener((RegisterEvent event) -> {
             if (registry.equals(event.getRegistryKey())) {
                 source.accept((t, rl) -> event.register(registry, rl, () -> t));
             }

@@ -1,13 +1,14 @@
 package chargedcharms;
 
 import chargedcharms.config.ConfigHandler;
-import com.illusivesoulworks.spectrelib.config.SpectreLibInitializer;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 
+import technology.roughness.whitenoise.config.WhiteNoiseInitializer;
+
 import chargedcharms.data.recipe.ConfigResourceCondition;
 
-public class FabricConfigInitializer implements SpectreLibInitializer {
+public class FabricConfigInitializer implements WhiteNoiseInitializer {
 
     @Override
     public void onInitializeConfig() {

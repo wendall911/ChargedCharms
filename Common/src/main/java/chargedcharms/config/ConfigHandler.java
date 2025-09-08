@@ -3,14 +3,14 @@ package chargedcharms.config;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
-
 import org.apache.commons.lang3.tuple.Pair;
+
+import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
 
 public class ConfigHandler {
 
-    public static final SpectreConfigSpec CLIENT_SPEC;
-    public static final SpectreConfigSpec COMMON_SPEC;
+    public static final WhiteNoiseConfigSpec CLIENT_SPEC;
+    public static final WhiteNoiseConfigSpec COMMON_SPEC;
     public static final Map<String, Boolean> conditionsMap = new HashMap<>();
 
     private static final Client CLIENT;
@@ -18,14 +18,13 @@ public class ConfigHandler {
     private static boolean loaded = false;
 
     static {
-        final Pair<Client, SpectreConfigSpec> specPairClient = new SpectreConfigSpec.Builder().configure(Client::new);
-        final Pair<Common, SpectreConfigSpec> specPairCommon = new SpectreConfigSpec.Builder().configure(Common::new);
+        final Pair<Client, WhiteNoiseConfigSpec> specPairClient = new WhiteNoiseConfigSpec.Builder().configure(Client::new);
+        final Pair<Common, WhiteNoiseConfigSpec> specPairCommon = new WhiteNoiseConfigSpec.Builder().configure(Common::new);
 
         CLIENT_SPEC = specPairClient.getRight();
         CLIENT = specPairClient.getLeft();
         COMMON_SPEC = specPairCommon.getRight();
         COMMON = specPairCommon.getLeft();
-
     }
 
     public static void init() {
@@ -42,9 +41,9 @@ public class ConfigHandler {
 
     public static class Client {
 
-        private final SpectreConfigSpec.BooleanValue showCharms;
+        private final WhiteNoiseConfigSpec.BooleanValue showCharms;
 
-        public Client(SpectreConfigSpec.Builder builder) {
+        public Client(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("rendering");
 
             showCharms = builder.comment("Show Charged Charm on player chest.")
@@ -61,28 +60,28 @@ public class ConfigHandler {
 
     public static class Common {
 
-        private final SpectreConfigSpec.BooleanValue disableRegenCharm;
-        private final SpectreConfigSpec.BooleanValue disableAbsorptionCharm;
-        private final SpectreConfigSpec.BooleanValue disableGlowupCharm;
-        private final SpectreConfigSpec.BooleanValue disableTotemCharm;
-        private final SpectreConfigSpec.BooleanValue disableEnchTotemCharm;
-        private final SpectreConfigSpec.BooleanValue disableSpeedCharm;
-        private final SpectreConfigSpec.IntValue absorptionCooldown;
-        private final SpectreConfigSpec.IntValue absorptionDuration;
-        private final SpectreConfigSpec.IntValue absorptionAmplifier;
-        private final SpectreConfigSpec.IntValue absorptionCharges;
-        private final SpectreConfigSpec.DoubleValue regenPercentage;
-        private final SpectreConfigSpec.IntValue regenDuration;
-        private final SpectreConfigSpec.IntValue regenAmplifier;
-        private final SpectreConfigSpec.IntValue regenCharges;
-        private final SpectreConfigSpec.IntValue glowUpDuration;
-        private final SpectreConfigSpec.IntValue glowUpCharges;
-        private final SpectreConfigSpec.IntValue speedDuration;
-        private final SpectreConfigSpec.IntValue speedCooldown;
-        private final SpectreConfigSpec.IntValue speedCharges;
-        private final SpectreConfigSpec.IntValue totemCharges;
+        private final WhiteNoiseConfigSpec.BooleanValue disableRegenCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableAbsorptionCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableGlowupCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableTotemCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableEnchTotemCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableSpeedCharm;
+        private final WhiteNoiseConfigSpec.IntValue absorptionCooldown;
+        private final WhiteNoiseConfigSpec.IntValue absorptionDuration;
+        private final WhiteNoiseConfigSpec.IntValue absorptionAmplifier;
+        private final WhiteNoiseConfigSpec.IntValue absorptionCharges;
+        private final WhiteNoiseConfigSpec.DoubleValue regenPercentage;
+        private final WhiteNoiseConfigSpec.IntValue regenDuration;
+        private final WhiteNoiseConfigSpec.IntValue regenAmplifier;
+        private final WhiteNoiseConfigSpec.IntValue regenCharges;
+        private final WhiteNoiseConfigSpec.IntValue glowUpDuration;
+        private final WhiteNoiseConfigSpec.IntValue glowUpCharges;
+        private final WhiteNoiseConfigSpec.IntValue speedDuration;
+        private final WhiteNoiseConfigSpec.IntValue speedCooldown;
+        private final WhiteNoiseConfigSpec.IntValue speedCharges;
+        private final WhiteNoiseConfigSpec.IntValue totemCharges;
 
-        public Common(SpectreConfigSpec.Builder builder) {
+        public Common(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("charms");
 
             disableRegenCharm = builder.comment("Disable Charged Regeneration Charm")
@@ -120,7 +119,7 @@ public class ConfigHandler {
                     .defineInRange("absorptionCharges", 15, 1, 100);
 
             regenPercentage = builder.comment("Low health percentage to trigger Charged Regeneration Charm.")
-                    .defineInRange("regenPercentage", 0.35, 0.2, 0.8);
+                    .defineInRange("regenPercentage", 0.35D, 0.2D, 0.8D);
 
             regenDuration = builder.comment("Duration in seconds for the Charged Regeneration Charm effect.")
                     .defineInRange("regenDuration", 15, 1, 300);

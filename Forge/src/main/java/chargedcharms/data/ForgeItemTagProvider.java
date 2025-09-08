@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -23,6 +23,8 @@ import chargedcharms.ChargedCharms;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
+
 public class ForgeItemTagProvider extends ItemTagsProvider {
 
     public ForgeItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, TagsProvider<Block> blockTagProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
@@ -39,10 +41,6 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(getTagKey(loc("curios", "charged_charm")));
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
-    }
-
-    private static ResourceLocation loc(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
     }
 
     private static TagKey<Item> getTagKey(ResourceLocation loc) {

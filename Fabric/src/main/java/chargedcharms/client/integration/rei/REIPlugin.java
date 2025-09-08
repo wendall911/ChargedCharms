@@ -18,11 +18,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import chargedcharms.client.integration.CharmChargingRecipeMaker;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 
 public class REIPlugin implements REIClientPlugin {
 
