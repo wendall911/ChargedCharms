@@ -191,7 +191,9 @@ def publishFile = project(":").projectDir.toString() + "/Forge/build/libs/${arch
 
 publishMods {
     file = file(publishFile)
-    changelog = file(changelogFile).text
+    if (file(changelogFile).exists()) {
+        changelog = file(changelogFile).text
+    }
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
     modLoaders.addAll(['neoforge', 'forge'])
 
@@ -203,7 +205,6 @@ publishMods {
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
-            embeds('spectrelib')
             requires('curios')
             optional('biome-makeover-forge')
         }
