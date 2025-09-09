@@ -189,7 +189,7 @@ publishMods {
         changelog = file(changelogFile).text
     }
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
-    modLoaders.addAll(['fabric'])
+    modLoaders.addAll(['forge'])
 
     if (project.hasProperty('ccCurseApiKey')) {
         curseforge {
