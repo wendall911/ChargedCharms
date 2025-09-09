@@ -3,7 +3,7 @@ package chargedcharms.data;
 import java.util.Collections;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -19,6 +19,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import chargedcharms.ChargedCharms;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
+
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
 
 public class ForgeItemTagProvider extends ItemTagsProvider {
 
@@ -36,10 +38,6 @@ public class ForgeItemTagProvider extends ItemTagsProvider {
         Tag.Builder charmTagBuilder = this.getOrCreateRawBuilder(getTagKey(loc("curios", "charged_charm")));
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
-    }
-
-    private static ResourceLocation loc(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
     }
 
     private static TagKey<Item> getTagKey(ResourceLocation loc) {

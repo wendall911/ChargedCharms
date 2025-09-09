@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+
+import technology.roughness.whitenoise.platform.Services;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
@@ -22,9 +22,11 @@ public class ChargedCharmsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        boolean isClient = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+        boolean isClient = Services.PLATFORM.isPhysicalClient();
 
         registryInit();
+
+        ChargedCharms.init();
 
         Set<ResourceLocation> charms = new HashSet<>(CharmEffectProviders.getItems());
 

@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,14 +15,8 @@ public interface IPlatform {
 
     Set<ItemStack> findCharms(LivingEntity livingEntity);
 
-    ResourceLocation getResourceLocation(Item item);
-
-    boolean isModLoaded(String name);
-
     Item.Properties getProps();
 
     void saveRecipeAdvancement(DataGenerator gen, HashCache cache, JsonObject json, Path path);
-
-    boolean isPhysicalClient();
 
 }

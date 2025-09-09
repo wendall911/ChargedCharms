@@ -1,19 +1,12 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
-    id 'maven-publish'
     id 'idea'
-    id 'net.darkhax.curseforgegradle' version '1.+'
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'maven-publish'
+    id 'fabric-loom'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 version = "${minecraft_version}-${mod_version}-FABRIC"
 archivesBaseName = "${mod_id}"
-
-repositories {
-    maven {
-        url "https://maven.shedaniel.me/" // for rei
-    }
-}
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -21,11 +14,13 @@ dependencies {
         officialMojangMappings()
         parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
     })
-
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    implementation project(":Common")
 
-    modImplementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_range}"
+    modImplementation group: 'technology.roughness.whitenoise', name: 'whitenoise-fabric', version: "${whitenoise_range}"
+    include group: 'technology.roughness.whitenoise', name: 'whitenoise-fabric', version: "${whitenoise_version}"
 
     modRuntimeOnly "curse.maven:architectury-419699:${architectury_version}"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
@@ -38,13 +33,9 @@ dependencies {
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
 
-    modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
+    modLocalRuntime ("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
     }
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
-
-    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
 }
 
 loom {
@@ -81,24 +72,22 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
+def resourceTargets = ['fabric.mod.json', 'pack.mcmeta', '*.mixins.json']
+def replaceProperties = [
+    'version': version, 'fabric_mc_version_range': fabric_mc_version_range, 'license': license,
+    'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
+    'mod_name': mod_name, 'issue_tracker': issue_tracker
+]
+
 processResources {
     from project(":Common").sourceSets.main.resources
-    inputs.property "version", project.version
-    exclude '.cache'
     duplicatesStrategy(DuplicatesStrategy.FAIL)
+    inputs.properties replaceProperties
+    replaceProperties.put 'project', project
+    exclude '.cache'
 
-    filesMatching("fabric.mod.json") {
-        expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
-                'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
-                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker
-    }
-
-    filesMatching("pack.mcmeta") {
-        expand 'mod_name': project.mod_name
-    }
-
-    filesMatching('*.mixins.json') {
-        expand "mod_id": "${archivesBaseName}"
+    filesMatching(resourceTargets) {
+        expand replaceProperties
     }
 }
 
@@ -107,47 +96,55 @@ tasks.withType(JavaCompile) {
 }
 
 publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+        }
+    }
     repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
+        if (System.getenv('local_maven') != null) {
+            maven {
+                url 'file://' + System.getenv('local_maven')
+            }
         }
     }
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-    if (project.hasProperty('ccCurseApiKey')) {
-        apiToken = project.ccCurseApiKey
-        def mainFile = upload(project.ccCurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java 17')
-        mainFile.addModLoader('Fabric')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
-        }
-        mainFile.addRequirement('fabric-api')
-        mainFile.addRequirement('trinkets')
-        mainFile.addOptional('biome-makeover')
+publishMods {
+    file = file(publishFile)
+    if (file(changelogFile).exists()) {
+        changelog = file(changelogFile).text
     }
-}
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.addAll(['fabric'])
 
-modrinth {
-    if (project.hasProperty('ccModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.ccModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
+    if (project.hasProperty('ccCurseApiKey')) {
+        curseforge {
+            accessToken = project.ccCurseApiKey
+            projectId = project.ccCurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            requires('fabric-api')
+            requires('trinkets')
+            optional('biome-makeover')
         }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        dependencies {
-            required.project "fabric-api"
-            required.project "trinkets"
-            optional.project "biome-makeover"
+    }
+    if (project.hasProperty('ccModrinthId')) {
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.ccModrinthId
+            minecraftVersions.addAll("${release_versions}".split(','))
+            requires('fabric-api')
+            requires('trinkets')
+            optional('biome-makeover')
         }
     }
 }

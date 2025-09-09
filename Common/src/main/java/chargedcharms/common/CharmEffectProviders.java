@@ -12,6 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import chargedcharms.common.effect.AbsorptionEffectProvider;
 import chargedcharms.common.effect.GlowUpEffectProvider;
 import chargedcharms.common.effect.ICharmEffectProvider;
@@ -20,7 +22,6 @@ import chargedcharms.common.effect.RegenerationEffectProvider;
 import chargedcharms.common.effect.SpeedEffectProvider;
 import chargedcharms.common.effect.VanillaTotemEffectProvider;
 import chargedcharms.common.item.ChargedCharmsItems;
-import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 

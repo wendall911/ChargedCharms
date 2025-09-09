@@ -19,11 +19,12 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.ShapelessRecipe;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 

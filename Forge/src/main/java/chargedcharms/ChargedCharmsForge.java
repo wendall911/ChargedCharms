@@ -55,6 +55,7 @@ public class ChargedCharmsForge {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ChargedCharms.init();
+        ChargedCharms.initConfig();
         eventBus.addListener(this::setup);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::enqueue);
