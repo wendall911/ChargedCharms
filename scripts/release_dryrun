@@ -5,6 +5,6 @@ cd Forge/
 cat build/libs/changelog.txt
 cd ../Fabric
 ../gradlew build || exit 1
-DO_RELEASE=true ../gradlew publishMods || exit 1
+../gradlew publishMods || exit 1
 cd ../Forge
-DO_RELEASE=true ./gradlew publishMods || exit 1
+./gradlew publishMods || exit 1
