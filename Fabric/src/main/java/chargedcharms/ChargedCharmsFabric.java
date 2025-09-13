@@ -17,13 +17,14 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.data.recipe.ConfigResourceCondition;
-import chargedcharms.platform.Services;
 
 public class ChargedCharmsFabric implements ModInitializer {
 

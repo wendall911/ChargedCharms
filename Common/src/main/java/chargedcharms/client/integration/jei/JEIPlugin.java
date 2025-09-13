@@ -22,13 +22,14 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import chargedcharms.ChargedCharms;
 import chargedcharms.client.integration.CharmChargingRecipeMaker;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 

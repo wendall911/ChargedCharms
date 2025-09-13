@@ -6,16 +6,12 @@ import com.google.common.collect.Sets;
 
 import dev.emi.trinkets.api.TrinketsApi;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import chargedcharms.common.CharmEffectProviders;
@@ -33,21 +29,6 @@ public class FabricPlatform implements IPlatform {
 
             return results;
         }).orElse(results);
-    }
-
-    @Override
-    public ResourceLocation getResourceLocation(Item item) {
-        return BuiltInRegistries.ITEM.getKey(item);
-    }
-
-    @Override
-    public boolean isModLoaded(String name) {
-        return FabricLoader.getInstance().isModLoaded(name);
-    }
-
-    @Override
-    public boolean isPhysicalClient() {
-        return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
     }
 
     @Override

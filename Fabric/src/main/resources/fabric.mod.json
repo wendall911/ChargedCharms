@@ -27,7 +27,7 @@
     "jei_mod_plugin": [
       "chargedcharms.client.integration.jei.JEIPlugin"
     ],
-    "spectrelib-config": [
+    "whitenoise-config": [
       "chargedcharms.FabricConfigInitializer"
     ]
   },

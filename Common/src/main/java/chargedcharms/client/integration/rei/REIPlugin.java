@@ -45,7 +45,8 @@ public class REIPlugin implements REIClientPlugin {
 
         ItemStack stack = entryStack.castValue();
 
-        if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) || ConfigHandler.Common.disableEnchTotemCharm()) {
+        if (!technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)
+                || ConfigHandler.Common.disableEnchTotemCharm()) {
             return stack.getItem() == ChargedCharmsItems.enchantedTotemCharm;
         }
         if (ConfigHandler.Common.disableRegenCharm()) {

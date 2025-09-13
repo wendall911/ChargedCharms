@@ -23,6 +23,8 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import top.theillusivec4.curios.api.CuriosCapability;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
@@ -38,7 +40,6 @@ import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.config.ConfigHandler;
 import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
-import chargedcharms.platform.Services;
 import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 
 @Mod(ChargedCharms.MODID)
@@ -46,7 +47,7 @@ import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 public class ChargedCharmsNeoForge {
 
     public ChargedCharmsNeoForge(IEventBus eventBus) {
-        ChargedCharms.init();
+        ChargedCharms.initConfig();
         registryInit(eventBus);
         eventBus.addListener(this::registerCapabilities);
         eventBus.addListener(this::clientSetup);
