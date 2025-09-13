@@ -82,8 +82,6 @@ shadowJar {
     archiveClassifier = ''
 }
 
-tasks.register('idePostSync') {} // For some reason IntelliJ is throwing a fit about this
-
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
     templateContent.set(file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8'));
