@@ -102,15 +102,22 @@ subprojects {
         }
 
         maven {
-            name = 'WhiteNoise' // Library for wendall911 mods
-            url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
-        }
-
-        maven {
             // Location of LambDynamicLights
             name = 'Gegy'
             url = 'https://maven.gegy.dev'
         }
+
+        maven {
+            name = 'WhiteNoise' // Library for wendall911 mods
+            url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
+        }
+
+        if (System.getenv('local_maven') != null && project.hasProperty('localmaven')) {
+            maven {
+                url 'file://' + localmaven
+            }
+        }
+
     }
 
     tasks.withType(JavaCompile).configureEach {

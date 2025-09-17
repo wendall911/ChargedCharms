@@ -80,8 +80,8 @@ dependencies {
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
 
-    implementation fg.deobf(group: 'technology.roughness.whitenoise', name: 'whitenoise-forge', version: "${whitenoise_version}")
-    jarJar fg.deobf(group: 'technology.roughness.whitenoise', name: 'whitenoise-forge', version: "${whitenoise_version}") {
+    implementation fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}")
+    jarJar fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}") {
         jarJar.pin(it, "${whitenoise_version}")
         jarJar.ranged(it, "${whitenoise_range}")
     }
