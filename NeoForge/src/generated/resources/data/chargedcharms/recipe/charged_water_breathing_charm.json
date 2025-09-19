@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config_disabled": "disableWaterBreathingCharm"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "K": {
+      "item": "minecraft:kelp"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NKN",
+    "NNN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "chargedcharms:charged_water_breathing_charm"
+  }
+}

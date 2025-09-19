@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config_disabled": "disableWaterBreathingCharm"
+    }
+  ],
+  "type": "chargedcharms:charge_water_breathing_charm",
+  "category": "misc"
+}
