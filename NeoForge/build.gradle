@@ -5,8 +5,10 @@ plugins {
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 }
 
-archivesBaseName = "${mod_id}"
-version = neoforge_mod_version
+
+def modLoader = "${project.name}".toUpperCase()
+def actualVersion = version
+version = "${version}-${modLoader}"
 
 neoForge {
     version = neoforge_version
@@ -96,7 +98,7 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("../files/templates/") {
         include 'updates.json'
-        expand 'version': version, 'minecraft_version': minecraft_version
+        expand 'version': actualVersion, 'minecraft_version': minecraft_version
     }
 
     it.into '../files/'

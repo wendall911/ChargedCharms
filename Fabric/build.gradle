@@ -3,8 +3,8 @@ plugins {
     id 'fabric-loom'
 }
 
-version = fabric_mod_version
-archivesBaseName = "${mod_id}"
+def modLoader = "${project.name}".toUpperCase()
+version = "${version}-${modLoader}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
