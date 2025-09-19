@@ -20,8 +20,10 @@ public class CommonItemTagProvider extends ItemTagsProvider {
     @Override
     protected void addTags() {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CHARGED_CHARMS);
+        TagBuilder curiosTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CURIOS_CHARGED_CHARM);
 
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(curiosTagBuilder, loc));
 
         this.tag(TagManager.Items.CHARM_FOODS_BLACKLIST)
             .add(Items.ROTTEN_FLESH)
