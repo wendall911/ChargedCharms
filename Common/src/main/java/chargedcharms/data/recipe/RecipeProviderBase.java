@@ -162,4 +162,14 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .unlockedBy("has_item", has(Items.SUGAR));
     }
 
+    protected static ShapedRecipeBuilder waterBreathingCharm() {
+        return ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ChargedCharmsItems.waterBreathingCharm)
+            .define('N', Items.IRON_NUGGET)
+            .define('K', Items.KELP)
+            .pattern("NNN")
+            .pattern("NKN")
+            .pattern("NNN")
+            .unlockedBy("has_item", has(Items.KELP));
+    }
+
 }

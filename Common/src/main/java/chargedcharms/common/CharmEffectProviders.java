@@ -21,6 +21,7 @@ import chargedcharms.common.effect.integration.BMEnchantedTotemEffectProvider;
 import chargedcharms.common.effect.RegenerationEffectProvider;
 import chargedcharms.common.effect.SpeedEffectProvider;
 import chargedcharms.common.effect.VanillaTotemEffectProvider;
+import chargedcharms.common.effect.WaterBreathingEffectProvider;
 import chargedcharms.common.item.ChargedCharmsItems;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
@@ -43,6 +44,7 @@ public class CharmEffectProviders {
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.absorptionCharmId), new AbsorptionEffectProvider());
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.glowupCharmId), new GlowUpEffectProvider());
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.speedCharmId), new SpeedEffectProvider());
+        EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.waterBreathingCharmId), new WaterBreathingEffectProvider());
     }
 
     public static Set<ResourceLocation> getItems() {

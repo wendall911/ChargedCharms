@@ -35,6 +35,7 @@ public class ConfigHandler {
         conditionsMap.put("disableTotemCharm", Common.disableTotemCharm());
         conditionsMap.put("disableEnchTotemCharm", Common.disableEnchTotemCharm());
         conditionsMap.put("disableSpeedCharm", Common.disableSpeedCharm());
+        conditionsMap.put("disableWaterBreathingCharm", Common.disableWaterBreathingCharm());
 
         loaded = true;
     }
@@ -66,6 +67,7 @@ public class ConfigHandler {
         private final WhiteNoiseConfigSpec.BooleanValue disableTotemCharm;
         private final WhiteNoiseConfigSpec.BooleanValue disableEnchTotemCharm;
         private final WhiteNoiseConfigSpec.BooleanValue disableSpeedCharm;
+        private final WhiteNoiseConfigSpec.BooleanValue disableWaterBreathingCharm;
         private final WhiteNoiseConfigSpec.IntValue absorptionCooldown;
         private final WhiteNoiseConfigSpec.IntValue absorptionDuration;
         private final WhiteNoiseConfigSpec.IntValue absorptionAmplifier;
@@ -80,6 +82,8 @@ public class ConfigHandler {
         private final WhiteNoiseConfigSpec.IntValue speedCooldown;
         private final WhiteNoiseConfigSpec.IntValue speedCharges;
         private final WhiteNoiseConfigSpec.IntValue totemCharges;
+        private final WhiteNoiseConfigSpec.IntValue airRemaining;
+        private final WhiteNoiseConfigSpec.IntValue waterBreathingCharges;
 
         public Common(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("charms");
@@ -101,6 +105,9 @@ public class ConfigHandler {
 
             disableSpeedCharm = builder.comment("Disable Charged Speed Charm")
                     .define("disableSpeedCharm", false);
+
+            disableWaterBreathingCharm = builder.comment("Disable Charged Water Breathing Charm")
+                    .define("disableWaterBreathingCharm", false);
 
             builder.pop();
 
@@ -148,6 +155,11 @@ public class ConfigHandler {
             totemCharges = builder.comment("Number of charges for the Charged Totem Charm and Charged Enchanted Totem Charm.")
                     .defineInRange("totemCharges", 5, 1, 100);
 
+            airRemaining = builder.comment("Amount of air remaining when Charged Water Breathing Charm is triggered.")
+                    .defineInRange("airRemaining", 0, 0, 10);
+            waterBreathingCharges = builder.comment("Number of charges for the Charged Water Breathing Charm.")
+                    .defineInRange("waterBreathingCharges", 5, 1, 100);
+
             builder.pop();
         }
 
@@ -194,6 +206,14 @@ public class ConfigHandler {
         public static boolean disableSpeedCharm() {
             if (loaded) {
                 return COMMON.disableSpeedCharm.get();
+            }
+
+            return false;
+        }
+
+        public static boolean disableWaterBreathingCharm() {
+            if (loaded) {
+                return COMMON.disableWaterBreathingCharm.get();
             }
 
             return false;
@@ -260,6 +280,14 @@ public class ConfigHandler {
 
         public static int totemCharges() {
             return COMMON.totemCharges.get();
+        }
+
+        public static int airRemaining() {
+            return COMMON.airRemaining.get();
+        }
+
+        public static int waterBreathingCharges() {
+            return COMMON.waterBreathingCharges.get();
         }
 
     }

@@ -14,6 +14,7 @@ import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.crafting.recipe.RegenerationChargeRecipe;
 import chargedcharms.common.crafting.recipe.SpeedChargeRecipe;
 import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
+import chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
 
 import javax.annotation.Nonnull;
@@ -39,12 +40,14 @@ public class ForgeRecipeProvider extends RecipeProviderBase {
         totemCharm().save(withConditions(consumer, new ConfigResourceCondition(("disableTotemCharm"))));
         enchantedTotemCharm().save(bmoWrapped);
         speedCharm().save(withConditions(consumer, new ConfigResourceCondition(("disableSpeedCharm"))));
+        waterBreathingCharm().save(withConditions(consumer, new ConfigResourceCondition(("disableWaterBreathingCharm"))));
 
         specialRecipe(withConditions(consumer, new ConfigResourceCondition(("disableRegenCharm"))), RegenerationChargeRecipe.SERIALIZER);
         specialRecipe(withConditions(consumer, new ConfigResourceCondition(("disableTotemCharm"))), TotemChargeRecipe.SERIALIZER);
         specialRecipe(withConditions(consumer, new ConfigResourceCondition(("disableAbsorptionCharm"))), AbsorptionChargeRecipe.SERIALIZER);
         specialRecipe(bmoWrapped, EnchantedTotemChargeRecipe.SERIALIZER);
         specialRecipe(withConditions(consumer, new ConfigResourceCondition(("disableSpeedCharm"))), SpeedChargeRecipe.SERIALIZER);
+        specialRecipe(withConditions(consumer, new ConfigResourceCondition(("disableWaterBreathingCharm"))), WaterBreathingChargeRecipe.SERIALIZER);
     }
 
     private static Consumer<FinishedRecipe> withConditions(Consumer<FinishedRecipe> consumer, ICondition... conditions) {

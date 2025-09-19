@@ -23,6 +23,7 @@ public class FabricItemModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ChargedCharmsItems.totemCharm, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ChargedCharmsItems.enchantedTotemCharm, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ChargedCharmsItems.speedCharm, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ChargedCharmsItems.waterBreathingCharm, ModelTemplates.FLAT_ITEM);
     }
 
     @Override
