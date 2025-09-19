@@ -13,6 +13,7 @@ import chargedcharms.common.crafting.recipe.EnchantedTotemChargeRecipe;
 import chargedcharms.common.crafting.recipe.RegenerationChargeRecipe;
 import chargedcharms.common.crafting.recipe.SpeedChargeRecipe;
 import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
+import chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
 
 import java.util.concurrent.CompletableFuture;
@@ -57,6 +58,10 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
             recipeOutput,
             new ConfigResourceCondition("disableSpeedCharm")
         ));
+        RecipeProviderBase.waterBreathingCharm().save(withConditions(
+            recipeOutput,
+            new ConfigResourceCondition("disableWaterBreathingCharm")
+        ));
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableRegenCharm")
@@ -78,6 +83,10 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
             recipeOutput,
             new ConfigResourceCondition("disableSpeedCharm")
         ), SpeedChargeRecipe.SERIALIZER, SpeedChargeRecipe::new);
+        RecipeProviderBase.specialRecipe(withConditions(
+            recipeOutput,
+            new ConfigResourceCondition("disableWaterBreathingCharm")
+        ), WaterBreathingChargeRecipe.SERIALIZER, WaterBreathingChargeRecipe::new);
     }
 
 }

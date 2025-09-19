@@ -73,6 +73,10 @@ public class JEIPlugin implements IModPlugin {
             registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
                     Collections.singleton(new ItemStack(ChargedCharmsItems.speedCharm)));
         }
+        if (ConfigHandler.Common.disableWaterBreathingCharm()) {
+            registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK,
+                    Collections.singleton(new ItemStack(ChargedCharmsItems.waterBreathingCharm)));
+        }
     }
 
     private static List<RecipeHolder<CraftingRecipe>> addChargingRecipes(List<RecipeHolder<CraftingRecipe>> allCraftingRecipes) {

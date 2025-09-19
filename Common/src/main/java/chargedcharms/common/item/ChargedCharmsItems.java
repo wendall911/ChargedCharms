@@ -21,6 +21,7 @@ public final class ChargedCharmsItems {
     public static final String totemCharmId = "charged_totem_charm";
     public static final String enchantedTotemCharmId = "charged_enchanted_totem_charm";
     public static final String speedCharmId = "charged_speed_charm";
+    public static final String waterBreathingCharmId = "charged_water_breathing_charm";
     
     public static final Item regenerationCharm = make(
         regenerationCharmId,
@@ -45,6 +46,10 @@ public final class ChargedCharmsItems {
     public static final Item speedCharm = make(
         speedCharmId,
         new ChargedCharmBase(getProps().durability(ConfigHandler.Common.speedCharges()))
+    );
+    public static final Item waterBreathingCharm = make(
+        waterBreathingCharmId,
+        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.waterBreathingCharges()))
     );
 
     private static <T extends Item> T make(String id, T item) {

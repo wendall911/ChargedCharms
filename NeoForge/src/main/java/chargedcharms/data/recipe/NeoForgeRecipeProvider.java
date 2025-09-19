@@ -42,6 +42,8 @@ public class NeoForgeRecipeProvider extends RecipeProvider {
         RecipeProviderBase.enchantedTotemCharm().save(bmoWrapped);
         RecipeProviderBase.speedCharm().save(
             recipeOutput.withConditions(new ConfigResourceCondition("disableSpeedCharm")));
+        RecipeProviderBase.waterBreathingCharm().save(
+            recipeOutput.withConditions(new ConfigResourceCondition("disableWaterBreathingCharm")));
         RecipeProviderBase.specialRecipe(
             recipeOutput.withConditions(new ConfigResourceCondition("disableRegenCharm")),
             RegenerationChargeRecipe.SERIALIZER,
@@ -66,6 +68,11 @@ public class NeoForgeRecipeProvider extends RecipeProvider {
             recipeOutput.withConditions(new ConfigResourceCondition("disableSpeedCharm")),
             SpeedChargeRecipe.SERIALIZER,
             SpeedChargeRecipe::new
+        );
+        RecipeProviderBase.specialRecipe(
+            recipeOutput.withConditions(new ConfigResourceCondition("disableWaterBreathingCharm")),
+            chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe.SERIALIZER,
+            chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe::new
         );
     }
 

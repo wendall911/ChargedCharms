@@ -13,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,33 +27,43 @@ import chargedcharms.util.CharmHelper;
 @Mixin(ServerPlayer.class)
 public class MixinServerPlayer {
 
-    private int counter = 0;
-    private final Map<UUID, Long> absorptionCoolDownTracker = Maps.newHashMap();
-    private final Map<UUID, Long> speedCoolDownTracker = Maps.newHashMap();
+    @Unique
+    private int chargedCharms$counter = 0;
+    @Unique
+    private final Map<UUID, Long> chargedCharms$absorptionCoolDownTracker = Maps.newHashMap();
+    @Unique
+    private final Map<UUID, Long> chargedCharms$speedCoolDownTracker = Maps.newHashMap();
 
     @Inject(at = @At(value = "TAIL"), method = "doTick")
     private void monitorDoTick(CallbackInfo ci) {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
         // Check every 20 ticks
-        if (counter % 20 == 0) {
-            if (needsHealing(sp) && !sp.hasEffect(MobEffects.REGENERATION)) {
+        if (chargedCharms$counter % 20 == 0) {
+            if (chargedCharms$needsHealing(sp) && !sp.hasEffect(MobEffects.REGENERATION)) {
                 CharmHelper.triggerCharm(sp, sp, ChargedCharmsItems.regenerationCharm);
             }
-            if (isSprintJumping(sp) && !sp.hasEffect(MobEffects.MOVEMENT_SPEED)) {
+            if (chargedCharms$isSprintJumping(sp) && !sp.hasEffect(MobEffects.MOVEMENT_SPEED)) {
                 ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.speedCharm);
 
-                if (hasCharge(charmStack) && canTriggerSpeedCharm(sp)) {
+                if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerSpeedCharm(sp)) {
+                    CharmHelper.triggerCharm(sp, charmStack);
+                }
+            }
+            if (chargedCharms$needsAir(sp) && !sp.hasEffect(MobEffects.WATER_BREATHING)) {
+                ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.waterBreathingCharm);
+
+                if (chargedCharms$hasCharge(charmStack)) {
                     CharmHelper.triggerCharm(sp, charmStack);
                 }
             }
         }
 
-        if (counter % 100 == 0) {
+        if (chargedCharms$counter % 100 == 0) {
             CharmHelper.chargeSolarCharm(sp, ChargedCharmsItems.glowupCharm);
         }
 
-        counter++;
+        chargedCharms$counter++;
     }
 
     @Inject(at = @At(value = "HEAD"), method = "attack")
@@ -68,30 +79,32 @@ public class MixinServerPlayer {
     private void onPlayerHurt(DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
-        if (!sp.isInvulnerableTo(damageSource) && isValidDamageSource(damageSource)) {
+        if (!sp.isInvulnerableTo(damageSource) && chargedCharms$isValidDamageSource(damageSource)) {
             if (!sp.hasEffect(MobEffects.ABSORPTION)) {
                 ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.absorptionCharm);
 
-                if (hasCharge(charmStack) && canTriggerAbsorptionCharm(sp)) {
+                if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerAbsorptionCharm(sp)) {
                     CharmHelper.triggerCharm(sp, charmStack);
                 }
             }
         }
     }
 
-    private boolean isValidDamageSource(DamageSource damageSource) {
+    @Unique
+    private boolean chargedCharms$isValidDamageSource(DamageSource damageSource) {
         return AbsorptionEffectProvider.invalidDamageSources.stream().noneMatch(damageSource::is);
     }
 
-    private boolean canTriggerAbsorptionCharm(LivingEntity livingEntity) {
+    @Unique
+    private boolean chargedCharms$canTriggerAbsorptionCharm(LivingEntity livingEntity) {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
-        long lastTime = absorptionCoolDownTracker.getOrDefault(uuid, now);
+        long lastTime = chargedCharms$absorptionCoolDownTracker.getOrDefault(uuid, now);
         long cooldown = ConfigHandler.Common.absorptionCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
-            absorptionCoolDownTracker.put(uuid, now);
+            chargedCharms$absorptionCoolDownTracker.put(uuid, now);
 
             return true;
         }
@@ -99,15 +112,16 @@ public class MixinServerPlayer {
         return false;
     }
 
-    private boolean canTriggerSpeedCharm(LivingEntity livingEntity) {
+    @Unique
+    private boolean chargedCharms$canTriggerSpeedCharm(LivingEntity livingEntity) {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
-        long lastTime = speedCoolDownTracker.getOrDefault(uuid, now);
+        long lastTime = chargedCharms$speedCoolDownTracker.getOrDefault(uuid, now);
         long cooldown = ConfigHandler.Common.speedCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
-            speedCoolDownTracker.put(uuid, now);
+            chargedCharms$speedCoolDownTracker.put(uuid, now);
 
             return true;
         }
@@ -115,16 +129,24 @@ public class MixinServerPlayer {
         return false;
     }
 
-    private boolean needsHealing(ServerPlayer sp) {
+    @Unique
+    private boolean chargedCharms$needsHealing(ServerPlayer sp) {
         return (sp.getHealth() / sp.getMaxHealth()) < ConfigHandler.Common.regenPercentage();
     }
 
-    private boolean isSprintJumping(ServerPlayer sp) {
+    @Unique
+    private boolean chargedCharms$isSprintJumping(ServerPlayer sp) {
         return !sp.onGround() && sp.isSprinting() && !sp.isSwimming();
     }
 
-    private boolean hasCharge(ItemStack charmStack) {
+    @Unique
+    private boolean chargedCharms$hasCharge(ItemStack charmStack) {
         return !charmStack.isEmpty() && charmStack.getDamageValue() < charmStack.getMaxDamage();
+    }
+
+    @Unique
+    private boolean chargedCharms$needsAir(ServerPlayer sp) {
+        return (sp.getAirSupply() / (float) sp.getMaxAirSupply()) <= ConfigHandler.Common.airRemaining();
     }
 
 }
