@@ -1,3 +1,5 @@
+import se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask
+
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
@@ -84,7 +86,7 @@ shadowJar {
     archiveClassifier = ''
 }
 
-task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+tasks.register('changelog', GitChangelogTask) {
     file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
     templateContent.set(file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8'));
     toRevision.set('HEAD');
@@ -110,6 +112,8 @@ tasks.build.dependsOn('changelog', 'generateUpdates')
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
 def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
+
+version = "${minecraft_version}-${version}"
 
 publishMods {
     file = file(publishFile)
