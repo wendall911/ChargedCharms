@@ -7,6 +7,8 @@ import net.minecraft.world.item.Item;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
+
 public class TagManager {
 
     public static class Items {
@@ -14,6 +16,7 @@ public class TagManager {
         public static final TagKey<Item> CHARGED_CHARMS = itemTag(prefix("charged_charms"));
         public static final TagKey<Item> CHARM_FOODS_BLACKLIST = itemTag(prefix("charm_foods_blacklist"));
         public static final TagKey<Item> ENCHANTED_TOTEMS = itemTag(prefix("enchanted_totems"));
+        public static final TagKey<Item> CURIOS_CHARGED_CHARM = itemTag(loc("curios", "charged_charm"));
 
         private static TagKey<Item> itemTag (ResourceLocation loc) {
             return TagKey.create(Registries.ITEM, loc);
