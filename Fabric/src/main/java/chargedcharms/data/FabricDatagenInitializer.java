@@ -28,11 +28,12 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         pack.addProvider((dataOutput, registryFuture) -> new CommonItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemModelProvider(dataOutput));
         pack.addProvider(DynamicLightsDataProvider::new);
+        pack.addProvider(ChargedCharmsLanguageProvider::new);
     }
 
     public static void configureFabricDatagen(FabricDataGenerator.Pack pack) {
         pack.addProvider((dataOutput, registryFuture) -> new FabricItemTagProvider(dataOutput, registryFuture, fabricBlockTagProvider.contentsGetter()));
-        pack.addProvider((dataOutput, registryFuture) -> new FabricModRecipeProvider(dataOutput, registryFuture));
+        pack.addProvider(FabricModRecipeProvider::new);
     }
 
 }
