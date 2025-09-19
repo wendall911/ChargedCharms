@@ -10,6 +10,7 @@ plugins {
 
 def actualVersion = version
 version = "${minecraft_version}-${version}-FORGE"
+archivesBaseName = "${mod_id}"
 
 mixin {
     add sourceSets.main, "${mod_id}-refmap.json"
