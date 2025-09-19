@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
@@ -42,7 +42,7 @@ public abstract class RecipeProviderBase implements DataProvider {
     }
 
     @Override
-    public void run(@Nonnull CachedOutput cache) throws IllegalStateException {
+    public void run(@NotNull CachedOutput cache) throws IllegalStateException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> recipes = Sets.newHashSet();
 
@@ -149,6 +149,16 @@ public abstract class RecipeProviderBase implements DataProvider {
                 .pattern("NBN")
                 .pattern("NNN")
                 .unlockedBy("has_item", conditionsFromItem(Items.SUGAR));
+    }
+
+    protected static ShapedRecipeBuilder waterBreathingCharm() {
+        return ShapedRecipeBuilder.shaped(ChargedCharmsItems.waterBreathingCharm)
+            .define('N', Items.IRON_NUGGET)
+            .define('K', Items.KELP)
+            .pattern("NNN")
+            .pattern("NKN")
+            .pattern("NNN")
+            .unlockedBy("has_item", conditionsFromItem(Items.KELP));
     }
 
 }

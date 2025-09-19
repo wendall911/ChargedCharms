@@ -68,6 +68,9 @@ public class REIPlugin implements REIClientPlugin {
         if (ConfigHandler.Common.disableSpeedCharm()) {
             return stack.getItem() == ChargedCharmsItems.speedCharm;
         }
+        if (ConfigHandler.Common.disableWaterBreathingCharm()) {
+            return stack.getItem() == ChargedCharmsItems.waterBreathingCharm;
+        }
 
         return false;
     }
