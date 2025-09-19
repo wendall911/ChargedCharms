@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableWaterBreathingCharm"
+    }
+  ],
+  "key": {
+    "K": {
+      "item": "minecraft:kelp"
+    },
+    "N": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "NNN",
+    "NKN",
+    "NNN"
+  ],
+  "result": {
+    "item": "chargedcharms:charged_water_breathing_charm"
+  }
+}
