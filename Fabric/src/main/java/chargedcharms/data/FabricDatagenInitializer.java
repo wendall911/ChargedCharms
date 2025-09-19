@@ -28,6 +28,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         gen.addProvider(new CommonItemTagProvider(gen, blockTagsProvider));
         gen.addProvider(new FabricItemModelProvider(gen));
         gen.addProvider(new CommonRecipeProvider(gen));
+        gen.addProvider(new ChargedCharmsLanguageProvider(gen));
     }
 
     public static void configureFabricDatagen(FabricDataGenerator gen) {
