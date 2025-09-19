@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "minecraft:apple"
+              "minecraft:kelp"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_regeneration_charm"
+        "recipe": "chargedcharms:charged_water_breathing_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chargedcharms:charged_regeneration_charm"
+      "chargedcharms:charged_water_breathing_charm"
     ]
   },
   "sends_telemetry_event": false

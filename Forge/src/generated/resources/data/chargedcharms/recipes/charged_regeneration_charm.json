@@ -22,5 +22,6 @@
   ],
   "result": {
     "item": "chargedcharms:charged_regeneration_charm"
-  }
+  },
+  "show_notification": true
 }

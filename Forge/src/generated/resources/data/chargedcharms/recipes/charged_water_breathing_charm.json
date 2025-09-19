@@ -4,27 +4,24 @@
   "conditions": [
     {
       "type": "chargedcharms:config_disabled",
-      "config": "disableSpeedCharm"
+      "config": "disableWaterBreathingCharm"
     }
   ],
   "key": {
-    "B": {
-      "item": "minecraft:leather_boots"
+    "K": {
+      "item": "minecraft:kelp"
     },
     "N": {
       "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "item": "minecraft:sugar"
     }
   },
   "pattern": [
-    "NSN",
-    "NBN",
+    "NNN",
+    "NKN",
     "NNN"
   ],
   "result": {
-    "item": "chargedcharms:charged_speed_charm"
+    "item": "chargedcharms:charged_water_breathing_charm"
   },
   "show_notification": true
 }

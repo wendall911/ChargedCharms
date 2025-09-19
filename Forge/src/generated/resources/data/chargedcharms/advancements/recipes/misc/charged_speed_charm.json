@@ -30,5 +30,6 @@
     "recipes": [
       "chargedcharms:charged_speed_charm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

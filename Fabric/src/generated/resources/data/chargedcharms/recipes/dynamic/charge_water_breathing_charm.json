@@ -1,0 +1,10 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "chargedcharms:config_disabled",
+      "config": "disableWaterBreathingCharm"
+    }
+  ],
+  "type": "chargedcharms:charge_water_breathing_charm",
+  "category": "misc"
+}

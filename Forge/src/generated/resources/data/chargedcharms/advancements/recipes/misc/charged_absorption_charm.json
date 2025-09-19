@@ -30,5 +30,6 @@
     "recipes": [
       "chargedcharms:charged_absorption_charm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -1,0 +1,10 @@
+{
+  "type": "chargedcharms:charge_water_breathing_charm",
+  "category": "misc",
+  "conditions": [
+    {
+      "type": "chargedcharms:config_disabled",
+      "config": "disableWaterBreathingCharm"
+    }
+  ]
+}
