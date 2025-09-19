@@ -72,6 +72,9 @@ public class CharmChargingRecipeMaker {
         if (!ConfigHandler.Common.disableSpeedCharm()) {
             recipes.add(getRecipe(group, ".speed", ChargedCharmsItems.speedCharm, Ingredient.of(Items.SUGAR)));
         }
+        if (!ConfigHandler.Common.disableWaterBreathingCharm()) {
+            recipes.add(getRecipe(group, ".water_breathing", ChargedCharmsItems.waterBreathingCharm, Ingredient.of(Items.KELP)));
+        }
 
         return recipes;
     }
