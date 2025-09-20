@@ -4,11 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.loader.api.FabricLoader;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,7 +28,7 @@ public class ChargedCharmsFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        boolean isClient = FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
+        boolean isClient = Services.PLATFORM.isPhysicalClient();
 
         registryInit();
 
