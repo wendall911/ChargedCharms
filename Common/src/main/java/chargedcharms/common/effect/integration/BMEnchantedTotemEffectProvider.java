@@ -15,7 +15,7 @@ public class BMEnchantedTotemEffectProvider implements ICharmEffectProvider {
         livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 500, 1));
         livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1200, 3));
         livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 2000, 0));
-        livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 2000, 0));
+        livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 2000, 0));
     }
 
 }

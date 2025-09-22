@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -18,22 +17,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 import technology.roughness.whitenoise.platform.Services;
 
-import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-
-import chargedcharms.client.CurioCharmRenderer;
-import chargedcharms.client.integration.arsnouveau.ArsDynamicLightsModule;
-import chargedcharms.client.integration.ryoamiclights.RyoamicDynamicLightsModule;
-import chargedcharms.common.CharmEffectProviders;
+//import chargedcharms.client.integration.arsnouveau.ArsDynamicLightsModule;
+//import chargedcharms.client.integration.ryoamiclights.RyoamicDynamicLightsModule;
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
 import chargedcharms.common.item.ChargedCharmsItems;
@@ -49,24 +40,20 @@ public class ChargedCharmsNeoForge {
     public ChargedCharmsNeoForge(IEventBus eventBus) {
         ChargedCharms.initConfig();
         registryInit(eventBus);
-        eventBus.addListener(this::registerCapabilities);
+        ChargedCharms.init();
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::buildCreativeTabContents);
     }
 
     private void clientSetup(final FMLClientSetupEvent evt) {
-        for (ResourceLocation loc : CharmEffectProviders.getItems()) {
-            Item item = BuiltInRegistries.ITEM.get(loc);
-
-            CuriosRendererRegistry.register(item, CurioCharmRenderer::new);
-        }
+        ChargedCharmsClient.init();
 
         if (Services.PLATFORM.isModLoaded(ModIntegration.ARS_MODID)) {
-            ArsDynamicLightsModule.setup();
+            //ArsDynamicLightsModule.setup();
         }
 
         if (Services.PLATFORM.isModLoaded(ModIntegration.RYOAMIC_MODID)) {
-            RyoamicDynamicLightsModule.setup();
+            //RyoamicDynamicLightsModule.setup();
         }
     }
 
@@ -82,25 +69,6 @@ public class ChargedCharmsNeoForge {
                 if (charm != null) {
                     evt.accept(new ItemStack(charm));
                 }
-            }
-        }
-    }
-
-    private void registerCapabilities(final RegisterCapabilitiesEvent evt) {
-        for (Item item : BuiltInRegistries.ITEM) {
-
-            if (CharmEffectProviders.IS_CHARM.test(item)) {
-                evt.registerItem(CuriosCapability.ITEM, (stack, ctx) -> new ICurio() {
-                    @Override
-                    public ItemStack getStack() {
-                        return stack;
-                    }
-
-                    @Override
-                    public boolean canEquipFromUse(SlotContext ctx) {
-                        return true;
-                    }
-                }, item);
             }
         }
     }

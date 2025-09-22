@@ -1,35 +1,18 @@
 package chargedcharms.platform;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
-import com.google.common.collect.Sets;
-
-import dev.emi.trinkets.api.TrinketsApi;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Tuple;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 
-import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.platform.services.IPlatform;
 
 public class FabricPlatform implements IPlatform {
-
-    @Override
-    public Set<ItemStack> findCharms(LivingEntity livingEntity) {
-        Set<ItemStack> results = Sets.newHashSet();
-
-        return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
-            component.getEquipped(stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
-                    .forEach(results::add);
-
-            return results;
-        }).orElse(results);
-    }
 
     @Override
     public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
@@ -38,6 +21,12 @@ public class FabricPlatform implements IPlatform {
             name,
             component
         );
+    }
+
+    @Override
+    public void addItemRegistryCallback(Consumer<Item> consumer) {
+        RegistryEntryAddedCallback.event(BuiltInRegistries.ITEM)
+            .register((rawId, location, item) -> consumer.accept(item));
     }
 
 }

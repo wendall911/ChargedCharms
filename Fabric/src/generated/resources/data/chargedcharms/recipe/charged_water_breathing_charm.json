@@ -8,12 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "K": {
-      "item": "minecraft:kelp"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    }
+    "K": "minecraft:kelp",
+    "N": "minecraft:iron_nugget"
   },
   "pattern": [
     "NNN",

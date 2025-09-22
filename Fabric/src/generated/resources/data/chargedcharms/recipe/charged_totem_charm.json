@@ -8,12 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "U": {
-      "item": "minecraft:totem_of_undying"
-    }
+    "N": "minecraft:iron_nugget",
+    "U": "minecraft:totem_of_undying"
   },
   "pattern": [
     "NNN",

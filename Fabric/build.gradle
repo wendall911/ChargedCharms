@@ -19,6 +19,10 @@ dependencies {
     modImplementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-fabric", version: "${whitenoise_range}"
     include group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-fabric", version: "${whitenoise_version}"
 
+    modImplementation "io.wispforest:accessories-fabric:${accessories_version}+${minecraft_version}"
+    // This is needed for some reason, or everything breaks. Maybe an oversight from the devs.
+    modApi "io.wispforest:owo-lib:${owo_version}"
+
     modApi "dev.architectury:architectury-fabric:${architectury_version}"
     modApi("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
@@ -27,21 +31,21 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
 
-    modCompileOnly "mezz.jei:jei-1.21.1-common-api:${jei_version}"
-    modCompileOnly "mezz.jei:jei-1.21.1-fabric:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
 
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
 
     //runtimeOnly "curse.maven:sodium-394468:${sodium_fabric_version}"
     modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${sdl_version}+${minecraft_version}")
-    modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
+    //modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
 
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
 
     modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
+    //runtimeOnly "io.wispforest:accessories-fabric:${accessories_version}+${minecraft_version}"
 }
 
 loom {
@@ -106,7 +110,7 @@ publishMods {
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('fabric-api')
-            requires('trinkets')
+            requires('accessories')
             optional('biome-makeover')
         }
     }
@@ -116,7 +120,7 @@ publishMods {
             projectId = project.ccModrinthId
             minecraftVersions.addAll("${release_versions}".split(','))
             requires("fabric-api")
-            requires("trinkets")
+            requires('accessories')
             optional("biome-makeover")
         }
     }

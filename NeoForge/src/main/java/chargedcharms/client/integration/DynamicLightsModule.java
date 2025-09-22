@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 
 import net.neoforged.neoforge.items.IItemHandler;
 
-import top.theillusivec4.curios.api.CuriosApi;
+//import top.theillusivec4.curios.api.CuriosApi;
 
 public abstract class DynamicLightsModule {
 
@@ -42,6 +42,7 @@ public abstract class DynamicLightsModule {
 
         luminance.set(0);
 
+        /*
         if (entity instanceof LivingEntity livingEntity) {
             return CuriosApi.getCuriosInventory(livingEntity).map(inventory -> {
                 IItemHandler itemHandler = inventory.getEquippedCurios();
@@ -53,6 +54,7 @@ public abstract class DynamicLightsModule {
                 return luminance.get();
             }).orElse(luminance.get());
         }
+         */
 
         return luminance.get();
     }

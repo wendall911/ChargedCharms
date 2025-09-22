@@ -1,30 +1,18 @@
 package chargedcharms.platform;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import com.google.common.collect.Sets;
+import java.util.function.Consumer;
 
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import net.neoforged.neoforge.registries.callback.AddCallback;
 
-import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.platform.services.IPlatform;
 import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 
 public class NeoForgePlatform implements IPlatform {
-
-    @Override
-    public Set<ItemStack> findCharms(LivingEntity livingEntity) {
-        return CuriosApi.getCuriosInventory(livingEntity).map(
-            inv -> inv.findCurios(stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem())).stream().map(SlotResult::stack))
-                .map(itemStackStream -> itemStackStream.collect(Collectors.toSet())).orElse(Sets.newHashSet());
-    }
 
     @Override
     public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
@@ -32,6 +20,12 @@ public class NeoForgePlatform implements IPlatform {
             name.getPath(),
             () -> component
         );
+    }
+
+    @Override
+    public void addItemRegistryCallback(Consumer<Item> consumer) {
+        BuiltInRegistries.ITEM.addCallback(
+            (AddCallback<Item>) (registry, rawId, location, item) -> consumer.accept(item));
     }
 
 }

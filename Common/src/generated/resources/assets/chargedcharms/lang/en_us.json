@@ -1,5 +1,5 @@
 {
-  "curios.identifier.charged_charm": "Charged Charm",
+  "accessories.slot.charged_charm": "Charged Charm",
   "item.chargedcharms.charged_absorption_charm": "Charged Absorption Charm",
   "item.chargedcharms.charged_enchanted_totem_charm": "Charged Enchanted Totem Charm",
   "item.chargedcharms.charged_glowup_charm": "Charged Glow Up Charm",
@@ -8,6 +8,5 @@
   "item.chargedcharms.charged_totem_charm": "Charged Totem Charm",
   "item.chargedcharms.charged_water_breathing_charm": "Charged Water Breathing Charm",
   "itemGroup.chargedcharms": "Charged Charms",
-  "tooltip.charged_charm.charges": "Charges",
-  "trinkets.slot.charged_charm.charm": "Charged Charm"
+  "tooltip.charged_charm.charges": "Charges"
 }

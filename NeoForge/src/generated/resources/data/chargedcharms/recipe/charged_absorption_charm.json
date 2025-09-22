@@ -8,12 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "minecraft:cooked_beef"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    }
+    "A": "minecraft:cooked_beef",
+    "N": "minecraft:iron_nugget"
   },
   "pattern": [
     "NNN",

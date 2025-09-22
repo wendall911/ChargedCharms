@@ -2,30 +2,31 @@ package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
 import chargedcharms.common.TagManager;
 
 public class EnchantedTotemChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleCraftingRecipeSerializer<EnchantedTotemChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(EnchantedTotemChargeRecipe::new);
+    public static final RecipeSerializer<EnchantedTotemChargeRecipe> SERIALIZER = new CustomRecipe.Serializer<>(EnchantedTotemChargeRecipe::new);
 
     public EnchantedTotemChargeRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return SERIALIZER;
     }
 

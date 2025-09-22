@@ -30,9 +30,9 @@ neoForge {
             server()
             programArgument '--nogui'
         }
-        data {
+        clientData {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-            data()
+            clientData()
         }
     }
     mods {
@@ -43,19 +43,18 @@ neoForge {
 }
 
 dependencies {
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
-
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
     jarJar group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
+
+    implementation "io.wispforest:accessories-neoforge:${accessories_version}+${minecraft_version}"
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     implementation "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
-    compileOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}")
-    compileOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
+    //compileOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}")
+    //compileOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
 
     //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     //runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
@@ -63,10 +62,10 @@ dependencies {
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
-    runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}" // Required by Dynamic Lights
-    //runtimeOnly "curse.maven:dynamic_lights-551736:${sdl_neoforge_version}"
-    runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
-    runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
+    //runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}" // Required by Dynamic Lights
+    //runtimeOnly "curse.maven:sodium_dynamic_lights-551736:${sdl_neoforge_version}"
+    //runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
+    //runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
     /*
     runtimeOnly "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_neoforge_version}" // For Ars Nouveau
     runtimeOnly "curse.maven:terrablender-940057:${terrablender_neoforge_version}" // For Ars Nouvea
@@ -134,7 +133,7 @@ publishMods {
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
-            requires('curios')
+            requires('accessories')
             optional('biome-makeover-forge')
         }
     }
@@ -143,8 +142,8 @@ publishMods {
             accessToken = project.modrinthKey
             projectId = project.ccModrinthId
             minecraftVersions.addAll("${release_versions}".split(','))
-            requires("curios")
-            optional("biome-makeover")
+            requires('accessories')
+            optional('biome-makeover')
         }
     }
 }

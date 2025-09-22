@@ -19,7 +19,12 @@ dependencies {
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: "${mixin_extras_version}"
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: "${mixin_extras_version}"
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-common", version: "${whitenoise_version}"
+    
+    implementation("io.wispforest:accessories-common:${accessories_version}+${minecraft_version}-mojmap") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 
+    compileOnly "mezz.jei:jei-${minecraft_version}-common:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-api:${rei_version}"

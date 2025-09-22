@@ -5,6 +5,9 @@ import java.util.UUID;
 
 import com.google.common.collect.Maps;
 
+import io.wispforest.accessories.api.slot.SlotEntryReference;
+
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -43,18 +46,26 @@ public class MixinServerPlayer {
             if (chargedCharms$needsHealing(sp) && !sp.hasEffect(MobEffects.REGENERATION)) {
                 CharmHelper.triggerCharm(sp, sp, ChargedCharmsItems.regenerationCharm);
             }
-            if (chargedCharms$isSprintJumping(sp) && !sp.hasEffect(MobEffects.MOVEMENT_SPEED)) {
-                ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.speedCharm);
+            if (chargedCharms$isSprintJumping(sp) && !sp.hasEffect(MobEffects.SPEED)) {
+                SlotEntryReference slotEntryReference = CharmHelper.getCharm(sp, ChargedCharmsItems.speedCharm);
 
-                if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerSpeedCharm(sp)) {
-                    CharmHelper.triggerCharm(sp, charmStack);
+                if (slotEntryReference != null) {
+                    ItemStack charmStack = slotEntryReference.stack();
+
+                    if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerSpeedCharm(sp)) {
+                        CharmHelper.triggerCharm(sp, charmStack);
+                    }
                 }
             }
             if (chargedCharms$needsAir(sp) && !sp.hasEffect(MobEffects.WATER_BREATHING)) {
-                ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.waterBreathingCharm);
+                SlotEntryReference slotEntryReference = CharmHelper.getCharm(sp, ChargedCharmsItems.waterBreathingCharm);
 
-                if (chargedCharms$hasCharge(charmStack)) {
-                    CharmHelper.triggerCharm(sp, charmStack);
+                if (slotEntryReference != null) {
+                    ItemStack charmStack = slotEntryReference.stack();
+
+                    if (chargedCharms$hasCharge(charmStack)) {
+                        CharmHelper.triggerCharm(sp, charmStack);
+                    }
                 }
             }
         }
@@ -75,16 +86,20 @@ public class MixinServerPlayer {
         }
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;isInvulnerableTo(Lnet/minecraft/world/damagesource/DamageSource;)Z"), method = "hurt")
-    private void onPlayerHurt(DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;isInvulnerableTo(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)Z"), method = "hurtServer")
+    private void onPlayerHurt(ServerLevel level, DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
-        if (!sp.isInvulnerableTo(damageSource) && chargedCharms$isValidDamageSource(damageSource)) {
+        if (!sp.isInvulnerableTo(level, damageSource) && chargedCharms$isValidDamageSource(damageSource)) {
             if (!sp.hasEffect(MobEffects.ABSORPTION)) {
-                ItemStack charmStack = CharmHelper.getCharm(sp, ChargedCharmsItems.absorptionCharm);
+                SlotEntryReference slotEntryReference = CharmHelper.getCharm(sp, ChargedCharmsItems.absorptionCharm);
 
-                if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerAbsorptionCharm(sp)) {
-                    CharmHelper.triggerCharm(sp, charmStack);
+                if (slotEntryReference != null) {
+                    ItemStack charmStack = slotEntryReference.stack();
+
+                    if (chargedCharms$hasCharge(charmStack) && chargedCharms$canTriggerAbsorptionCharm(sp)) {
+                        CharmHelper.triggerCharm(sp, charmStack);
+                    }
                 }
             }
         }

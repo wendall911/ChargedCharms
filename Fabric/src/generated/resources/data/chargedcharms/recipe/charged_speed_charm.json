@@ -8,15 +8,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:leather_boots"
-    },
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "item": "minecraft:sugar"
-    }
+    "B": "minecraft:leather_boots",
+    "N": "minecraft:iron_nugget",
+    "S": "minecraft:sugar"
   },
   "pattern": [
     "NSN",

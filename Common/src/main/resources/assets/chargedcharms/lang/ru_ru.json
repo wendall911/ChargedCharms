@@ -1,5 +1,5 @@
 {
-  "curios.identifier.charged_charm": "Заряженный шарм",
+  "accessories.slot.charged_charm": "Заряженный шарм",
   "item.chargedcharms.charged_absorption_charm": "Заряженный шарм поглощения",
   "item.chargedcharms.charged_enchanted_totem_charm": "Заряженный зачарованный тотемный шарм",
   "item.chargedcharms.charged_glowup_charm": "Заряженный шарм свечения",
@@ -8,6 +8,5 @@
   "item.chargedcharms.charged_totem_charm": "Заряженный тотемный шарм",
   "item.chargedcharms.charged_water_breathing_charm": "Charged Water Breathing Charm",
   "itemGroup.chargedcharms": "Заряженные шармы",
-  "tooltip.charged_charm.charges": "Зарядов",
-  "trinkets.slot.charged_charm.charm": "Заряженный шарм"
+  "tooltip.charged_charm.charges": "Зарядов"
 }

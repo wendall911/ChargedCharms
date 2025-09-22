@@ -57,11 +57,6 @@ repositories {
     }
 
     maven {
-        name = 'Illusive Soulworks'
-        url = 'https://maven.theillusivec4.top/'
-	}
-
-    maven {
         name = 'JEI'
         url 'https://dvs1.progwml6.com/files/maven/'
     }
@@ -71,6 +66,30 @@ repositories {
         url = 'https://cursemaven.com'
         content {
             includeGroup 'curse.maven'
+        }
+    }
+
+    exclusiveContent {
+        forRepositories(
+            maven {
+                name = 'Accessories'
+                url 'https://maven.wispforest.io/releases'
+            }
+        )
+        filter {
+            includeGroupAndSubgroups('io.wispforest')
+        }
+    }
+
+    exclusiveContent {
+        forRepositories(
+            maven {
+                name = 'Forgified Fabric API'
+                url 'https://maven.su5ed.dev/releases'
+            }
+        )
+        filter {
+            includeGroup('org.sinytra.forgified-fabric-api')
         }
     }
 
@@ -158,7 +177,7 @@ processResources {
         'mod_name': mod_name,
         'mod_url': mod_url,
         'issue_tracker': issue_tracker,
-        'curios_version_range': curios_version_range,
+        'accessories_version_range': accessories_version_range,
         'mod_update_branch': mod_update_branch,
         'minecraft_version': minecraft_version,
         'fabric_loader_min_version': fabric_loader_min_version,

@@ -8,12 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": {
-      "item": "minecraft:glow_berries"
-    },
-    "N": {
-      "item": "minecraft:gold_nugget"
-    }
+    "G": "minecraft:glow_berries",
+    "N": "minecraft:gold_nugget"
   },
   "pattern": [
     "NNN",

@@ -11,20 +11,18 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import chargedcharms.ChargedCharms;
-import chargedcharms.data.integration.ChargedCharmsCuriosProvider;
 import chargedcharms.data.recipe.NeoForgeRecipeProvider;
 
-@EventBusSubscriber(modid = ChargedCharms.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ChargedCharms.MODID)
 public class NeoForgeDatagenInitializer {
 
     @SubscribeEvent
-    public static void configureNeoForgeDatagen(GatherDataEvent event) {
+    public static void configureNeoForgeDatagen(GatherDataEvent.Client event) {
         DataGenerator gen = event.getGenerator();
         PackOutput packOutput = gen.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        gen.addProvider(event.includeServer(), new NeoForgeRecipeProvider(packOutput, lookupProvider));
-        gen.addProvider(event.includeServer(), new ChargedCharmsCuriosProvider(packOutput, event.getExistingFileHelper(), lookupProvider));
+        gen.addProvider(true, new NeoForgeRecipeProvider(packOutput, lookupProvider));
     }
 
 }

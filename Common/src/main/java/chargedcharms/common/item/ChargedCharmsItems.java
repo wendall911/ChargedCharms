@@ -4,6 +4,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import io.wispforest.accessories.api.components.AccessoriesDataComponents;
+import io.wispforest.accessories.api.components.AccessorySlotValidationComponent;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -22,34 +26,35 @@ public final class ChargedCharmsItems {
     public static final String enchantedTotemCharmId = "charged_enchanted_totem_charm";
     public static final String speedCharmId = "charged_speed_charm";
     public static final String waterBreathingCharmId = "charged_water_breathing_charm";
+
     
     public static final Item regenerationCharm = make(
         regenerationCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.regenCharges()))
+        new ChargedCharmBase(getProps(regenerationCharmId).durability(ConfigHandler.Common.regenCharges()))
     );
     public static final Item absorptionCharm = make(
         absorptionCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.absorptionCharges()))
+        new ChargedCharmBase(getProps(absorptionCharmId).durability(ConfigHandler.Common.absorptionCharges()))
     );
     public static final Item glowupCharm = make(
         glowupCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.glowUpCharges()))
+        new ChargedCharmBase(getProps(glowupCharmId).durability(ConfigHandler.Common.glowUpCharges()))
     );
     public static final Item totemCharm = make(
         totemCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+        new ChargedCharmBase(getProps(totemCharmId).durability(ConfigHandler.Common.totemCharges()))
     );
     public static final Item enchantedTotemCharm = make(
         enchantedTotemCharmId,
-        new EnchantedChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+        new EnchantedChargedCharmBase(getProps(enchantedTotemCharmId).durability(ConfigHandler.Common.totemCharges()))
     );
     public static final Item speedCharm = make(
         speedCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.speedCharges()))
+        new ChargedCharmBase(getProps(speedCharmId).durability(ConfigHandler.Common.speedCharges()))
     );
     public static final Item waterBreathingCharm = make(
         waterBreathingCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.waterBreathingCharges()))
+        new ChargedCharmBase(getProps(waterBreathingCharmId).durability(ConfigHandler.Common.waterBreathingCharges()))
     );
 
     private static <T extends Item> T make(String id, T item) {
@@ -62,8 +67,13 @@ public final class ChargedCharmsItems {
         return item;
     }
 
-    public static Item.Properties getProps() {
-        return new Item.Properties();
+    public static Item.Properties getProps(String id) {
+        return new Item.Properties()
+            .setId(ResourceKey.create(Registries.ITEM, prefix(id)))
+            .component(
+                AccessoriesDataComponents.SLOT_VALIDATION,
+                AccessorySlotValidationComponent.EMPTY.addValidSlot("charged_charm")
+            );
     }
 
     public static void registerItems(BiConsumer<Item, ResourceLocation> consumer) {

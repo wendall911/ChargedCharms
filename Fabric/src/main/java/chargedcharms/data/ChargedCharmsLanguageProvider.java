@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+
 import net.minecraft.core.HolderLookup;
 
 import chargedcharms.ChargedCharms;
@@ -25,8 +26,7 @@ public class ChargedCharmsLanguageProvider extends FabricLanguageProvider {
         addCharmItem(translationBuilder, ChargedCharmsItems.enchantedTotemCharmId, "Enchanted Totem");
         addCharmItem(translationBuilder, ChargedCharmsItems.speedCharmId, "Speed");
         addCharmItem(translationBuilder, ChargedCharmsItems.waterBreathingCharmId, "Water Breathing");
-        translationBuilder.add("trinkets.slot.charged_charm.charm", "Charged Charm");
-        translationBuilder.add("curios.identifier.charged_charm", "Charged Charm");
+        translationBuilder.add("accessories.slot.charged_charm", "Charged Charm");
         translationBuilder.add("tooltip.charged_charm.charges", "Charges");
     }
 

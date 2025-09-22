@@ -1,5 +1,7 @@
 package chargedcharms.common.crafting.recipe;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.HolderLookup;
@@ -14,6 +16,11 @@ public class ChargeRecipeBase extends CustomRecipe {
 
     public ChargeRecipeBase(CraftingBookCategory category) {
         super(category);
+    }
+
+    @Override
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
+        return null;
     }
 
     @Override
@@ -33,16 +40,6 @@ public class ChargeRecipeBase extends CustomRecipe {
         charmCopy.setDamageValue(charmCopy.getDamageValue() - 1);
 
         return charmCopy;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return pWidth * pHeight >= 2;
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return null;
     }
 
     public Pair<ItemStack, ItemStack> checkContainer(CraftingInput craftingInput) {

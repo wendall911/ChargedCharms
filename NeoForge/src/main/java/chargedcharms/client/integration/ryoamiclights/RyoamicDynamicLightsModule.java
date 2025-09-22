@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 
+/*
 import org.thinkingstudio.ryoamiclights.RyoamicLights;
 import org.thinkingstudio.ryoamiclights.api.DynamicLightHandlers;
 
@@ -37,3 +38,4 @@ public class RyoamicDynamicLightsModule extends DynamicLightsModule {
     }
 
 }
+*/

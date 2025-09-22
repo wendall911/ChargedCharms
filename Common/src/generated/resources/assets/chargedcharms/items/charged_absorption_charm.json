@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "chargedcharms:item/charged_absorption_charm"
+  }
+}

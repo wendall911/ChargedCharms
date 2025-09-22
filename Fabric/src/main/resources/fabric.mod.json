@@ -18,6 +18,9 @@
     "main": [
       "chargedcharms.ChargedCharmsFabric"
     ],
+    "client": [
+      "chargedcharms.ChargedCharmsFabricClient"
+    ],
     "fabric-datagen": [
       "chargedcharms.data.FabricDatagenInitializer"
     ],
@@ -37,7 +40,7 @@
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
-    "trinkets": "*",
+    "accessories": "*",
     "minecraft": ${fabric_mc_version_range},
     "java": ">=${java_version}"
   }
