@@ -48,6 +48,7 @@ public class ConfigHandler {
             builder.push("rendering");
 
             showCharms = builder.comment("Show Charged Charm on player chest.")
+                    .clientRestart()
                     .define("showCharms", true);
 
             builder.pop();
@@ -89,24 +90,31 @@ public class ConfigHandler {
             builder.push("charms");
 
             disableRegenCharm = builder.comment("Disable Charged Regeneration Charm")
+                    .clientRestart()
                     .define("disableRegenCharm", false);
 
             disableAbsorptionCharm = builder.comment("Disable Charged Absorption Charm")
+                    .clientRestart()
                     .define("disableAbsorptionCharm", false);
 
             disableGlowupCharm = builder.comment("Disable Charged Glow Up Charm")
+                    .clientRestart()
                     .define("disableGlowupCharm", false);
 
             disableTotemCharm = builder.comment("Disable Charged Totem Charm")
+                    .clientRestart()
                     .define("disableTotemCharm", false);
 
             disableEnchTotemCharm = builder.comment("Disable Charged Enchanted Totem Charm")
+                    .clientRestart()
                     .define("disableEnchTotemCharm", false);
 
             disableSpeedCharm = builder.comment("Disable Charged Speed Charm")
+                    .clientRestart()
                     .define("disableSpeedCharm", false);
 
             disableWaterBreathingCharm = builder.comment("Disable Charged Water Breathing Charm")
+                    .clientRestart()
                     .define("disableWaterBreathingCharm", false);
 
             builder.pop();
@@ -114,50 +122,66 @@ public class ConfigHandler {
             builder.push("tweaks");
 
             absorptionCooldown = builder.comment("Cooldown in seconds for the Charged Absorption Charm.")
+                    .clientRestart()
                     .defineInRange("absorptionCooldown", 20, 0, 300);
 
             absorptionDuration = builder.comment("Duration in seconds for the Charged Absorption Charm effect.")
+                    .clientRestart()
                     .defineInRange("absorptionDuration", 5, 1, 300);
 
             absorptionAmplifier = builder.comment("Charged Absorption Charm effect amplifier.")
+                    .clientRestart()
                     .defineInRange("absorptionAmplifier", 0, 0, 255);
 
             absorptionCharges = builder.comment("Number of charges for the Charged Absorption Charm.")
+                    .clientRestart()
                     .defineInRange("absorptionCharges", 15, 1, 100);
 
             regenPercentage = builder.comment("Low health percentage to trigger Charged Regeneration Charm.")
+                    .clientRestart()
                     .defineInRange("regenPercentage", 0.35D, 0.2D, 0.8D);
 
             regenDuration = builder.comment("Duration in seconds for the Charged Regeneration Charm effect.")
+                    .clientRestart()
                     .defineInRange("regenDuration", 15, 1, 300);
 
             regenAmplifier = builder.comment("Charged Regeneration Charm effect amplifier.")
+                    .clientRestart()
                     .defineInRange("regenAmplifier", 0, 0, 255);
 
             regenCharges = builder.comment("Number of charges for the Charged Regeneration Charm.")
+                    .clientRestart()
                     .defineInRange("regenCharges", 15, 1, 100);
 
             glowUpDuration = builder.comment("Duration in seconds for the Charged Glow Up Charm effect.")
+                    .clientRestart()
                     .defineInRange("glowUpDuration", 30, 1, 300);
 
             glowUpCharges = builder.comment("Number of charges for the Charged Glow Up Charm.")
+                    .clientRestart()
                     .defineInRange("glowUpCharges", 20, 1, 100);
 
             speedDuration = builder.comment("Duration in seconds for the Charged Speed Charm effect.")
+                    .clientRestart()
                     .defineInRange("speedDuration", 180, 1, 360);
 
             speedCooldown = builder.comment("Cooldown in seconds for the Charged Speed Charm.")
+                    .clientRestart()
                     .defineInRange("speedCooldown", 120, 0, 360);
 
             speedCharges = builder.comment("Number of charges for the Charged Speed Charm.")
+                    .clientRestart()
                     .defineInRange("speedCharges", 20, 1, 100);
 
             totemCharges = builder.comment("Number of charges for the Charged Totem Charm and Charged Enchanted Totem Charm.")
+                    .clientRestart()
                     .defineInRange("totemCharges", 5, 1, 100);
 
             airRemaining = builder.comment("Amount of air remaining when Charged Water Breathing Charm is triggered.")
+                    .clientRestart()
                     .defineInRange("airRemaining", 0, 0, 10);
             waterBreathingCharges = builder.comment("Number of charges for the Charged Water Breathing Charm.")
+                    .clientRestart()
                     .defineInRange("waterBreathingCharges", 5, 1, 100);
 
             builder.pop();
