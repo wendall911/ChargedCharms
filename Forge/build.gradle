@@ -1,6 +1,5 @@
 plugins {
     id 'idea'
-    id 'maven-publish'
     id 'net.minecraftforge.gradle'
     id 'org.parchmentmc.librarian.forgegradle'
     id 'org.spongepowered.mixin'
@@ -25,6 +24,7 @@ minecraft {
     runs {
         client {
             workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Client'
             property 'mixin.env.remapRefMap', 'true'
@@ -37,9 +37,9 @@ minecraft {
                 }
             }
         }
-
         server {
             workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
             ideaModule "${rootProject.name}.${project.name}.main"
             taskName 'Server'
             property 'mixin.env.remapRefMap', 'true'
@@ -52,9 +52,9 @@ minecraft {
                 }
             }
         }
-
         data {
             workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
             ideaModule "${rootProject.name}.${project.name}.main"
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             taskName 'Data'
@@ -75,8 +75,8 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":Common")
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
+    compileOnly project(":Common")
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}+${minecraft_version}:api")
@@ -90,18 +90,31 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
     implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
-    //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
-    //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
-    runtimeOnly fg.deobf("curse.maven:radiant_gear-602199:${radiant_gear_forge_version}")
-    runtimeOnly fg.deobf("curse.maven:embeddium-908741:${embeddium_version}") // Required by Dynamic Lights
-    //runtimeOnly fg.deobf("curse.maven:dynamic_lights-551736:${sdl_forge_version}")
-    runtimeOnly fg.deobf("curse.maven:obsidianui-684718:${obsidianui_version}") // For ryoamiclights
-    runtimeOnly fg.deobf("curse.maven:ryoamiclights-913587:${ryoamiclights_version}")
-    //runtimeOnly fg.deobf("curse.maven:geckolib-388172:${geckolib_version}") // For ars nouveau
-    //runtimeOnly "com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}"
-    //runtimeOnly fg.deobf("curse.maven:lucent-493280:${lucent_version}")
-    //runtimeOnly fg.deobf("curse.maven:dynamic_lights-227874:${dynamic_lights_forge_version}")
+    // This stupidity is needed in Forge, since
+    // they don't ingore other mods datagen when running datagen locally.
+    if (System.getenv('DATA_GEN') != null) {
+        // Runtime requirements for datagen
+    }
+    else {
+        //runtimeOnly fg.deobf("curse.maven:charmofundying-316873:3927421")
+        //runtimeOnly fg.deobf("curse.maven:architectury-419699:${architectury_forge_version")
+        //runtimeOnly fg.deobf("curse.maven:biomemakeover-567709:3942516")
+        runtimeOnly fg.deobf("curse.maven:radiant_gear-602199:${radiant_gear_forge_version}")
+        runtimeOnly fg.deobf("curse.maven:embeddium-908741:${embeddium_version}") // Required by Dynamic Lights
+        //runtimeOnly fg.deobf("curse.maven:dynamic_lights-551736:${sdl_forge_version}")
+        runtimeOnly fg.deobf("curse.maven:obsidianui-684718:${obsidianui_version}") // For ryoamiclights
+        runtimeOnly fg.deobf("curse.maven:ryoamiclights-913587:${ryoamiclights_version}")
+        //runtimeOnly fg.deobf("curse.maven:geckolib-388172:${geckolib_version}") // For ars nouveau
+        //runtimeOnly "com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}"
+        //runtimeOnly fg.deobf("curse.maven:lucent-493280:${lucent_version}")
+        //runtimeOnly fg.deobf("curse.maven:dynamic_lights-227874:${dynamic_lights_forge_version}")
+    }
+}
+
+// Throw errors on warnings. Can also disable warnings here.
+compileJava {
+    source(project(":Common").sourceSets.main.allSource)
+    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 }
 
 tasks.withType(JavaCompile) {
@@ -110,18 +123,29 @@ tasks.withType(JavaCompile) {
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
 def replaceProperties = [
-    'version': actualVersion, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
-    'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
-    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'curios_version_range': curios_version_range,
-    'mod_update_branch': mod_update_branch, 'mod_url': mod_url
+    'version': actualVersion,
+    'minecraft_version': minecraft_version,
+    'forge_mc_version_range': forge_mc_version_range,
+    'forge_version_range': forge_version_range,
+    'curios_version_range': curios_version_range,
+    'license': license,
+    'mod_id': mod_id,
+    'mod_author': mod_author,
+    'mod_description': mod_description,
+    'mod_display_name': mod_display_name,
+    'mod_name': mod_name,
+    'mod_credits': mod_credits,
+    'mod_update_branch': mod_update_branch,
+    'pack_format': pack_format,
+    'curseforge_slug': curseforge_slug
 ]
 
 processResources {
     from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
-    exclude '.cache'
     replaceProperties.put 'project', project
+    exclude '.cache'
 
     filesMatching(resourceTargets) {
         expand replaceProperties
@@ -143,25 +167,6 @@ jarJar {
     enable()
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            // This gives us the built obfuscated version Forge requires
-            artifact jar
-        }
-    }
-    repositories {
-        if (System.getenv('local_maven') != null) {
-            maven {
-                url 'file://' + System.getenv('local_maven')
-            }
-        }
-    }
-}
-
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
     templateContent.set(file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8'));
@@ -176,13 +181,13 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("../files/templates/") {
         include 'updates.json'
-        expand 'version': actualVersion, 'minecraft_version': minecraft_version
+        expand replaceProperties
     }
 
     it.into '../files/'
 }
 
-tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
+tasks.generateUpdates.mustRunAfter('jar')
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
 
@@ -198,25 +203,54 @@ publishMods {
     modLoaders.addAll(['neoforge', 'forge'])
     dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
-    if (project.hasProperty('ccCurseApiKey')) {
+    if (project.hasProperty("${curseforge_api_key_prop}")) {
         curseforge {
-            accessToken = project.ccCurseApiKey
-            projectId = ccCurseId
+            accessToken = project.property("${curseforge_api_key_prop}")
+            projectId = "${curseforge_id}"
+            projectSlug = "${curseforge_slug}"
             javaVersions.add(JavaVersion.toVersion("${java_version}"))
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('curios')
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks')
+            optional('homeostatic')
+            optional('magical-psi-revival')
+            optional('simpletextoverlay')
+            optional('ready-player-fun')
+            optional('survivalist-essentials')
+            optional('tinkersurvival')
             optional('biome-makeover-forge')
         }
     }
-    if (project.hasProperty('ccModrinthId')) {
+    if (project.hasProperty("${modrinth_api_key_prop}")) {
         modrinth {
-            accessToken = project.modrinthKey
-            projectId = project.ccModrinthId
+            accessToken = project.property("${modrinth_api_key_prop}")
+            projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
             requires("curios")
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks-mod')
+            optional('homeostatic')
+            optional('magical-psi-revival')
+            optional('simpletextoverlay')
+            optional('ready-player-fun')
+            optional('survivalist-essentials')
+            optional('tinkersurvival')
             optional("biome-makeover")
+        }
+    }
+    if (project.hasProperty("${discord_webhook_prop}")) {
+        discord {
+            webhookUrl = project.property("${discord_webhook_prop}")
+            dryRunWebhookUrl = project.property("${discord_dryrun_webhook_prop}")
+            username = "${mod_author}"
+            content = changelog.map {
+                "# A new version of ${mod_display_name} for Forge ${minecraft_version} has been released! \n" + it
+            }
         }
     }
 }
