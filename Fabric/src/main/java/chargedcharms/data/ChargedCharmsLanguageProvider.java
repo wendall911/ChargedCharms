@@ -12,7 +12,7 @@ import chargedcharms.common.item.ChargedCharmsItems;
 public class ChargedCharmsLanguageProvider extends FabricLanguageProvider {
 
     protected ChargedCharmsLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryFuture) {
-        super(dataOutput, registryFuture);
+        super(dataOutput, "en_us", registryFuture);
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
-
 import net.minecraft.data.PackOutput;
+
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -14,7 +14,7 @@ import chargedcharms.ChargedCharms;
 import chargedcharms.data.integration.ChargedCharmsCuriosProvider;
 import chargedcharms.data.recipe.NeoForgeRecipeProvider;
 
-@EventBusSubscriber(modid = ChargedCharms.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ChargedCharms.MODID)
 public class NeoForgeDatagenInitializer {
 
     @SubscribeEvent

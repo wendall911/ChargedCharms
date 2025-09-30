@@ -70,8 +70,8 @@ public class ChargedCharmsNeoForge {
         }
     }
 
-    private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent evt) {
-        if (evt.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+    private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             for (Map.Entry<ResourceLocation, Item> entry : ChargedCharmsItems.getAll().entrySet()) {
                 Item charm = entry.getValue();
 
@@ -80,7 +80,7 @@ public class ChargedCharmsNeoForge {
                 }
 
                 if (charm != null) {
-                    evt.accept(new ItemStack(charm));
+                    event.accept(new ItemStack(charm));
                 }
             }
         }

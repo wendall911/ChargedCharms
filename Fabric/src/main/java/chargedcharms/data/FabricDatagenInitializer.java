@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
+import chargedcharms.ChargedCharms;
 import chargedcharms.data.recipe.FabricModRecipeProvider;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
@@ -16,7 +17,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = gen.createPack();
         fabricBlockTagProvider = pack.addProvider(FabricBlockTagProvider::new);
 
-        if (System.getProperty("chargedcharms.common_datagen") != null) {
+        if (System.getProperty(ChargedCharms.MODID + ".common_datagen") != null) {
             configureCommonDatagen(pack);
         }
         else {

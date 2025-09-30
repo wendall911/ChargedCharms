@@ -7,28 +7,32 @@
   "authors": [
     "${mod_author}"
   ],
+  "contributors": [
+    "${mod_credits}"
+  ],
   "contact": {
-    "issues": "${issue_tracker}",
-    "homepage": "${mod_url}"
+    "homepage": "https://github.com/${mod_author}/${mod_name}",
+    "issues": "https://github.com/${mod_author}/${mod_name}/issues",
+    "sources": "https://github.com/${mod_author}/${mod_name}"
   },
   "license": "${license}",
   "icon": "${mod_id}_icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "chargedcharms.ChargedCharmsFabric"
+      "${mod_id}.${mod_name}Fabric"
     ],
     "fabric-datagen": [
-      "chargedcharms.data.FabricDatagenInitializer"
+      "${mod_id}.data.FabricDatagenInitializer"
     ],
     "rei_client": [
-      "chargedcharms.client.integration.rei.REIPlugin"
+      "${mod_id}.client.integration.rei.REIPlugin"
     ],
     "jei_mod_plugin": [
-      "chargedcharms.client.integration.jei.JEIPlugin"
+      "${mod_id}.client.integration.jei.JEIPlugin"
     ],
     "whitenoise-config": [
-      "chargedcharms.FabricConfigInitializer"
+      "${mod_id}.FabricConfigInitializer"
     ]
   },
   "mixins": [

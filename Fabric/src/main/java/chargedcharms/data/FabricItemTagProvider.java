@@ -2,6 +2,8 @@ package chargedcharms.data;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.jetbrains.annotations.NotNull;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 
 import net.minecraft.core.HolderLookup;
@@ -23,7 +25,7 @@ public class FabricItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
         TagKey<Item> charms = trinket("charged_charm/charm");
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
 

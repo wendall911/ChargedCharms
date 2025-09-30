@@ -1,5 +1,9 @@
 package chargedcharms.data.recipe;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.jetbrains.annotations.NotNull;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
@@ -16,8 +20,6 @@ import chargedcharms.common.crafting.recipe.TotemChargeRecipe;
 import chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe;
 import chargedcharms.data.integration.ModIntegration;
 
-import java.util.concurrent.CompletableFuture;
-
 public class FabricModRecipeProvider extends FabricRecipeProvider {
 
     public FabricModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryFuture) {
@@ -25,7 +27,7 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return ChargedCharms.MOD_NAME + " - Fabric Recipes";
     }
 
