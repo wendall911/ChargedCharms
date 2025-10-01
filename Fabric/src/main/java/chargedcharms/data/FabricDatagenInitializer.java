@@ -3,6 +3,7 @@ package chargedcharms.data;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
+import chargedcharms.ChargedCharms;
 import chargedcharms.data.integration.accessories.EntityDataProvider;
 import chargedcharms.data.integration.accessories.SlotDataProvider;
 import chargedcharms.data.integration.DynamicLightsDataProvider;
@@ -14,7 +15,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator gen) {
         FabricDataGenerator.Pack pack = gen.createPack();
 
-        if (System.getProperty("chargedcharms.common_datagen") != null) {
+        if (System.getProperty(ChargedCharms.MODID + ".common_datagen") != null) {
             configureCommonDatagen(pack);
         }
         else {

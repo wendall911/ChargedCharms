@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 
+import chargedcharms.ChargedCharms;
 import chargedcharms.common.crafting.recipe.EnchantedTotemChargeRecipe;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
 import chargedcharms.common.crafting.recipe.RegenerationChargeRecipe;
@@ -31,7 +32,7 @@ public class NeoForgeRecipeProvider extends RecipeProvider.Runner {
 
     @Override
     public @NotNull String getName() {
-        return "Charged Charms - NeoForge Recipes";
+        return "ChargedCharms.MOD_NAME" + " - NeoForge Recipes";
     }
 
     @Override

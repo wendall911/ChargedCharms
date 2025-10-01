@@ -20,7 +20,7 @@ import chargedcharms.data.integration.ModIntegration;
 
 import technology.roughness.whitenoise.platform.Services;
 
-public class ChargedCharmsFabricClient implements ClientModInitializer {
+public class ChargedCharmsClientFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
