@@ -4,7 +4,6 @@ plugins {
     id 'io.github.goooler.shadow'
 }
 
-
 def modLoader = "${project.name}".toUpperCase()
 def actualVersion = version
 version = "${version}-${modLoader}"
@@ -111,7 +110,6 @@ publishMods {
             requires('curios')
             optional('actually-harvest')
             optional('betterdays')
-            optional('charged-charms')
             optional('creeper-fireworks')
             optional('homeostatic')
             optional('magical-psi-revival')
@@ -130,7 +128,6 @@ publishMods {
             requires("curios")
             optional('actually-harvest')
             optional('betterdays')
-            optional('charged-charms')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
             optional('magical-psi-revival')
