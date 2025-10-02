@@ -34,9 +34,10 @@ dependencies {
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
     modImplementation "dev.emi:trinkets:${trinkets_version}"
 
-    //runtimeOnly "curse.maven:sodium-394468:${sodium_fabric_version}"
-    modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${sdl_version}+${minecraft_version}")
-    modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
+    // Does not work in dev environment on Fabric for some reason
+    modLocalRuntime "curse.maven:sodium-394468:${sodium_fabric_version}"
+    modImplementation "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${dynamiclights_version}+${minecraft_version}"
+    modRuntimeOnly "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${dynamiclights_version}+${minecraft_version}"
 
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
