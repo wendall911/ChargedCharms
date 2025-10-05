@@ -143,7 +143,7 @@ publishMods {
             dryRunWebhookUrl = project.property("${discord_dryrun_webhook_prop}")
             username = "${mod_author}"
             content = changelog.map {
-                "# A new version of ${mod_display_name} for Forge ${minecraft_version} has been released! \n" + it
+                "# A new version of ${mod_display_name} for NeoForge ${minecraft_version} has been released! \n" + it
             }
         }
     }
