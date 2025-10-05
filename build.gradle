@@ -127,8 +127,4 @@ subprojects {
     tasks.withType(GenerateModuleMetadata) {
         it.enabled = false
     }
-
-    tasks.withType(Jar).all {
-        duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    }
 }

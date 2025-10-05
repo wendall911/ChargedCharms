@@ -42,6 +42,7 @@
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
     "trinkets": "*",
+    "whitenoise": "*",
     "minecraft": "${fabric_mc_version_range}",
     "java": ">=${java_version}"
   }
