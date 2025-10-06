@@ -7,6 +7,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
 
+import chargedcharms.common.Translations;
+
 public class ConfigHandler {
 
     public static final WhiteNoiseConfigSpec CLIENT_SPEC;
@@ -47,7 +49,7 @@ public class ConfigHandler {
         public Client(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("rendering");
 
-            showCharms = builder.comment("Show Charged Charm on player chest.")
+            showCharms = builder.comment(getTranslation("showcharms"))
                     .define("showCharms", true);
 
             builder.pop();
@@ -88,77 +90,78 @@ public class ConfigHandler {
         public Common(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("charms");
 
-            disableRegenCharm = builder.comment("Disable Charged Regeneration Charm")
-                    .define("disableRegenCharm", false);
+            disableRegenCharm = builder.comment(getTranslation("disableregencharm"))
+                .define("disableRegenCharm", false);
 
-            disableAbsorptionCharm = builder.comment("Disable Charged Absorption Charm")
-                    .define("disableAbsorptionCharm", false);
+            disableAbsorptionCharm = builder.comment(getTranslation("disableabsorptioncharm"))
+                .define("disableAbsorptionCharm", false);
 
-            disableGlowupCharm = builder.comment("Disable Charged Glow Up Charm")
-                    .define("disableGlowupCharm", false);
+            disableGlowupCharm = builder.comment(getTranslation("disableglowupcharm"))
+                .define("disableGlowupCharm", false);
 
-            disableTotemCharm = builder.comment("Disable Charged Totem Charm")
-                    .define("disableTotemCharm", false);
+            disableTotemCharm = builder.comment(getTranslation("disabletotemcharm"))
+                .define("disableTotemCharm", false);
 
-            disableEnchTotemCharm = builder.comment("Disable Charged Enchanted Totem Charm")
-                    .define("disableEnchTotemCharm", false);
+            disableEnchTotemCharm = builder.comment(getTranslation("disableenchtotemcharm"))
+                .define("disableEnchTotemCharm", false);
 
-            disableSpeedCharm = builder.comment("Disable Charged Speed Charm")
-                    .define("disableSpeedCharm", false);
+            disableSpeedCharm = builder.comment(getTranslation("disablespeedcharm"))
+                .define("disableSpeedCharm", false);
 
-            disableWaterBreathingCharm = builder.comment("Disable Charged Water Breathing Charm")
-                    .define("disableWaterBreathingCharm", false);
+            disableWaterBreathingCharm = builder.comment(getTranslation("disablewaterbreathingcharm"))
+                .define("disableWaterBreathingCharm", false);
 
             builder.pop();
 
             builder.push("tweaks");
 
-            absorptionCooldown = builder.comment("Cooldown in seconds for the Charged Absorption Charm.")
-                    .defineInRange("absorptionCooldown", 20, 0, 300);
+            absorptionCooldown = builder.comment(getTranslation("absorptioncooldown"))
+                .defineInRange("absorptionCooldown", 20, 0, 300);
 
-            absorptionDuration = builder.comment("Duration in seconds for the Charged Absorption Charm effect.")
-                    .defineInRange("absorptionDuration", 5, 1, 300);
+            absorptionDuration = builder.comment(getTranslation("absorptionduration"))
+                .defineInRange("absorptionDuration", 5, 1, 300);
 
-            absorptionAmplifier = builder.comment("Charged Absorption Charm effect amplifier.")
-                    .defineInRange("absorptionAmplifier", 0, 0, 255);
+            absorptionAmplifier = builder.comment(getTranslation("absorptionamplifier"))
+                .defineInRange("absorptionAmplifier", 0, 0, 255);
 
-            absorptionCharges = builder.comment("Number of charges for the Charged Absorption Charm.")
-                    .defineInRange("absorptionCharges", 15, 1, 100);
+            absorptionCharges = builder.comment(getTranslation("absorptioncharges"))
+                .defineInRange("absorptionCharges", 15, 1, 100);
 
-            regenPercentage = builder.comment("Low health percentage to trigger Charged Regeneration Charm.")
-                    .defineInRange("regenPercentage", 0.35, 0.2, 0.8);
+            regenPercentage = builder.comment(getTranslation("regenpercentage"))
+                .defineInRange("regenPercentage", 0.35, 0.2, 0.8);
 
-            regenDuration = builder.comment("Duration in seconds for the Charged Regeneration Charm effect.")
-                    .defineInRange("regenDuration", 15, 1, 300);
+            regenDuration = builder.comment(getTranslation("regenduration"))
+                .defineInRange("regenDuration", 15, 1, 300);
 
-            regenAmplifier = builder.comment("Charged Regeneration Charm effect amplifier.")
-                    .defineInRange("regenAmplifier", 0, 0, 255);
+            regenAmplifier = builder.comment(getTranslation("regenamplifier"))
+                .defineInRange("regenAmplifier", 0, 0, 255);
 
-            regenCharges = builder.comment("Number of charges for the Charged Regeneration Charm.")
-                    .defineInRange("regenCharges", 15, 1, 100);
+            regenCharges = builder.comment(getTranslation("regencharges"))
+                .defineInRange("regenCharges", 15, 1, 100);
 
-            glowUpDuration = builder.comment("Duration in seconds for the Charged Glow Up Charm effect.")
-                    .defineInRange("glowUpDuration", 30, 1, 300);
+            glowUpDuration = builder.comment(getTranslation("glowupduration"))
+                .defineInRange("glowUpDuration", 30, 1, 300);
 
-            glowUpCharges = builder.comment("Number of charges for the Charged Glow Up Charm.")
-                    .defineInRange("glowUpCharges", 20, 1, 100);
+            glowUpCharges = builder.comment(getTranslation("glowupcharges"))
+                .defineInRange("glowUpCharges", 20, 1, 100);
 
-            speedDuration = builder.comment("Duration in seconds for the Charged Speed Charm effect.")
-                    .defineInRange("speedDuration", 180, 1, 360);
+            speedDuration = builder.comment(getTranslation("speedduration"))
+                .defineInRange("speedDuration", 180, 1, 360);
 
-            speedCooldown = builder.comment("Cooldown in seconds for the Charged Speed Charm.")
-                    .defineInRange("speedCooldown", 120, 0, 360);
+            speedCooldown = builder.comment(getTranslation("speedcooldown"))
+                .defineInRange("speedCooldown", 120, 0, 360);
 
-            speedCharges = builder.comment("Number of charges for the Charged Speed Charm.")
-                    .defineInRange("speedCharges", 20, 1, 100);
+            speedCharges = builder.comment(getTranslation("speedcharges"))
+                .defineInRange("speedCharges", 20, 1, 100);
 
-            totemCharges = builder.comment("Number of charges for the Charged Totem Charm and Charged Enchanted Totem Charm.")
-                    .defineInRange("totemCharges", 5, 1, 100);
+            totemCharges = builder.comment(getTranslation("totemcharges"))
+                .defineInRange("totemCharges", 5, 1, 100);
 
-            airRemaining = builder.comment("Amount of air remaining when Charged Water Breathing Charm is triggered.")
-                    .defineInRange("airRemaining", 0, 0, 10);
-            waterBreathingCharges = builder.comment("Number of charges for the Charged Water Breathing Charm.")
-                    .defineInRange("waterBreathingCharges", 5, 1, 100);
+            airRemaining = builder.comment(getTranslation("airremaining"))
+                .defineInRange("airRemaining", 0, 0, 10);
+
+            waterBreathingCharges = builder.comment(getTranslation("waterbreathingcharges"))
+                .defineInRange("waterBreathingCharges", 5, 1, 100);
 
             builder.pop();
         }
@@ -285,6 +288,14 @@ public class ConfigHandler {
             return COMMON.waterBreathingCharges.get();
         }
 
+    }
+
+    private static String getTranslation(String key) {
+        return Translations.get(key);
+    }
+
+    private static String getTranslation(String key, String... values) {
+        return Translations.get(key, values);
     }
 
 }
