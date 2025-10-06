@@ -177,7 +177,9 @@ ext.expandProps = [
     'mod_credits': mod_credits,
     'curseforge_slug': curseforge_slug,
     'pack_format': pack_format,
-    'accessories_version_range': accessories_version_range
+    'accessories_version_range': accessories_version_range,
+    'fabric_whitenoise_range': fabric_whitenoise_range,
+    'whitenoise_range': whitenoise_range
 ]
 
 processResources {
