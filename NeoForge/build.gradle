@@ -21,6 +21,8 @@ neoForge {
         }
         client {
             client()
+            // Nerds aren't discord bros and I'm a nerd. Disabling owo stupidity
+            systemProperty("owo.debug", "false")
         }
         server {
             server()
@@ -42,7 +44,10 @@ dependencies {
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
     jarJar group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
 
-    implementation "io.wispforest:accessories-neoforge:${accessories_version}+${minecraft_version}"
+    // For some reason the maven dependencies cause crashes. I'll wait and see if it gets fixed.
+    //implementation "io.wispforest:accessories-neoforge:${accessories_version}+${minecraft_version}"
+    runtimeOnly "curse.maven:owo-532610:7104510"
+    implementation "curse.maven:accessories-938917:7115209"
 
     compileOnly "mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}"
     implementation "mezz.jei:jei-${jei_minecraft_version}-neoforge:${jei_version}"

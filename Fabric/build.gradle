@@ -51,11 +51,14 @@ dependencies {
 
 loom {
     mixin {
+        useLegacyMixinAp = true
         defaultRefmapName.set("${mod_id}.refmap.json")
     }
     runs {
         client {
             client()
+            // Nerds aren't discord bros and I'm a nerd. Disabling owo stupidity
+            vmArg "-Dowo.debug=false"
             setConfigName("Fabric Client")
             ideConfigGenerated(true)
             runDir("run")
