@@ -27,8 +27,8 @@ public class ChargedCharmsLanguageProvider extends FabricLanguageProvider {
         addCharmItem(builder, ChargedCharmsItems.enchantedTotemCharmId, "Enchanted Totem");
         addCharmItem(builder, ChargedCharmsItems.speedCharmId, "Speed");
         addCharmItem(builder, ChargedCharmsItems.waterBreathingCharmId, "Water Breathing");
-        translationBuilder.add("accessories.slot.charged_charm", "Charged Charm");
-        translationBuilder.add("tooltip.charged_charm.charges", "Charges");
+        builder.add("accessories.slot.charged_charm", "Charged Charm");
+        builder.add("tooltip.charged_charm.charges", "Charges");
         addTranslationTitle(builder, "Charged Charms");
         addTranslation(builder, "rendering");
         addTranslation(builder, "showcharms");
