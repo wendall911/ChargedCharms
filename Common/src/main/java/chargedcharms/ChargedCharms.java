@@ -25,7 +25,7 @@ public class ChargedCharms {
             WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
         }
         WhiteNoiseConfig commonConfig = WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
-        commonConfig.addReloadListener(config -> ConfigHandler.init());
+        commonConfig.addLoadListener(config -> ConfigHandler.init());
     }
 
 }

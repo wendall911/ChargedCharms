@@ -41,7 +41,7 @@ public class ConfigResourceCondition implements ICondition {
 
     @Override
     public boolean test(IContext context) {
-        return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
+        return !ConfigHandler.Common.getConfigValue(configValue);
     }
 
     public static class Serializer implements IConditionSerializer<ConfigResourceCondition> {
