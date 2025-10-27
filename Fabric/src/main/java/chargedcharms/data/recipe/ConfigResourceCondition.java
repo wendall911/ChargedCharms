@@ -37,7 +37,7 @@ public record ConfigResourceCondition(String configValue) implements ResourceCon
 
     @Override
     public boolean test(RegistryOps.@Nullable RegistryInfoLookup registryInfoLookup) {
-        return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
+        return !ConfigHandler.Common.getConfigValue(configValue);
     }
 
 }
