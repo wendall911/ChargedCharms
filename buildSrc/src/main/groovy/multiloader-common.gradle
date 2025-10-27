@@ -191,8 +191,6 @@ processResources {
     }
 }
 
-processResources.outputs.upToDateWhen { false }
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
