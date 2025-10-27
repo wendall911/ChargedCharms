@@ -12,6 +12,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
+import chargedcharms.ChargedCharms;
 import chargedcharms.config.ConfigHandler;
 
 import static chargedcharms.util.ResourceLocationHelper.prefix;
@@ -42,7 +43,8 @@ public class ConfigResourceCondition implements ICondition {
     @Override
     @SuppressWarnings("removal")
     public boolean test() {
-        return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
+        ChargedCharms.LOGGER.warn("Testing config_disabled condition for: {} {}", toString(), ConfigHandler.Common.getConfigValue(configValue));
+        return !ConfigHandler.Common.getConfigValue(configValue);
     }
 
     public static class Serializer implements IConditionSerializer<ConfigResourceCondition> {
