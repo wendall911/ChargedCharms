@@ -37,7 +37,7 @@ public class ConfigResourceCondition {
     public static boolean configCheck(JsonObject json) {
         String configValue = GsonHelper.getAsString(json, "config");
 
-        return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
+        return !ConfigHandler.Common.getConfigValue(configValue);
     }
 
 }

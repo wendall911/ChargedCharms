@@ -1,8 +1,5 @@
 package chargedcharms.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
@@ -11,7 +8,6 @@ public class ConfigHandler {
 
     public static final WhiteNoiseConfigSpec CLIENT_SPEC;
     public static final WhiteNoiseConfigSpec COMMON_SPEC;
-    public static final Map<String, Boolean> conditionsMap = new HashMap<>();
 
     private static final Client CLIENT;
     private static final Common COMMON;
@@ -28,15 +24,6 @@ public class ConfigHandler {
     }
 
     public static void init() {
-        conditionsMap.clear();
-        conditionsMap.put("disableRegenCharm", Common.disableRegenCharm());
-        conditionsMap.put("disableAbsorptionCharm", Common.disableAbsorptionCharm());
-        conditionsMap.put("disableGlowupCharm", Common.disableGlowupCharm());
-        conditionsMap.put("disableTotemCharm", Common.disableTotemCharm());
-        conditionsMap.put("disableEnchTotemCharm", Common.disableEnchTotemCharm());
-        conditionsMap.put("disableSpeedCharm", Common.disableSpeedCharm());
-        conditionsMap.put("disableWaterBreathingCharm", Common.disableWaterBreathingCharm());
-
         loaded = true;
     }
 
@@ -312,6 +299,19 @@ public class ConfigHandler {
 
         public static int waterBreathingCharges() {
             return COMMON.waterBreathingCharges.get();
+        }
+
+        public static boolean getConfigValue(String key) {
+            return switch (key) {
+                case "disableRegenCharm" -> disableRegenCharm();
+                case "disableAbsorptionCharm" -> disableAbsorptionCharm();
+                case "disableGlowupCharm" -> disableGlowupCharm();
+                case "disableTotemCharm" -> disableTotemCharm();
+                case "disableEnchTotemCharm" -> disableEnchTotemCharm();
+                case "disableSpeedCharm" -> disableSpeedCharm();
+                case "disableWaterBreathingCharm" -> disableWaterBreathingCharm();
+                default -> false;
+            };
         }
 
     }
