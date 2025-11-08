@@ -63,7 +63,15 @@ dependencies {
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
-    //runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}" // 1.21.8 version crashes on world load
+    /*
+     * Sodium is suddenly just a flaming bag of dogshit in development environments.
+     * 1.21.8 version crashes on world load
+     * 1.21.10 outright crashes on game load
+     * Also, if any devs actually read my stupid comments. This isn't just the curse maven
+     * version, this crashes from the official repos as well. Just poorly managed for multiloader.
+     * I'm going to guess it is the forgified fabric api... solving problems wrong and crashing one mod at a time.
+     */
+    //runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}"
     //runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
     //runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
     /*

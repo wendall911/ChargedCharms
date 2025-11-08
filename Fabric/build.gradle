@@ -40,8 +40,11 @@ dependencies {
 
     modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
-    // Does not work in dev environment on Fabric for some reason
-    modLocalRuntime "curse.maven:sodium-394468:${sodium_fabric_version}"
+    /*
+     * Does not work in dev environment on Fabric for some reason
+     * And ... they somehow managed to break 1.21.10 on fabric for dev environments as well. Whatever.
+    */
+    //modLocalRuntime "curse.maven:sodium-394468:${sodium_fabric_version}"
     modImplementation "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${dynamiclights_version}+${minecraft_version}"
     modRuntimeOnly "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${dynamiclights_version}+${minecraft_version}"
 
