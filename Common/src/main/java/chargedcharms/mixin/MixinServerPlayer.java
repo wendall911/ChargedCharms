@@ -33,9 +33,7 @@ public class MixinServerPlayer {
     @Unique
     private int chargedCharms$counter = 0;
     @Unique
-    private final Map<UUID, Long> chargedCharms$absorptionCoolDownTracker = Maps.newHashMap();
-    @Unique
-    private final Map<UUID, Long> chargedCharms$speedCoolDownTracker = Maps.newHashMap();
+    private final Map<String, Map<UUID, Long>> chargedCharms$coolDownTracker = Maps.newHashMap();
 
     @Inject(at = @At(value = "TAIL"), method = "doTick")
     private void monitorDoTick(CallbackInfo ci) {
@@ -114,12 +112,13 @@ public class MixinServerPlayer {
     private boolean chargedCharms$canTriggerAbsorptionCharm(LivingEntity livingEntity) {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
-        long lastTime = chargedCharms$absorptionCoolDownTracker.getOrDefault(uuid, now);
+        Map<UUID, Long> absorptionCoolDownTracker = chargedCharms$coolDownTracker.computeIfAbsent("absorption", k -> Maps.newHashMap());
+        long lastTime = absorptionCoolDownTracker.getOrDefault(uuid, now);
         long cooldown = ConfigHandler.Common.absorptionCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
-            chargedCharms$absorptionCoolDownTracker.put(uuid, now);
+            absorptionCoolDownTracker.put(uuid, now);
 
             return true;
         }
@@ -131,12 +130,13 @@ public class MixinServerPlayer {
     private boolean chargedCharms$canTriggerSpeedCharm(LivingEntity livingEntity) {
         long now = System.currentTimeMillis();
         UUID uuid = livingEntity.getUUID();
-        long lastTime = chargedCharms$speedCoolDownTracker.getOrDefault(uuid, now);
+        Map<UUID, Long> speedCoolDownTracker = chargedCharms$coolDownTracker.computeIfAbsent("speed", k -> Maps.newHashMap());
+        long lastTime = speedCoolDownTracker.getOrDefault(uuid, now);
         long cooldown = ConfigHandler.Common.speedCooldown();
         long elapsed = now - lastTime;
 
         if (elapsed == 0 || elapsed > cooldown) {
-            chargedCharms$speedCoolDownTracker.put(uuid, now);
+            speedCoolDownTracker.put(uuid, now);
 
             return true;
         }
