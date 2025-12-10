@@ -6,14 +6,10 @@ plugins {
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 }
 
-archivesBaseName = "${mod_id}-common"
+def identifier = "${mod_id}-${minecraft_version}-common"
 
 neoForge {
     neoFormVersion = neo_form_version
-    parchment {
-        minecraftVersion = mappings_minecraft_version
-        mappingsVersion = mappings_version
-    }
 }
 
 dependencies {
@@ -23,7 +19,7 @@ dependencies {
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: "${mixin_extras_version}"
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-common", version: "${whitenoise_version}"
     
-    implementation("io.wispforest:accessories-common:${accessories_version}+${minecraft_version}-mojmap") {
+    implementation("io.wispforest:accessories-common:${accessories_version}+${accessories_minecraft_version}-mojmap") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
@@ -75,3 +71,22 @@ def updates = tasks.register("generateUpdates", Copy) {
 tasks.generateUpdates.mustRunAfter('jar')
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId identifier
+            version project.version
+            from components.java
+        }
+    }
+    repositories {
+        if (System.getenv('local_maven') != null) {
+            maven {
+                url 'file://' + System.getenv('local_maven')
+            }
+        }
+    }
+}

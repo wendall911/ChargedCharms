@@ -7,15 +7,15 @@ import java.util.function.Function;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -50,7 +50,7 @@ public class RecipeProviderBase {
     }
 
     public static void specialRecipe(RecipeOutput exporter, CustomRecipe.Serializer<?> serializer, Function<CraftingBookCategory, Recipe<?>> recipeFunction) {
-        ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
+        Identifier name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
 
         SpecialRecipeBuilder.special(recipeFunction).save(
             exporter, prefix("dynamic/" + Objects.requireNonNull(name).getPath()).toString());

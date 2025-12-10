@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import net.neoforged.neoforge.registries.callback.AddCallback;
@@ -15,7 +15,7 @@ import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 public class NeoForgePlatform implements IPlatform {
 
     @Override
-    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+    public <T> void registerDataComponent(Identifier name, DataComponentType<T> component) {
         ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
             name.getPath(),
             () -> component

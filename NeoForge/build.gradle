@@ -1,19 +1,15 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'io.github.goooler.shadow'
 }
 
+def identifier = "${mod_id}-${minecraft_version}-neoforge"
 def modLoader = "${project.name}".toUpperCase()
 def actualVersion = version
 version = "${version}-${modLoader}"
 
 neoForge {
     version = neoforge_version
-    parchment {
-        minecraftVersion = mappings_minecraft_version
-        mappingsVersion = mappings_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
@@ -26,7 +22,6 @@ neoForge {
         }
         server {
             server()
-            programArgument '--nogui'
         }
         clientData {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
@@ -45,9 +40,9 @@ dependencies {
     jarJar group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
 
     // For some reason the maven dependencies cause crashes. I'll wait and see if it gets fixed.
-    //implementation "io.wispforest:accessories-neoforge:${accessories_version}+${minecraft_version}"
+    implementation "io.wispforest:accessories-neoforge:${accessories_version}+${accessories_minecraft_version}"
     runtimeOnly "curse.maven:owo-532610:7104510"
-    implementation "curse.maven:accessories-938917:7115209"
+    //implementation "curse.maven:accessories-938917:7115209"
 
     compileOnly "mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}"
     implementation "mezz.jei:jei-${jei_minecraft_version}-neoforge:${jei_version}"
@@ -89,12 +84,8 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
-shadowJar {
-    archiveClassifier = ''
-}
-
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${identifier}-${version}.jar"
 def display_name = "${project.name} ${minecraft_version}-${version}"
 def display_version = "${minecraft_version}-${version}"
 
@@ -156,6 +147,25 @@ publishMods {
             username = "${mod_author}"
             content = changelog.map {
                 "# A new version of ${mod_display_name} for NeoForge ${minecraft_version} has been released! \n" + it
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId identifier
+            version project.version
+            // This gives us the built version NeoForge requires
+            artifact jar
+        }
+    }
+    repositories {
+        if (System.getenv('local_maven') != null) {
+            maven {
+                url 'file://' + System.getenv('local_maven')
             }
         }
     }

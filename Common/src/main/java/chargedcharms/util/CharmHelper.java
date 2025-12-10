@@ -15,7 +15,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.LightLayer;
 
 import chargedcharms.common.CharmEffectProviders;
@@ -104,7 +103,7 @@ public class CharmHelper {
     private static double getSunRadiation(ServerLevel world, BlockPos pos) {
         double radiation = 0.0;
         double sunlight = world.getBrightness(LightLayer.SKY, pos.above()) - world.getSkyDarken();
-        float f = world.getSunAngle(1.0F);
+        float f = getSunAngle(world);
 
         if (sunlight > 0) {
             float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
@@ -115,6 +114,16 @@ public class CharmHelper {
         radiation += sunlight * 100;
 
         return Math.max(radiation, 0);
+    }
+
+    private static float getSunAngle(ServerLevel level) {
+        return timeOfDay(level) * ((float)Math.PI * 2F);
+    }
+
+    private static float timeOfDay(ServerLevel level) {
+        double d0 = Mth.frac(level.getDayTime() / 24000.0 - 0.25);
+        double d1 = 0.5 - Math.cos(d0 * Math.PI) / 2.0;
+        return (float)(d0 * 2.0 + d1) / 3.0F;
     }
 
     private static List<SlotEntryReference> findCharms(LivingEntity livingEntity) {

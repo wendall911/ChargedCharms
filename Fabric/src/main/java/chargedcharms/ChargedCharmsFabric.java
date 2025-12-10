@@ -6,7 +6,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
@@ -28,7 +28,7 @@ public class ChargedCharmsFabric implements ModInitializer {
         ConfigResourceCondition.register();
     }
 
-    private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
+    private static <T> BiConsumer<T, Identifier> bind(Registry<? super T> registry) {
         return (t, id) -> Registry.register(registry, id, t);
     }
 

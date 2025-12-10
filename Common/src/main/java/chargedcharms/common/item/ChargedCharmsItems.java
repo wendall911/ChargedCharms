@@ -8,7 +8,7 @@ import io.wispforest.accessories.api.components.AccessoriesDataComponents;
 import io.wispforest.accessories.api.components.AccessorySlotValidationComponent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 import chargedcharms.config.ConfigHandler;
@@ -17,7 +17,7 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public final class ChargedCharmsItems {
 
-    private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
+    private static final Map<Identifier, Item> ALL = new LinkedHashMap<>();
 
     public static final String regenerationCharmId = "charged_regeneration_charm";
     public static final String absorptionCharmId = "charged_absorption_charm";
@@ -58,7 +58,7 @@ public final class ChargedCharmsItems {
     );
 
     private static <T extends Item> T make(String id, T item) {
-        ResourceLocation loc = prefix(id);
+        Identifier loc = prefix(id);
 
         if (ALL.put(loc, item) != null) {
             throw new IllegalArgumentException("Duplicate Item: " + loc);
@@ -76,13 +76,13 @@ public final class ChargedCharmsItems {
             );
     }
 
-    public static void registerItems(BiConsumer<Item, ResourceLocation> consumer) {
-        for (Map.Entry<ResourceLocation, Item> entry : ALL.entrySet()) {
+    public static void registerItems(BiConsumer<Item, Identifier> consumer) {
+        for (Map.Entry<Identifier, Item> entry : ALL.entrySet()) {
             consumer.accept(entry.getValue(), entry.getKey());
         }
     }
 
-    public static Map<ResourceLocation, Item> getAll() {
+    public static Map<Identifier, Item> getAll() {
         return ALL;
     }
 

@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -24,12 +24,12 @@ public class ChargedCharmsClientFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Set<ResourceLocation> charms = new HashSet<>(CharmEffectProviders.getItems());
-        Set<ResourceLocation> remove = new HashSet<>();
+        Set<Identifier> charms = new HashSet<>(CharmEffectProviders.getItems());
+        Set<Identifier> remove = new HashSet<>();
 
         ChargedCharmsClient.init();
 
-        for (ResourceLocation charm : charms) {
+        for (Identifier charm : charms) {
             Optional<Holder.Reference<Item>> itemReference = BuiltInRegistries.ITEM.get(charm);
             Item item = itemReference.map(Holder.Reference::value).orElse(Items.AIR);
             boolean addItem = true;

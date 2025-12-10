@@ -1,10 +1,11 @@
 package chargedcharms;
 
-import net.minecraft.resources.ResourceLocation;
+import io.wispforest.accessories.api.core.AccessoryRegistry;
+
+import net.minecraft.resources.Identifier;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.wispforest.accessories.api.core.AccessoryRegistry;
 
 import technology.roughness.whitenoise.config.WhiteNoiseConfig;
 import technology.roughness.whitenoise.config.WhiteNoiseConfigLoader;
@@ -16,7 +17,6 @@ import chargedcharms.config.ConfigHandler;
 import chargedcharms.integration.ChargedCharmAccessory;
 
 import static chargedcharms.platform.Services.PLATFORM;
-
 import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
 
 public class ChargedCharms {
@@ -43,7 +43,7 @@ public class ChargedCharms {
         commonConfig.addLoadListener((config, flag) -> ConfigHandler.init());
     }
 
-    public static ResourceLocation prefix(String path) {
+    public static Identifier prefix(String path) {
         return loc(MODID, path);
     }
 

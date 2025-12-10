@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -28,8 +28,8 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class CharmEffectProviders {
 
-    private static final Map<ResourceLocation, ICharmEffectProvider> EFFECT_PROVIDERS = new HashMap<>();
-    private static Set<ResourceLocation> TOTEMS;
+    private static final Map<Identifier, ICharmEffectProvider> EFFECT_PROVIDERS = new HashMap<>();
+    private static Set<Identifier> TOTEMS;
     private static final Predicate<Item> IS_TOTEM = item -> TOTEMS.contains(Services.PLATFORM.getResourceLocation(item));
 
     public static Predicate<Item> IS_CHARM = item -> EFFECT_PROVIDERS.containsKey(Services.PLATFORM.getResourceLocation(item));
@@ -47,7 +47,7 @@ public class CharmEffectProviders {
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.waterBreathingCharmId), new WaterBreathingEffectProvider());
     }
 
-    public static Set<ResourceLocation> getItems() {
+    public static Set<Identifier> getItems() {
         return ImmutableSet.copyOf(EFFECT_PROVIDERS.keySet());
     }
 

@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class SlotData {
 
@@ -20,9 +20,9 @@ public class SlotData {
     private final int amount;
     private final Operation operation;
     private final int order;
-    private final ResourceLocation icon;
+    private final Identifier icon;
 
-    public SlotData(boolean replace, int amount, Operation operation, int order, ResourceLocation icon, @Nullable List<Validator> validators) {
+    public SlotData(boolean replace, int amount, Operation operation, int order, Identifier icon, @Nullable List<Validator> validators) {
         this.replace = replace;
         this.amount = amount;
         this.operation = operation;
@@ -76,7 +76,7 @@ public class SlotData {
         return order;
     }
 
-    public ResourceLocation icon() {
+    public Identifier icon() {
         return icon;
     }
 

@@ -32,7 +32,7 @@ public class NeoForgeRecipeProvider extends RecipeProvider.Runner {
 
     @Override
     public @NotNull String getName() {
-        return "ChargedCharms.MOD_NAME" + " - NeoForge Recipes";
+        return ChargedCharms.MOD_NAME + " - NeoForge Recipes";
     }
 
     @Override

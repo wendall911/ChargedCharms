@@ -17,14 +17,14 @@ import com.google.gson.GsonBuilder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static chargedcharms.ChargedCharms.prefix;
 
 public class EntityDataProvider implements DataProvider {
 
     private final PackOutput packOutput;
-    private final Map<ResourceLocation, EntityData> entityDataMap = new HashMap<>();
+    private final Map<Identifier, EntityData> entityDataMap = new HashMap<>();
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(EntityData.class, new EntityData.Serializer()).create();
 
     public EntityDataProvider(final PackOutput packOutput) {
@@ -47,7 +47,7 @@ public class EntityDataProvider implements DataProvider {
         return "Charged Charms - Accessories Entity Data";
     }
 
-    protected void add(ResourceLocation id, EntityData entityData) {
+    protected void add(Identifier id, EntityData entityData) {
         this.entityDataMap.put(id, entityData);
     }
 
@@ -57,7 +57,7 @@ public class EntityDataProvider implements DataProvider {
 
         registerEntityData();
 
-        for (Map.Entry<ResourceLocation, EntityData> entry : this.entityDataMap.entrySet()) {
+        for (Map.Entry<Identifier, EntityData> entry : this.entityDataMap.entrySet()) {
             Path path = getPathProvider(entry.getKey());
 
             outputs.add(DataProvider.saveStable(cache, GSON.toJsonTree(entry.getValue()), path));
@@ -66,7 +66,7 @@ public class EntityDataProvider implements DataProvider {
         return CompletableFuture.allOf(outputs.toArray(CompletableFuture[]::new));
     }
 
-    private Path getPathProvider(ResourceLocation location) {
+    private Path getPathProvider(Identifier location) {
         return this.packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "accessories/entity").json(location);
     }
 

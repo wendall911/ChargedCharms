@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import static chargedcharms.ChargedCharms.prefix;
 import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
@@ -23,7 +23,7 @@ import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
 public class SlotDataProvider implements DataProvider {
 
     private final PackOutput packOutput;
-    private final Map<ResourceLocation, SlotData> slotDataMap = new HashMap<>();
+    private final Map<Identifier, SlotData> slotDataMap = new HashMap<>();
     private static final Gson GSON = new GsonBuilder().registerTypeAdapter(SlotData.class, new SlotData.Serializer()).create();
 
     public SlotDataProvider(final PackOutput packOutput) {
@@ -48,7 +48,7 @@ public class SlotDataProvider implements DataProvider {
         return "Charged Charms - Accessories Slot Data";
     }
 
-    protected void add(ResourceLocation id, SlotData slotData) {
+    protected void add(Identifier id, SlotData slotData) {
         this.slotDataMap.put(id, slotData);
     }
 
@@ -58,7 +58,7 @@ public class SlotDataProvider implements DataProvider {
 
         registerSlotData();
 
-        for (Map.Entry<ResourceLocation, SlotData> entry : this.slotDataMap.entrySet()) {
+        for (Map.Entry<Identifier, SlotData> entry : this.slotDataMap.entrySet()) {
             Path path = getPathProvider(entry.getKey());
 
             outputs.add(DataProvider.saveStable(cache, GSON.toJsonTree(entry.getValue()), path));
@@ -67,7 +67,7 @@ public class SlotDataProvider implements DataProvider {
         return CompletableFuture.allOf(outputs.toArray(CompletableFuture[]::new));
     }
 
-    private Path getPathProvider(ResourceLocation location) {
+    private Path getPathProvider(Identifier location) {
         return this.packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "accessories/slot").json(location);
     }
 

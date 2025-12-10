@@ -8,9 +8,6 @@ import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;

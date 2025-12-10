@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import net.neoforged.neoforge.items.IItemHandler;
+//import net.neoforged.neoforge.items.IItemHandler;
 
 //import top.theillusivec4.curios.api.CuriosApi;
 
