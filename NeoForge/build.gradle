@@ -1,19 +1,15 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'io.github.goooler.shadow'
 }
 
+def identifier = "${mod_id}-${minecraft_version}-neoforge"
 def modLoader = "${project.name}".toUpperCase()
 def actualVersion = version
 version = "${version}-${modLoader}"
 
 neoForge {
     version = neoforge_version
-    parchment {
-        minecraftVersion = mappings_minecraft_version
-        mappingsVersion = mappings_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
@@ -26,7 +22,6 @@ neoForge {
         }
         server {
             server()
-            programArgument '--nogui'
         }
         clientData {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
@@ -89,12 +84,8 @@ sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
-shadowJar {
-    archiveClassifier = ''
-}
-
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${identifier}-${version}.jar"
 def display_name = "${project.name} ${minecraft_version}-${version}"
 def display_version = "${minecraft_version}-${version}"
 
@@ -123,7 +114,9 @@ publishMods {
             optional('betterdays')
             optional('creeper-fireworks')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('simpletextoverlay')
             optional('ready-player-fun')
             optional('survivalist-essentials')
@@ -141,7 +134,9 @@ publishMods {
             optional('betterdays')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('simpletextoverlay')
             optional('ready-player-fun')
             optional('survivalist-essentials')

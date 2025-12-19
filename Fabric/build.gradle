@@ -3,6 +3,7 @@ plugins {
     id 'fabric-loom'
 }
 
+def identifier = "${mod_id}-${minecraft_version}-fabric"
 def modLoader = "${project.name}".toUpperCase()
 version = "${version}-${modLoader}"
 
@@ -10,7 +11,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${mappings_minecraft_version}:${mappings_version}@zip")
     })
 
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
@@ -21,15 +21,15 @@ dependencies {
 
     modImplementation "io.wispforest:accessories-fabric:${accessories_version}+${minecraft_version}"
 
-    modApi "dev.architectury:architectury-fabric:${architectury_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+    modLocalRuntime "dev.architectury:architectury-fabric:${architectury_version}"
+    modLocalRuntime("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
     /*
      * TODO Re-enable REI when it is released
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
     */
 
     modCompileOnly "mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}"
@@ -46,7 +46,7 @@ dependencies {
     */
     //modLocalRuntime "curse.maven:sodium-394468:${sodium_fabric_version}"
     modImplementation "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${dynamiclights_version}+${minecraft_version}"
-    modRuntimeOnly "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${dynamiclights_version}+${minecraft_version}"
+    modLocalRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${dynamiclights_version}+${minecraft_version}"
 
     //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
     //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
@@ -54,7 +54,6 @@ dependencies {
 
 loom {
     mixin {
-        useLegacyMixinAp = true
         defaultRefmapName.set("${mod_id}.refmap.json")
     }
     runs {
@@ -93,7 +92,7 @@ sourceSets.main.resources {
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${identifier}-${version}.jar"
 def display_name = "${project.name} ${minecraft_version}-${version}"
 def display_version = "${minecraft_version}-${version}"
 
@@ -123,6 +122,8 @@ publishMods {
             optional('betterdays')
             optional('creeper-fireworks')
             optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
             optional('simpletextoverlay')
             optional('ready-player-fun')
             optional('biome-makeover')
@@ -139,6 +140,8 @@ publishMods {
             optional('betterdays')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
             optional('simpletextoverlay')
             optional('ready-player-fun')
             optional('biome-makeover')
