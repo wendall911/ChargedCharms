@@ -12,7 +12,7 @@ public class SpeedEffectProvider implements ICharmEffectProvider {
     public void applyEffects(LivingEntity livingEntity) {
         livingEntity.addEffect(
             new MobEffectInstance(
-                MobEffects.MOVEMENT_SPEED,
+                MobEffects.SPEED,
                 ConfigHandler.Common.speedDuration() * 20
             )
         );

@@ -6,12 +6,11 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    archivesName = "${mod_id}-${minecraft_version}-${project.name}".toLowerCase()
 }
 
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(java_version)
-    withSourcesJar()
 }
 
 repositories {
@@ -25,20 +24,6 @@ repositories {
             }
         }
         filter { includeGroupAndSubgroups('org.spongepowered') }
-    }
-
-    exclusiveContent {
-        forRepositories(
-            maven {
-                name = 'ParchmentMC'
-                url = 'https://maven.parchmentmc.org/'
-            },
-            maven {
-                name = 'NeoForge'
-                url = 'https://maven.neoforged.net/releases'
-            }
-        )
-        filter { includeGroup('org.parchmentmc.data') }
     }
 
     maven {
@@ -59,7 +44,7 @@ repositories {
     maven {
         name = 'Illusive Soulworks'
         url = 'https://maven.theillusivec4.top/'
-	}
+    }
 
     maven {
         name = 'JEI'
@@ -75,12 +60,13 @@ repositories {
     }
 
     maven {
-        name = 'WhiteNoise' // Library for wendall911 mods
-        url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
+        name = 'Nucleoid / Trinkets'
+        url = 'https://maven.nucleoid.xyz/releases'
     }
 
     maven {
-        url 'https://maven.shedaniel.me/' // for rei
+        name 'shedaniel REI / Architectury'
+        url 'https://maven.shedaniel.me/'
     }
 
     maven {
@@ -98,7 +84,12 @@ repositories {
         }
     }
 
-    if (System.getenv('local_maven') != null && project.hasProperty('localmaven')) {
+    maven {
+        name = 'WhiteNoise' // Library for wendall911 mods
+        url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
+    }
+
+    if (project.hasProperty('localmaven')) {
         maven {
             url 'file://' + localmaven
         }
@@ -107,9 +98,9 @@ repositories {
 
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
-['apiElements', 'runtimeElements', 'sourcesElements'].each { variant ->
+['apiElements'].each { variant ->
     configurations."$variant".outgoing {
-        capability("$group:$mod_id-${project.name}:$version")
+        capability("$group:$mod_id-${minecraft_version}-${project.name}:$version".toLowerCase())
         capability("$group:$mod_id:$version")
     }
     publishing.publications.configureEach {
@@ -117,19 +108,11 @@ repositories {
     }
 }
 
-sourcesJar {
-    from(rootProject.file("LICENSE"))
-    from(rootProject.file("COPYING"))
-    from(rootProject.file("COPYING.LESSER"))
-    from(rootProject.file("README.md"))
-    from(rootProject.file('build/libs/changelog.txt'))
-}
-
 jar {
-    from(rootProject.file("LICENSE"))
-    from(rootProject.file("COPYING"))
-    from(rootProject.file("COPYING.LESSER"))
-    from(rootProject.file("README.md"))
+    from(rootProject.file('LICENSE'))
+    from(rootProject.file('COPYING'))
+    from(rootProject.file('COPYING.LESSER'))
+    from(rootProject.file('README.md'))
     from(rootProject.file('build/libs/changelog.txt'))
     manifest {
         attributes([
@@ -147,39 +130,43 @@ jar {
     }
 }
 
-processResources {
-    def expandProps = [
-        'version': version,
-        'java_version': java_version,
-        'neoforge_mod_version': neoforge_mod_version,
-        'fabric_mod_version': fabric_mod_version,
-        'license': license,
-        'mod_id': mod_id,
-        'mod_author': mod_author,
-        'mod_description': mod_description,
-        'mod_name': mod_name,
-        'mod_url': mod_url,
-        'issue_tracker': issue_tracker,
-        'curios_version_range': curios_version_range,
-        'mod_update_branch': mod_update_branch,
-        'minecraft_version': minecraft_version,
-        'fabric_loader_min_version': fabric_loader_min_version,
-        'fabric_mc_version_range': fabric_mc_version_range,
-        'neoforge_loader_version_range': neoforge_loader_version_range,
-        'neoforge_mc_version_range': neoforge_mc_version_range
-    ]
+ext.expandProps = [
+    'version': version,
+    'java_version': java_version,
+    'license': license,
+    'mod_id': mod_id,
+    'mod_author': mod_author,
+    'mod_description': mod_description,
+    'mod_display_name': mod_display_name,
+    'mod_name': mod_name,
+    'mod_update_branch': mod_update_branch,
+    'minecraft_version': minecraft_version,
+    'fabric_loader_min_version': fabric_loader_min_version,
+    'fabric_mc_version_range': fabric_mc_version_range,
+    'fabric_api_min_version': fabric_api_min_version,
+    'neoforge_loader_version_range': neoforge_loader_version_range,
+    'neoforge_mc_version_range': neoforge_mc_version_range,
+    'mod_credits': mod_credits,
+    'curseforge_slug': curseforge_slug,
+    'fabric_whitenoise_range': fabric_whitenoise_range,
+    'whitenoise_range': whitenoise_range
+]
 
+processResources {
     filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
         expand expandProps
     }
     inputs.properties(expandProps)
+    outputs.upToDateWhen {
+        false
+    }
 }
 
 publishing {
     repositories {
-        if (project.hasProperty('localmaven')) {
+        if (System.getenv('local_maven') != null) {
             maven {
-                url 'file://' + localmaven
+                url 'file://' + System.getenv('local_maven')
             }
         }
     }

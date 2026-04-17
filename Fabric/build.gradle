@@ -1,53 +1,55 @@
 plugins {
     id 'multiloader-loader'
-    id 'fabric-loom'
+    id 'net.fabricmc.fabric-loom'
 }
 
-version = fabric_mod_version
-archivesBaseName = "${mod_id}"
+def identifier = "${mod_id}-${minecraft_version}-fabric"
+def modLoader = "${project.name}".toUpperCase()
+version = "${version}-${modLoader}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
-    })
+    implementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-
-    modImplementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-fabric", version: "${whitenoise_range}"
+    implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-fabric", version: "${whitenoise_version}"
     include group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-fabric", version: "${whitenoise_version}"
 
-    modApi "dev.architectury:architectury-fabric:${architectury_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+/*
+    localRuntime "dev.architectury:architectury-fabric:${architectury_version}"
+    localRuntime("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
-    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
-    modRuntimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+*/
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    compileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}"
+    /*
+     * TODO Re-enable REI when it is released
+    localRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+    */
 
-    modCompileOnly "mezz.jei:jei-1.21.1-common-api:${jei_version}"
-    modCompileOnly "mezz.jei:jei-1.21.1-fabric:${jei_version}"
+    compileOnly "mezz.jei:jei-${jei_minecraft_version}-common-api:${jei_version}"
+    compileOnly "mezz.jei:jei-${jei_minecraft_version}-fabric:${jei_version}"
 
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
+    implementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    implementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
+    implementation "eu.pb4:trinkets:${trinkets_version}"
 
-    //runtimeOnly "curse.maven:sodium-394468:${sodium_fabric_version}"
-    modImplementation("dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${sdl_version}+${minecraft_version}")
-    modRuntimeOnly("dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${sdl_version}+${minecraft_version}")
+    localRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
-    //modRuntimeOnly "curse.maven:charmofundying-395547:3927423"
-    //modRuntimeOnly "curse.maven:biomemakeover-412182:3942509"
+    /*
+     * Does not work in dev environment on Fabric for some reason
+     * And ... they somehow managed to break 1.21.10 on fabric for dev environments as well. Whatever.
+    */
+    //modLocalRuntime "curse.maven:sodium-394468:${sodium_fabric_version}"
+    implementation "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${dynamiclights_version}"
+    localRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${dynamiclights_version}"
 
-    modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
+    //localRuntime "curse.maven:charmofundying-395547:3927423"
+    //localRuntime "curse.maven:biomemakeover-412182:3942509"
 }
 
 loom {
-    mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
-    }
     runs {
         client {
             client()
@@ -63,13 +65,14 @@ loom {
         }
         commonDatagen {
             client()
+            setConfigName("${mod_name} Common Datagen")
             vmArg "-D${mod_id}.common_datagen=1"
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("../Common/src/generated/resources")}"
         }
         fabricDatagen {
-            client()
+            inherit client
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.modid=${mod_id}"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/generated/resources")}"
@@ -82,38 +85,81 @@ sourceSets.main.resources {
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${identifier}-${version}.jar"
+def display_name = "${project.name} ${minecraft_version}-${version}"
+def display_version = "${minecraft_version}-${version}"
 
 publishMods {
     file = file(publishFile)
     if (file(changelogFile).exists()) {
         changelog = file(changelogFile).text
     }
+    displayName = "${display_name}"
+    version = "${display_version}"
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
     modLoaders.add('fabric')
     dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
-    if (project.hasProperty('ccCurseApiKey')) {
+    if (project.hasProperty("${curseforge_api_key_prop}")) {
         curseforge {
-            accessToken = project.ccCurseApiKey
-            projectId = project.ccCurseId
+            accessToken = project.property("${curseforge_api_key_prop}")
+            projectId = "${curseforge_id}"
+            projectSlug = "${curseforge_slug}"
             javaVersions.add(JavaVersion.toVersion("${java_version}"))
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('fabric-api')
             requires('trinkets')
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks')
+            optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
+            optional('ready-player-fun')
+            optional('simpletextoverlay')
+            optional('survivalist-essentials')
             optional('biome-makeover')
         }
     }
-    if (project.hasProperty('ccModrinthId')) {
+    if (project.hasProperty("${modrinth_api_key_prop}")) {
         modrinth {
-            accessToken = project.modrinthKey
-            projectId = project.ccModrinthId
+            accessToken = project.property("${modrinth_api_key_prop}")
+            projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
-            requires("fabric-api")
+            requires('fabric-api')
             requires("trinkets")
-            optional("biome-makeover")
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks-mod')
+            optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
+            optional('ready-player-fun')
+            optional('simpletextoverlay')
+            optional('survivalist-essentials')
+        }
+    }
+    if (project.hasProperty("${discord_webhook_prop}")) {
+        discord {
+            webhookUrl = project.property("${discord_webhook_prop}")
+            dryRunWebhookUrl = project.property("${discord_dryrun_webhook_prop}")
+            username = "${mod_author}"
+            content = changelog.map {
+                "# A new version of ${mod_display_name} for Fabric ${minecraft_version} has been released! \n" + it
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId "${mod_id}-${minecraft_version}-fabric"
+            version project.version
+            from components.java
         }
     }
 }

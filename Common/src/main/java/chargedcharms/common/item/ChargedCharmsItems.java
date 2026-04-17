@@ -13,7 +13,7 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public final class ChargedCharmsItems {
 
-    private static final Map<ResourceLocation, Item> ALL = new LinkedHashMap<>();
+    private static final Map<Identifier, Item> ALL = new LinkedHashMap<>();
 
     public static final String regenerationCharmId = "charged_regeneration_charm";
     public static final String absorptionCharmId = "charged_absorption_charm";
@@ -25,35 +25,35 @@ public final class ChargedCharmsItems {
     
     public static final Item regenerationCharm = make(
         regenerationCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.regenCharges()))
+        new ChargedCharmBase(getProps(regenerationCharmId).durability(ConfigHandler.Common.regenCharges()))
     );
     public static final Item absorptionCharm = make(
         absorptionCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.absorptionCharges()))
+        new ChargedCharmBase(getProps(absorptionCharmId).durability(ConfigHandler.Common.absorptionCharges()))
     );
     public static final Item glowupCharm = make(
         glowupCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.glowUpCharges()))
+        new ChargedCharmBase(getProps(glowupCharmId).durability(ConfigHandler.Common.glowUpCharges()))
     );
     public static final Item totemCharm = make(
         totemCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+        new ChargedCharmBase(getProps(totemCharmId).durability(ConfigHandler.Common.totemCharges()))
     );
     public static final Item enchantedTotemCharm = make(
         enchantedTotemCharmId,
-        new EnchantedChargedCharmBase(getProps().durability(ConfigHandler.Common.totemCharges()))
+        new EnchantedChargedCharmBase(getProps(enchantedTotemCharmId).durability(ConfigHandler.Common.totemCharges()))
     );
     public static final Item speedCharm = make(
         speedCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.speedCharges()))
+        new ChargedCharmBase(getProps(speedCharmId).durability(ConfigHandler.Common.speedCharges()))
     );
     public static final Item waterBreathingCharm = make(
         waterBreathingCharmId,
-        new ChargedCharmBase(getProps().durability(ConfigHandler.Common.waterBreathingCharges()))
+        new ChargedCharmBase(getProps(waterBreathingCharmId).durability(ConfigHandler.Common.waterBreathingCharges()))
     );
 
     private static <T extends Item> T make(String id, T item) {
-        ResourceLocation loc = prefix(id);
+        Identifier loc = prefix(id);
 
         if (ALL.put(loc, item) != null) {
             throw new IllegalArgumentException("Duplicate Item: " + loc);
@@ -62,17 +62,18 @@ public final class ChargedCharmsItems {
         return item;
     }
 
-    public static Item.Properties getProps() {
-        return new Item.Properties();
+    public static Item.Properties getProps(String id) {
+        return new Item.Properties()
+            .setId(ResourceKey.create(Registries.ITEM, prefix(id)));
     }
 
-    public static void registerItems(BiConsumer<Item, ResourceLocation> consumer) {
-        for (Map.Entry<ResourceLocation, Item> entry : ALL.entrySet()) {
+    public static void registerItems(BiConsumer<Item, Identifier> consumer) {
+        for (Map.Entry<Identifier, Item> entry : ALL.entrySet()) {
             consumer.accept(entry.getValue(), entry.getKey());
         }
     }
 
-    public static Map<ResourceLocation, Item> getAll() {
+    public static Map<Identifier, Item> getAll() {
         return ALL;
     }
 

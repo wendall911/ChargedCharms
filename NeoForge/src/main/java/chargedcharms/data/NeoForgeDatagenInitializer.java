@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,17 +15,17 @@ import chargedcharms.ChargedCharms;
 import chargedcharms.data.integration.ChargedCharmsCuriosProvider;
 import chargedcharms.data.recipe.NeoForgeRecipeProvider;
 
-@EventBusSubscriber(modid = ChargedCharms.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ChargedCharms.MODID)
 public class NeoForgeDatagenInitializer {
 
     @SubscribeEvent
-    public static void configureNeoForgeDatagen(GatherDataEvent event) {
+    public static void configureNeoForgeDatagen(GatherDataEvent.Client event) {
         DataGenerator gen = event.getGenerator();
         PackOutput packOutput = gen.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-        gen.addProvider(event.includeServer(), new NeoForgeRecipeProvider(packOutput, lookupProvider));
-        gen.addProvider(event.includeServer(), new ChargedCharmsCuriosProvider(packOutput, event.getExistingFileHelper(), lookupProvider));
+        gen.addProvider(true, new NeoForgeRecipeProvider(packOutput, lookupProvider));
+        gen.addProvider(true, new ChargedCharmsCuriosProvider(packOutput, lookupProvider));
     }
 
 }

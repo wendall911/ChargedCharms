@@ -1,19 +1,15 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'io.github.goooler.shadow'
-    id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 }
 
-archivesBaseName = "${mod_id}"
-version = neoforge_mod_version
+def identifier = "${mod_id}-${minecraft_version}-neoforge"
+def modLoader = "${project.name}".toUpperCase()
+def actualVersion = version
+version = "${version}-${modLoader}"
 
 neoForge {
     version = neoforge_version
-    parchment {
-        minecraftVersion = minecraft_version
-        mappingsVersion = mappings_version
-    }
     runs {
         configureEach {
             systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
@@ -24,11 +20,10 @@ neoForge {
         }
         server {
             server()
-            programArgument '--nogui'
         }
-        data {
+        clientData {
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-            data()
+            clientData()
         }
     }
     mods {
@@ -50,8 +45,8 @@ dependencies {
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
-    compileOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}")
-    compileOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
+    //compileOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}")
+    //compileOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
 
     //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
     //runtimeOnly "dev.architectury:architectury-neoforge:${architectury_version}"
@@ -59,10 +54,17 @@ dependencies {
 
     //runtimeOnly "curse.maven:charmofundying-316873:3927421"
     //runtimeOnly "curse.maven:biomemakeover-567709:3942516"
-    runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}" // Required by Dynamic Lights
-    //runtimeOnly "curse.maven:dynamic_lights-551736:${sdl_neoforge_version}"
-    runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
-    runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
+    /*
+     * Sodium is suddenly just a flaming bag of dogshit in development environments.
+     * 1.21.8 version crashes on world load
+     * 1.21.10 outright crashes on game load
+     * Also, if any devs actually read my stupid comments. This isn't just the curse maven
+     * version, this crashes from the official repos as well. Just poorly managed for multiloader.
+     * I'm going to guess it is the forgified fabric api... solving problems wrong and crashing one mod at a time.
+     */
+    //runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}"
+    //runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
+    //runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
     /*
     runtimeOnly "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_neoforge_version}" // For Ars Nouveau
     runtimeOnly "curse.maven:terrablender-940057:${terrablender_neoforge_version}" // For Ars Nouvea
@@ -71,72 +73,93 @@ dependencies {
     }
     */
     //runtimeOnly "curse.maven:lucent-493280:${lucent_version}"
-    //runtimeOnly "curse.maven:dynamic_lights-227874:${dynamic_lights_forge_version}"
+    runtimeOnly "curse.maven:lambdynamiclights-393442:${dynamiclights_neoforge_version}"
 }
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
 }
 
-shadowJar {
-    archiveClassifier = ''
-}
-
-task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-    file.set(new File(project(":").projectDir.toString() + '/build/libs/changelog.txt'));
-    templateContent.set(file(project(":").projectDir.toString() + '/files/templates/changelog.mustache').getText('UTF-8'));
-    toRevision.set('HEAD');
-    fromRevision.set("${minecraft_version}-${last_mod_version}");
-}
-
-def updates = tasks.register("generateUpdates", Copy) {
-    it.outputs.upToDateWhen {
-        false
-    }
-
-    it.from("../files/templates/") {
-        include 'updates.json'
-        expand 'version': version, 'minecraft_version': minecraft_version
-    }
-
-    it.into '../files/'
-}
-
-tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
-
-tasks.build.dependsOn('changelog', 'generateUpdates')
-
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${identifier}-${version}.jar"
+def display_name = "${project.name} ${minecraft_version}-${version}"
+def display_version = "${minecraft_version}-${version}"
 
 publishMods {
     file = file(publishFile)
     if (file(changelogFile).exists()) {
         changelog = file(changelogFile).text
     }
+    displayName = "${display_name}"
+    version = "${display_version}"
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
     modLoaders.add('neoforge')
     dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
-    if (project.hasProperty('ccCurseApiKey')) {
+    if (project.hasProperty("${curseforge_api_key_prop}")) {
         curseforge {
-            accessToken = project.ccCurseApiKey
-            projectId = ccCurseId
+            accessToken = project.property("${curseforge_api_key_prop}")
+            projectId = "${curseforge_id}"
+            projectSlug = "${curseforge_slug}"
             javaVersions.add(JavaVersion.toVersion("${java_version}"))
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('curios')
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks')
+            optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('magical-psi-revival')
+            optional('mobchampions')
+            optional('ready-player-fun')
+            optional('simpletextoverlay')
+            optional('survivalist-essentials')
+            optional('tinkersurvival')
             optional('biome-makeover-forge')
         }
     }
-    if (project.hasProperty('ccModrinthId')) {
+    if (project.hasProperty("${modrinth_api_key_prop}")) {
         modrinth {
-            accessToken = project.modrinthKey
-            projectId = project.ccModrinthId
+            accessToken = project.property("${modrinth_api_key_prop}")
+            projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
-            requires("curios")
-            optional("biome-makeover")
+            requires('curios')
+            optional('actually-harvest')
+            optional('betterdays')
+            optional('creeper-fireworks-mod')
+            optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('magical-psi-revival')
+            optional('mobchampions')
+            optional('ready-player-fun')
+            optional('simpletextoverlay')
+            optional('survivalist-essentials')
+            optional('tinkersurvival')
+            optional('biome-makeover')
+        }
+    }
+    if (project.hasProperty("${discord_webhook_prop}")) {
+        discord {
+            webhookUrl = project.property("${discord_webhook_prop}")
+            dryRunWebhookUrl = project.property("${discord_dryrun_webhook_prop}")
+            username = "${mod_author}"
+            content = changelog.map {
+                "# A new version of ${mod_display_name} for NeoForge ${minecraft_version} has been released! \n" + it
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId "${mod_id}-${minecraft_version}-neoforge"
+            version project.version
+            // This gives us the built version NeoForge requires
+            artifact jar
         }
     }
 }

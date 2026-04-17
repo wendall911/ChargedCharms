@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Sets;
 
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,7 +27,7 @@ public class NeoForgePlatform implements IPlatform {
     }
 
     @Override
-    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+    public <T> void registerDataComponent(Identifier name, DataComponentType<T> component) {
         ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(
             name.getPath(),
             () -> component

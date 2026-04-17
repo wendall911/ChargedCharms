@@ -6,12 +6,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.resources.RegistryOps;
+
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import chargedcharms.config.ConfigHandler;
 
@@ -19,7 +20,7 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public record ConfigResourceCondition(String configValue) implements ResourceCondition {
 
-    private static final ResourceLocation ID = prefix("config_disabled");
+    private static final Identifier ID = prefix("config_disabled");
     public static final MapCodec<ConfigResourceCondition> CODEC = RecordCodecBuilder.mapCodec(b -> b.group(
         Codec.STRING.fieldOf("config_disabled").forGetter(ConfigResourceCondition::configValue)
     ).apply(b, ConfigResourceCondition::new));
@@ -35,7 +36,8 @@ public record ConfigResourceCondition(String configValue) implements ResourceCon
     }
 
     @Override
-    public boolean test(@Nullable HolderLookup.Provider registryLookup) {
-        return !ConfigHandler.conditionsMap.getOrDefault(configValue, false);
+    public boolean test(RegistryOps.@Nullable RegistryInfoLookup registryInfoLookup) {
+        return !ConfigHandler.Common.getConfigValue(configValue);
     }
+
 }

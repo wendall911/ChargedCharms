@@ -2,6 +2,8 @@ package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
@@ -10,21 +12,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.item.ChargedCharmsItems;
 
 public class WaterBreathingChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleCraftingRecipeSerializer<WaterBreathingChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(WaterBreathingChargeRecipe::new);
+    public static final RecipeSerializer<WaterBreathingChargeRecipe> SERIALIZER = new CustomRecipe.Serializer<>(WaterBreathingChargeRecipe::new);
 
     public WaterBreathingChargeRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return SERIALIZER;
     }
 

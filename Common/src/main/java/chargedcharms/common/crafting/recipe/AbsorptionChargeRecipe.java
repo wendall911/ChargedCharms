@@ -2,32 +2,33 @@ package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
 
 public class AbsorptionChargeRecipe extends ChargeRecipeBase {
 
-    public static final SimpleCraftingRecipeSerializer<AbsorptionChargeRecipe> SERIALIZER = new SimpleCraftingRecipeSerializer<>(AbsorptionChargeRecipe::new);
+    public static final RecipeSerializer<AbsorptionChargeRecipe> SERIALIZER = new CustomRecipe.Serializer<>(AbsorptionChargeRecipe::new);
 
     public AbsorptionChargeRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return SERIALIZER;
     }
 
@@ -53,12 +54,8 @@ public class AbsorptionChargeRecipe extends ChargeRecipeBase {
             else if (!ingredient.is(TagManager.Items.CHARM_FOODS_BLACKLIST)
                     && foodProperties != null
                     && foodProperties.nutrition() > 4) {
-                List<FoodProperties.PossibleEffect> effects = foodProperties.effects();
-
-                if (effects.isEmpty() || effects.stream().noneMatch(props -> props.effect().equals(MobEffects.POISON))) {
-                    foods.add(ingredient);
-                    food = ingredient;
-                }
+                foods.add(ingredient);
+                food = ingredient;
             }
         }
 

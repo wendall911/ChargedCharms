@@ -1,6 +1,6 @@
 package chargedcharms.data.integration;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public final class ModIntegration {
 
@@ -10,7 +10,7 @@ public final class ModIntegration {
 
     public static final class Items {
 
-        public static final ResourceLocation BMO_ENCHANTED_TOTEM = ResourceLocation.fromNamespaceAndPath(BMO_MODID, "enchanted_totem");
+        public static final Identifier BMO_ENCHANTED_TOTEM = Identifier.fromNamespaceAndPath(BMO_MODID, "enchanted_totem");
 
     }
 

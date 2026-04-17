@@ -3,14 +3,14 @@ package chargedcharms.client.integration.rei;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mojang.datafixers.util.Pair;
+
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.ItemStack;
@@ -25,13 +25,12 @@ public class REIPlugin implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry helper) {
-        List<RecipeHolder<CraftingRecipe>> recipes = CharmChargingRecipeMaker.createRecipes("rei");
-        RegistryAccess registryAccess = RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY);
+        List<Pair<ItemStack, RecipeHolder<CraftingRecipe>>> recipes = CharmChargingRecipeMaker.createRecipes("rei");
 
-        recipes.forEach(recipe -> {
+        recipes.forEach(recipePair -> {
             List<EntryIngredient> input = new ArrayList<>();
 
-            Services.REI_HELPER.addCustomDisplay(helper, input, recipe, registryAccess);
+            Services.REI_HELPER.addCustomDisplay(helper, input, recipePair.getSecond(), recipePair.getFirst());
         });
     }
 

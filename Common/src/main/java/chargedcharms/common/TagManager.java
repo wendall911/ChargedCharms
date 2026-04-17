@@ -1,7 +1,7 @@
 package chargedcharms.common;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
@@ -16,7 +16,7 @@ public class TagManager {
         public static final TagKey<Item> ENCHANTED_TOTEMS = itemTag(prefix("enchanted_totems"));
         public static final TagKey<Item> CURIOS = itemTag(ResourceLocation.fromNamespaceAndPath("curios", "charged_charm"));
 
-        private static TagKey<Item> itemTag (ResourceLocation loc) {
+        private static TagKey<Item> itemTag (Identifier loc) {
             return TagKey.create(Registries.ITEM, loc);
         }
 

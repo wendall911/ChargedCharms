@@ -2,6 +2,7 @@ package chargedcharms.client.integration.arsnouveau;
 
 import java.util.function.Function;
 
+/*
 import com.hollingsworth.arsnouveau.common.light.DynamLightUtil;
 import com.hollingsworth.arsnouveau.common.light.LightManager;
 
@@ -37,3 +38,4 @@ public class ArsDynamicLightsModule extends DynamicLightsModule {
     }
 
 }
+*/

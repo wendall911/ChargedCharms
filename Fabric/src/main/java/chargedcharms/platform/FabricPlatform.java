@@ -9,7 +9,7 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +32,7 @@ public class FabricPlatform implements IPlatform {
     }
 
     @Override
-    public <T> void registerDataComponent(ResourceLocation name, DataComponentType<T> component) {
+    public <T> void registerDataComponent(Identifier name, DataComponentType<T> component) {
         Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE,
             name,
