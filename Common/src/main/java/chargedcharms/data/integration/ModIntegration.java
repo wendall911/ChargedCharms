@@ -4,9 +4,8 @@ import net.minecraft.resources.Identifier;
 
 public final class ModIntegration {
 
-    public static final String ARS_MODID = "ars_nouveau";
     public static final String BMO_MODID = "biomemakeover";
-    public static final String RYOAMIC_MODID = "ryoamiclights";
+    public static final String CURIOS_MODID = "curios";
 
     public static final class Items {
 

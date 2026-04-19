@@ -10,15 +10,15 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
-public class CharmModel extends HumanoidModel<HumanoidRenderState> {
+public class ChargedCharmModel<T extends HumanoidRenderState> extends HumanoidModel<T> {
 
-    public CharmModel(ModelPart root) {
+    public ChargedCharmModel(ModelPart root) {
         super(root);
 
         this.body.visible = true;
     }
 
-    public static LayerDefinition getLayerDefinition() {
+    public static LayerDefinition createLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 

@@ -4,7 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 
 import chargedcharms.config.ConfigHandler;
@@ -63,8 +65,7 @@ public final class ChargedCharmsItems {
     }
 
     public static Item.Properties getProps(String id) {
-        return new Item.Properties()
-            .setId(ResourceKey.create(Registries.ITEM, prefix(id)));
+        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, prefix(id)));
     }
 
     public static void registerItems(BiConsumer<Item, Identifier> consumer) {

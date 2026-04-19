@@ -65,15 +65,6 @@ public class MixinServerPlayer {
         chargedCharms$counter++;
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "attack")
-    private void onPlayerAttack(Entity target, CallbackInfo ci) {
-        if (target instanceof LivingEntity livingEntity && !livingEntity.hasEffect(MobEffects.GLOWING)) {
-            ServerPlayer sp = (ServerPlayer) (Object) this;
-
-            CharmHelper.triggerCharm(sp, livingEntity, ChargedCharmsItems.glowupCharm);
-        }
-    }
-
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;isInvulnerableTo(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;)Z"), method = "hurtServer")
     private void onPlayerHurt(ServerLevel level, DamageSource damageSource, float amount, CallbackInfoReturnable<Boolean> cir) {
         ServerPlayer sp = (ServerPlayer) (Object) this;

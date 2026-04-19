@@ -3,7 +3,7 @@ package chargedcharms.data.recipe;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
@@ -17,11 +17,11 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 
 import chargedcharms.common.TagManager;
@@ -49,10 +49,10 @@ public class RecipeProviderBase {
         );
     }
 
-    public static void specialRecipe(RecipeOutput exporter, CustomRecipe.Serializer<?> serializer, Function<CraftingBookCategory, Recipe<?>> recipeFunction) {
+    public static void specialRecipe(RecipeOutput exporter, RecipeSerializer<? extends CustomRecipe> serializer, Supplier<Recipe<?>> factory) {
         Identifier name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
 
-        SpecialRecipeBuilder.special(recipeFunction).save(
+        SpecialRecipeBuilder.special(factory).save(
             exporter, prefix("dynamic/" + Objects.requireNonNull(name).getPath()).toString());
     }
 

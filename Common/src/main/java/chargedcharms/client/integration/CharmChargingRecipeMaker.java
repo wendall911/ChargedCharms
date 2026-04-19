@@ -10,10 +10,13 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingRecipe;
@@ -76,7 +79,7 @@ public class CharmChargingRecipeMaker {
                 getRecipe(group, ".totem", ChargedCharmsItems.totemCharm, Ingredient.of(Items.TOTEM_OF_UNDYING))
             ));
         }
-        if (Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID) && !ConfigHandler.Common.disableEnchTotemCharm()) {
+        if (Services.WN_PLATFORM.isModLoaded(ModIntegration.BMO_MODID) && !ConfigHandler.Common.disableEnchTotemCharm()) {
             recipes.add(Pair.of(
                 new ItemStack(ChargedCharmsItems.enchantedTotemCharm),
                 getRecipe(group, ".enchanted_totem", ChargedCharmsItems.enchantedTotemCharm, IngredientHelper.fromTag(TagManager.Items.ENCHANTED_TOTEMS))
@@ -111,7 +114,12 @@ public class CharmChargingRecipeMaker {
 
         return new RecipeHolder<>(
             ResourceKey.create(Registries.RECIPE, prefix(group + label)),
-            new ShapelessRecipe(group, CraftingBookCategory.MISC, chargedCharm, chargedCharmInputs)
+            new ShapelessRecipe(
+                RecipeBuilder.createCraftingCommonInfo(true),
+                RecipeBuilder.createCraftingBookInfo(RecipeCategory.MISC, group),
+                new ItemStackTemplate(chargedCharm.getItem(), 1),
+                chargedCharmInputs
+            )
         );
     }
 

@@ -2,18 +2,17 @@ package chargedcharms.data.recipe;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.Item;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.Item;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
@@ -26,17 +25,17 @@ import chargedcharms.data.integration.ModIntegration;
 
 public class FabricModRecipeProvider extends FabricRecipeProvider {
 
-    public FabricModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryFuture) {
+    public FabricModRecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryFuture) {
         super(output, registryFuture);
     }
 
     @Override
-    public String getName() {
+    public @NonNull String getName() {
         return ChargedCharms.MOD_NAME + " - Fabric Recipes";
     }
 
     @Override
-    protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput recipeOutput) {
+    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput recipeOutput) {
         HolderLookup.RegistryLookup<Item> itemRegistry = registries.lookupOrThrow(Registries.ITEM);
         RecipeOutput bmoWrapped = withConditions(
             recipeOutput,
@@ -72,28 +71,28 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableRegenCharm")
-        ), (CustomRecipe.Serializer<?>) RegenerationChargeRecipe.SERIALIZER, RegenerationChargeRecipe::new);
+        ), RegenerationChargeRecipe.SERIALIZER, RegenerationChargeRecipe::new);
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableTotemCharm")
-        ), (CustomRecipe.Serializer<?>) TotemChargeRecipe.SERIALIZER, TotemChargeRecipe::new);
+        ), TotemChargeRecipe.SERIALIZER, TotemChargeRecipe::new);
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableAbsorptionCharm")
-        ), (CustomRecipe.Serializer<?>) AbsorptionChargeRecipe.SERIALIZER, AbsorptionChargeRecipe::new);
+        ), AbsorptionChargeRecipe.SERIALIZER, AbsorptionChargeRecipe::new);
         RecipeProviderBase.specialRecipe(
             bmoWrapped,
-            (CustomRecipe.Serializer<?>) EnchantedTotemChargeRecipe.SERIALIZER,
+            EnchantedTotemChargeRecipe.SERIALIZER,
             EnchantedTotemChargeRecipe::new
         );
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableSpeedCharm")
-        ), (CustomRecipe.Serializer<?>) SpeedChargeRecipe.SERIALIZER, SpeedChargeRecipe::new);
+        ), SpeedChargeRecipe.SERIALIZER, SpeedChargeRecipe::new);
         RecipeProviderBase.specialRecipe(withConditions(
             recipeOutput,
             new ConfigResourceCondition("disableWaterBreathingCharm")
-        ), (CustomRecipe.Serializer<?>) WaterBreathingChargeRecipe.SERIALIZER, WaterBreathingChargeRecipe::new);
+        ), WaterBreathingChargeRecipe.SERIALIZER, WaterBreathingChargeRecipe::new);
 
         return new CommonRecipeProvider(registries, recipeOutput);
     }

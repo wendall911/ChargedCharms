@@ -4,7 +4,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import dev.emi.trinkets.api.TrinketsApi;
+import eu.pb4.trinkets.api.TrinketsApi;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -23,12 +23,17 @@ public class FabricPlatform implements IPlatform {
     public Set<ItemStack> findCharms(LivingEntity livingEntity) {
         Set<ItemStack> results = Sets.newHashSet();
 
+        /*
+        // TODO Implement with eu.pb4 Trinkets
         return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
             component.getEquipped(stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
                     .forEach(results::add);
 
             return results;
         }).orElse(results);
+         */
+
+        return results;
     }
 
     @Override

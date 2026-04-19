@@ -2,33 +2,45 @@ package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import chargedcharms.common.TagManager;
 import chargedcharms.common.item.ChargedCharmsItems;
 
-public class AbsorptionChargeRecipe extends ChargeRecipeBase {
+public class AbsorptionChargeRecipe extends CustomRecipe implements IChargeRecipeBase {
 
-    public static final RecipeSerializer<AbsorptionChargeRecipe> SERIALIZER = new CustomRecipe.Serializer<>(AbsorptionChargeRecipe::new);
+    public static final AbsorptionChargeRecipe INSTANCE = new AbsorptionChargeRecipe();
+    public static final MapCodec<AbsorptionChargeRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, AbsorptionChargeRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final RecipeSerializer<AbsorptionChargeRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
-    public AbsorptionChargeRecipe(CraftingBookCategory category) {
-        super(category);
+    @Override
+    public boolean matches(CraftingInput craftingInput, @NonNull Level level) {
+        return matches(craftingInput);
     }
 
     @Override
-    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
+    public @NonNull ItemStack assemble(CraftingInput craftingInput) {
+        return assemble(craftingInput, 1);
+    }
+
+    @Override
+    public @NonNull RecipeSerializer<AbsorptionChargeRecipe> getSerializer() {
         return SERIALIZER;
     }
 

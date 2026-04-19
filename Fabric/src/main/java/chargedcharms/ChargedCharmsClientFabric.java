@@ -5,7 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +30,15 @@ public class ChargedCharmsClientFabric implements ClientModInitializer {
 
         ChargedCharmsClient.init();
 
+        RegistryEntryAddedCallback.event(BuiltInRegistries.ITEM).register((rawId, id, object) -> {
+            if (!charms.isEmpty()) {
+                if (charms.contains(id)) {
+                    FabricClientHooks.registerTrinketRenderer(object);
+                    charms.remove(id);
+                }
+            }
+        });
+
         for (Identifier charm : charms) {
             Optional<Holder.Reference<Item>> itemReference = BuiltInRegistries.ITEM.get(charm);
             Item item = itemReference.map(Holder.Reference::value).orElse(Items.AIR);
@@ -36,13 +46,13 @@ public class ChargedCharmsClientFabric implements ClientModInitializer {
 
             if (item != Items.AIR) {
                 if (item == ChargedCharmsItems.enchantedTotemCharm) {
-                    if (!Services.PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
+                    if (!Services.WN_PLATFORM.isModLoaded(ModIntegration.BMO_MODID)) {
                         addItem = false;
                     }
                 }
 
                 if (addItem) {
-                    ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> entries.accept(item));
+                    CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries -> entries.accept(item));
                 }
 
                 remove.add(charm);

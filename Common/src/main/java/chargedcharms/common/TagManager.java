@@ -5,6 +5,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+import static chargedcharms.util.ResourceLocationHelper.loc;
 import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class TagManager {
@@ -14,7 +15,7 @@ public class TagManager {
         public static final TagKey<Item> CHARGED_CHARMS = itemTag(prefix("charged_charms"));
         public static final TagKey<Item> CHARM_FOODS_BLACKLIST = itemTag(prefix("charm_foods_blacklist"));
         public static final TagKey<Item> ENCHANTED_TOTEMS = itemTag(prefix("enchanted_totems"));
-        public static final TagKey<Item> CURIOS = itemTag(ResourceLocation.fromNamespaceAndPath("curios", "charged_charm"));
+        public static final TagKey<Item> CURIOS = itemTag(loc("curios", "charged_charm"));
 
         private static TagKey<Item> itemTag (Identifier loc) {
             return TagKey.create(Registries.ITEM, loc);

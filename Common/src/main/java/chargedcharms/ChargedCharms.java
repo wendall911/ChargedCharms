@@ -16,13 +16,16 @@ public class ChargedCharms {
     public static final String MOD_NAME = "Charged Charms";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
+    public static void init() {
+        CharmEffectProviders.init();
+    }
+
     public static void initConfig() {
-        if (Services.PLATFORM.isPhysicalClient()) {
+        if (Services.WN_PLATFORM.isPhysicalClient()) {
             WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC, MODID);
         }
         WhiteNoiseConfig commonConfig = WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.COMMON, ConfigHandler.COMMON_SPEC, MODID);
         commonConfig.addLoadListener((config, flag) -> ConfigHandler.init());
-        CharmEffectProviders.init();
     }
 
 }

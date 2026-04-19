@@ -2,7 +2,7 @@ package chargedcharms.data;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
 import net.minecraft.core.HolderLookup;
@@ -13,7 +13,7 @@ import chargedcharms.common.Translations;
 
 public class ChargedCharmsLanguageProvider extends FabricLanguageProvider {
 
-    protected ChargedCharmsLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryFuture) {
+    protected ChargedCharmsLanguageProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryFuture) {
         super(dataOutput, registryFuture);
     }
 

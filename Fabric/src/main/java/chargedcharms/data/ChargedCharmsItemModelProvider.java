@@ -1,7 +1,7 @@
 package chargedcharms.data;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -11,7 +11,7 @@ import chargedcharms.common.item.ChargedCharmsItems;
 
 public class ChargedCharmsItemModelProvider extends FabricModelProvider {
 
-    public ChargedCharmsItemModelProvider(FabricDataOutput output) {
+    public ChargedCharmsItemModelProvider(FabricPackOutput output) {
         super(output);
     }
 

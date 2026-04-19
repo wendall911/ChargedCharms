@@ -70,7 +70,7 @@ public class CharmHelper {
 
         if (!charmStack.isEmpty()) {
             int charmRadiation = charmStack.getOrDefault(ChargedCharmsComponents.SOLAR_RADIATION, 0);
-            int radiation = (int)getSunRadiation(sp.serverLevel(), sp.getOnPos()) + charmRadiation;
+            int radiation = (int)getSunRadiation(sp.level(), sp.getOnPos()) + charmRadiation;
 
             if (radiation > 10000) {
                 charmStack.setDamageValue(charmStack.getDamageValue() - 1);
@@ -106,7 +106,7 @@ public class CharmHelper {
     }
 
     private static float timeOfDay(ServerLevel level) {
-        double d0 = Mth.frac(level.getDayTime() / 24000.0 - 0.25);
+        double d0 = Mth.frac(level.getDefaultClockTime() / 24000.0 - 0.25);
         double d1 = 0.5 - Math.cos(d0 * Math.PI) / 2.0;
         return (float)(d0 * 2.0 + d1) / 3.0F;
     }

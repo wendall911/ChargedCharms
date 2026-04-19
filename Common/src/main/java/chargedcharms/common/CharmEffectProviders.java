@@ -30,9 +30,9 @@ public class CharmEffectProviders {
 
     private static final Map<Identifier, ICharmEffectProvider> EFFECT_PROVIDERS = new HashMap<>();
     private static Set<Identifier> TOTEMS;
-    private static final Predicate<Item> IS_TOTEM = item -> TOTEMS.contains(Services.PLATFORM.getResourceLocation(item));
+    private static final Predicate<Item> IS_TOTEM = item -> TOTEMS.contains(Services.WN_PLATFORM.getResourceLocation(item));
 
-    public static Predicate<Item> IS_CHARM = item -> EFFECT_PROVIDERS.containsKey(Services.PLATFORM.getResourceLocation(item));
+    public static Predicate<Item> IS_CHARM = item -> EFFECT_PROVIDERS.containsKey(Services.WN_PLATFORM.getResourceLocation(item));
 
     public static void init() {
         EFFECT_PROVIDERS.put(prefix(ChargedCharmsItems.totemCharmId), new VanillaTotemEffectProvider());
@@ -52,7 +52,7 @@ public class CharmEffectProviders {
     }
 
     public static Optional<ICharmEffectProvider> getEffectProvider(final Item item) {
-        return Optional.ofNullable(EFFECT_PROVIDERS.get(Services.PLATFORM.getResourceLocation(item)));
+        return Optional.ofNullable(EFFECT_PROVIDERS.get(Services.WN_PLATFORM.getResourceLocation(item)));
     }
 
     public static boolean hasTotem(ItemStack stack) {

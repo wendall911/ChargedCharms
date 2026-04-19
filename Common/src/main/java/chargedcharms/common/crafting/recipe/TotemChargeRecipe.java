@@ -2,31 +2,43 @@ package chargedcharms.common.crafting.recipe;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import com.google.common.collect.Lists;
 
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import chargedcharms.common.item.ChargedCharmsItems;
 
-public class TotemChargeRecipe extends ChargeRecipeBase {
+public class TotemChargeRecipe extends CustomRecipe implements IChargeRecipeBase {
 
-    public static final RecipeSerializer<TotemChargeRecipe> SERIALIZER = new CustomRecipe.Serializer<>(TotemChargeRecipe::new);
+    public static final TotemChargeRecipe INSTANCE = new TotemChargeRecipe();
+    public static final MapCodec<TotemChargeRecipe> MAP_CODEC = MapCodec.unit(INSTANCE);
+    public static final StreamCodec<RegistryFriendlyByteBuf, TotemChargeRecipe> STREAM_CODEC = StreamCodec.unit(INSTANCE);
+    public static final RecipeSerializer<TotemChargeRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
-    public TotemChargeRecipe(CraftingBookCategory category) {
-        super(category);
+    @Override
+    public boolean matches(CraftingInput craftingInput, @NonNull Level level) {
+        return matches(craftingInput);
     }
 
     @Override
-    public @NotNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
+    public @NonNull ItemStack assemble(CraftingInput craftingInput) {
+        return assemble(craftingInput, 1);
+    }
+
+    @Override
+    public @NonNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
         return SERIALIZER;
     }
 

@@ -63,16 +63,6 @@ dependencies {
      * I'm going to guess it is the forgified fabric api... solving problems wrong and crashing one mod at a time.
      */
     //runtimeOnly "curse.maven:sodium-394468:${sodium_neoforge_version}"
-    //runtimeOnly "curse.maven:obsidianui-684718:${obsidianui_version}" // For ryoamiclights
-    //runtimeOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
-    /*
-    runtimeOnly "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_neoforge_version}" // For Ars Nouveau
-    runtimeOnly "curse.maven:terrablender-940057:${terrablender_neoforge_version}" // For Ars Nouvea
-    runtimeOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}") {
-        exclude(group: 'com.github.glitchfiend')
-    }
-    */
-    //runtimeOnly "curse.maven:lucent-493280:${lucent_version}"
     runtimeOnly "curse.maven:lambdynamiclights-393442:${dynamiclights_neoforge_version}"
 }
 

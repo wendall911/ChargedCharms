@@ -62,32 +62,32 @@ public class NeoForgeRecipeProvider extends RecipeProvider.Runner {
                         recipeOutput.withConditions(new ConfigResourceCondition("disableWaterBreathingCharm")));
                 RecipeProviderBase.specialRecipe(
                         recipeOutput.withConditions(new ConfigResourceCondition("disableRegenCharm")),
-                        (CustomRecipe.Serializer<?>) RegenerationChargeRecipe.SERIALIZER,
+                        RegenerationChargeRecipe.SERIALIZER,
                         RegenerationChargeRecipe::new
                 );
                 RecipeProviderBase.specialRecipe(
                         recipeOutput.withConditions(new ConfigResourceCondition("disableTotemCharm")),
-                        (CustomRecipe.Serializer<?>) TotemChargeRecipe.SERIALIZER,
+                        TotemChargeRecipe.SERIALIZER,
                         TotemChargeRecipe::new
                 );
                 RecipeProviderBase.specialRecipe(
                         recipeOutput.withConditions(new ConfigResourceCondition("disableAbsorptionCharm")),
-                        (CustomRecipe.Serializer<?>) AbsorptionChargeRecipe.SERIALIZER,
+                        AbsorptionChargeRecipe.SERIALIZER,
                         AbsorptionChargeRecipe::new
                 );
                 RecipeProviderBase.specialRecipe(
                         bmoWrapped,
-                        (CustomRecipe.Serializer<?>) EnchantedTotemChargeRecipe.SERIALIZER,
+                        EnchantedTotemChargeRecipe.SERIALIZER,
                         EnchantedTotemChargeRecipe::new
                 );
                 RecipeProviderBase.specialRecipe(
                         recipeOutput.withConditions(new ConfigResourceCondition("disableSpeedCharm")),
-                        (CustomRecipe.Serializer<?>) SpeedChargeRecipe.SERIALIZER,
+                        SpeedChargeRecipe.SERIALIZER,
                         SpeedChargeRecipe::new
                 );
                 RecipeProviderBase.specialRecipe(
                         recipeOutput.withConditions(new ConfigResourceCondition("disableWaterBreathingCharm")),
-                        (CustomRecipe.Serializer<?>) WaterBreathingChargeRecipe.SERIALIZER,
+                        WaterBreathingChargeRecipe.SERIALIZER,
                         chargedcharms.common.crafting.recipe.WaterBreathingChargeRecipe::new
                 );
             }

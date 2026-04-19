@@ -2,10 +2,6 @@ package chargedcharms.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import io.wispforest.accessories.api.client.AccessoryRenderState;
-import io.wispforest.accessories.api.client.renderers.AccessoryRenderer;
-import io.wispforest.accessories.api.client.renderers.SimpleAccessoryRenderer;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -19,10 +15,9 @@ import net.minecraft.world.item.ItemStack;
 
 import chargedcharms.config.ConfigHandler;
 
-public class CharmRenderer implements SimpleAccessoryRenderer {
+public class CharmRenderer {
 
-    @Override
-    public <S extends LivingEntityRenderState> void renderStack(AccessoryRenderState accessoryState,
+    public <S extends LivingEntityRenderState> void renderStack(
             S entityState, EntityModel<S> model, PoseStack poseStack, SubmitNodeCollector collector,
             ItemStack stack, ItemStackRenderState stackRenderState, int light) {
         if (ConfigHandler.Client.showCharms()) {
@@ -31,8 +26,7 @@ public class CharmRenderer implements SimpleAccessoryRenderer {
         }
     }
 
-    @Override
-    public <S extends LivingEntityRenderState> void align(AccessoryRenderState accessoryRenderState, S entityState,
+    public <S extends LivingEntityRenderState> void align(S entityState,
             EntityModel<S> model, PoseStack poseStack) {
         if ((model instanceof HumanoidModel<? extends HumanoidRenderState> humanoidModel)) {
             Minecraft mc = Minecraft.getInstance();
@@ -42,7 +36,7 @@ public class CharmRenderer implements SimpleAccessoryRenderer {
                 zPos = 1.6F;
             }
 
-            AccessoryRenderer.transformToModelPart(poseStack, humanoidModel.body, -0.50, 0.40, zPos);
+            //AccessoryRenderer.transformToModelPart(poseStack, humanoidModel.body, -0.50, 0.40, zPos);
         }
     }
 
