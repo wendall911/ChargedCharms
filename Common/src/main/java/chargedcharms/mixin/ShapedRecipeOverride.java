@@ -1,6 +1,5 @@
 package chargedcharms.mixin;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeInput;
@@ -18,8 +17,8 @@ import chargedcharms.common.item.ChargedCharmsItems;
 public abstract class ShapedRecipeOverride {
 
 
-    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
-    private void checkAssemble(CraftingInput craftingInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/CraftingInput;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
+    private void checkAssemble(CraftingInput input, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack resultCopy = cir.getReturnValue();
 
         if (resultCopy.is(ChargedCharmsItems.glowupCharm)) {
@@ -34,8 +33,8 @@ public abstract class ShapedRecipeOverride {
         }
     }
 
-    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/RecipeInput;Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
-    private void checkRecipeAssemble(RecipeInput recipeInput, HolderLookup.Provider provider, CallbackInfoReturnable<ItemStack> cir) {
+    @Inject(at = @At(value = "RETURN"), method = "assemble(Lnet/minecraft/world/item/crafting/RecipeInput;)Lnet/minecraft/world/item/ItemStack;", cancellable = true)
+    private void checkRecipeAssemble(RecipeInput par1, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack resultCopy = cir.getReturnValue();
 
         if (resultCopy.is(ChargedCharmsItems.glowupCharm)) {
