@@ -43,8 +43,8 @@
   ],
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
-    "fabric": "*",
-    "accessories": "*",
+    "fabric-api": "${fabric_api_min_version}",
+    "trinkets": "*",
     "minecraft": ${fabric_mc_version_range},
     "whitenoise": ${fabric_whitenoise_range},
     "java": ">=${java_version}"
