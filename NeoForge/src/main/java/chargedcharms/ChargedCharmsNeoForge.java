@@ -58,14 +58,6 @@ public class ChargedCharmsNeoForge {
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::registerLayers);
         eventBus.addListener(this::buildCreativeTabContents);
-
-        for (Identifier loc : CharmEffectProviders.getItems()) {
-            Map<Identifier, Item> allItems = ChargedCharmsItems.getAll();
-            Item item = allItems.get(loc);
-
-            CuriosSlotTypes.registerPredicate(prefix("charged_charm"),
-                ((slotContext, itemStack) -> itemStack.getItem() == item));
-        }
     }
 
     private void clientSetup(final FMLClientSetupEvent evt) {
@@ -124,6 +116,14 @@ public class ChargedCharmsNeoForge {
         ChargedCharmsNeoForgeRegistries.CONDITION_SERIALIZERS_DEFERRED_REGISTER.register(ConfigResourceCondition.ID, () -> ConfigResourceCondition.CODEC);
         ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(eventBus);
         ChargedCharmsComponents.registerDataComponents();
+
+        for (Identifier loc : CharmEffectProviders.getItems()) {
+            Map<Identifier, Item> allItems = ChargedCharmsItems.getAll();
+            Item item = allItems.get(loc);
+
+            CuriosSlotTypes.registerPredicate(prefix("charged_charm"),
+                ((slotContext, itemStack) -> itemStack.getItem() == item));
+        }
     }
 
     @SubscribeEvent
