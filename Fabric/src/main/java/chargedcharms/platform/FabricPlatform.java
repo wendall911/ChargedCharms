@@ -10,7 +10,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.util.Tuple;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
@@ -23,15 +22,11 @@ public class FabricPlatform implements IPlatform {
     public Set<ItemStack> findCharms(LivingEntity livingEntity) {
         Set<ItemStack> results = Sets.newHashSet();
 
-        /*
-        // TODO Implement with eu.pb4 Trinkets
-        return TrinketsApi.getTrinketComponent(livingEntity).map(component -> {
-            component.getEquipped(stack -> CharmEffectProviders.IS_CHARM.test(stack.getItem())).stream().map(Tuple::getB)
-                    .forEach(results::add);
-
-            return results;
-        }).orElse(results);
-         */
+        TrinketsApi.getAttachment(livingEntity).getAllEquipped().iterator().forEachRemaining(component -> {
+            if (CharmEffectProviders.IS_CHARM.test(component.getB().getItem())) {
+                results.add(component.getB());
+            }
+        });
 
         return results;
     }

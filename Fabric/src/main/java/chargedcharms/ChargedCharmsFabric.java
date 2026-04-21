@@ -18,6 +18,7 @@ public class ChargedCharmsFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         registryInit();
+        ChargedCharms.init();
     }
 
     private void registryInit() {
