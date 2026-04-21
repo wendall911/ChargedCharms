@@ -1,5 +1,4 @@
 {
-  "accessories.slot.charged_charm": "Charged Charm",
   "chargedcharms.configuration.absorptionamplifier.description": "Charged Absorption Charm effect amplifier.",
   "chargedcharms.configuration.absorptionamplifier.name": "Absorption Amplifier",
   "chargedcharms.configuration.absorptioncharges.description": "Number of charges for the Charged Absorption Charm.",
@@ -63,5 +62,6 @@
   "item.chargedcharms.charged_totem_charm": "Charged Totem Charm",
   "item.chargedcharms.charged_water_breathing_charm": "Charged Water Breathing Charm",
   "itemGroup.chargedcharms": "Charged Charms",
-  "tooltip.charged_charm.charges": "Charges"
+  "tooltip.charged_charm.charges": "Charges",
+  "trinkets.slot.charged_charm.charm": "Charged Charm"
 }
