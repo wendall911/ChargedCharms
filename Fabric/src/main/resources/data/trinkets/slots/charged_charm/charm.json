@@ -1,5 +1,5 @@
 {
   "amount": 2,
   "order": 200,
-  "icon": "trinkets:gui/slots/charm"
+  "icon": "trinkets:container/slots/charm"
 }
