@@ -2,7 +2,7 @@ package chargedcharms.common.item;
 
 import java.util.function.Consumer;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -20,7 +20,7 @@ public class ChargedCharmBase extends Item {
 
     @SuppressWarnings("deprecation")
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull TooltipDisplay tooltipDisplay, @NotNull Consumer<Component> components, @NotNull TooltipFlag flag) {
+    public void appendHoverText(@NonNull ItemStack stack, @NonNull TooltipContext context, @NonNull TooltipDisplay tooltipDisplay, @NonNull Consumer<Component> components, @NonNull TooltipFlag flag) {
         Component textComponent = Component.translatable("tooltip.charged_charm.charges");
         int charges = stack.getMaxDamage() - stack.getDamageValue();
         String text = charges + "/" + stack.getMaxDamage() + " " + textComponent.getString();

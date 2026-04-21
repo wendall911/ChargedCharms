@@ -2,7 +2,7 @@ package chargedcharms.data.integration;
 
 import java.util.concurrent.CompletableFuture;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import dev.lambdaurora.lambdynlights.api.data.ItemLightSourceDataProvider;
 import dev.lambdaurora.lambdynlights.api.item.ItemLuminance;
@@ -20,7 +20,7 @@ public class DynamicLightsDataProvider extends ItemLightSourceDataProvider {
     }
 
     @Override
-    protected void generate(@NotNull Context context) {
+    protected void generate(@NonNull Context context) {
         context.add(ChargedCharmsItems.glowupCharm, ItemLuminance.of(15), false);
     }
 
