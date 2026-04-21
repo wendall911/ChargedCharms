@@ -110,7 +110,7 @@ publishMods {
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('fabric-api')
-            requires('trinkets')
+            requires('trinkets-updated')
             optional('actually-harvest')
             optional('betterdays')
             optional('creeper-fireworks')
