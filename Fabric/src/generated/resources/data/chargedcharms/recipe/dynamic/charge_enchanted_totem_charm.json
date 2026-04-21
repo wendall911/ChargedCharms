@@ -11,6 +11,5 @@
       "config_disabled": "disableEnchTotemCharm"
     }
   ],
-  "type": "chargedcharms:charge_enchanted_totem_charm",
-  "category": "misc"
+  "type": "chargedcharms:charge_enchanted_totem_charm"
 }

@@ -5,6 +5,5 @@
       "config_disabled": "disableTotemCharm"
     }
   ],
-  "type": "chargedcharms:charge_totem_charm",
-  "category": "misc"
+  "type": "chargedcharms:charge_totem_charm"
 }

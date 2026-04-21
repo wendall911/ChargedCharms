@@ -2,22 +2,21 @@
   "fabric:load_conditions": [
     {
       "condition": "chargedcharms:config_disabled",
-      "config_disabled": "disableSpeedCharm"
+      "config_disabled": "disableWaterBreathingCharm"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": "minecraft:leather_boots",
-    "N": "minecraft:iron_nugget",
-    "S": "minecraft:sugar"
+    "K": "minecraft:kelp",
+    "N": "minecraft:iron_nugget"
   },
   "pattern": [
-    "NSN",
-    "NBN",
+    "NNN",
+    "NKN",
     "NNN"
   ],
   "result": {
-    "id": "chargedcharms:charged_speed_charm"
+    "id": "chargedcharms:charged_water_breathing_charm"
   }
 }

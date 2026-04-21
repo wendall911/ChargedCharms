@@ -14,12 +14,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "tag": "chargedcharms:enchanted_totems"
-    }
+    "N": "minecraft:iron_nugget",
+    "S": "#chargedcharms:enchanted_totems"
   },
   "pattern": [
     "NNN",
@@ -27,7 +23,6 @@
     "NNN"
   ],
   "result": {
-    "count": 1,
     "id": "chargedcharms:charged_enchanted_totem_charm"
   }
 }

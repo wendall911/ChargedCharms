@@ -8,12 +8,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "N": {
-      "item": "minecraft:iron_nugget"
-    },
-    "S": {
-      "item": "minecraft:apple"
-    }
+    "N": "minecraft:iron_nugget",
+    "S": "minecraft:apple"
   },
   "pattern": [
     "NNN",
@@ -21,7 +17,6 @@
     "NNN"
   ],
   "result": {
-    "count": 1,
     "id": "chargedcharms:charged_regeneration_charm"
   }
 }

@@ -2,21 +2,21 @@
   "neoforge:conditions": [
     {
       "type": "chargedcharms:config_disabled",
-      "config_disabled": "disableGlowupCharm"
+      "config_disabled": "disableWaterBreathingCharm"
     }
   ],
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "G": "minecraft:glow_berries",
-    "N": "minecraft:gold_nugget"
+    "K": "minecraft:kelp",
+    "N": "minecraft:iron_nugget"
   },
   "pattern": [
     "NNN",
-    "NGN",
+    "NKN",
     "NNN"
   ],
   "result": {
-    "id": "chargedcharms:charged_glowup_charm"
+    "id": "chargedcharms:charged_water_breathing_charm"
   }
 }

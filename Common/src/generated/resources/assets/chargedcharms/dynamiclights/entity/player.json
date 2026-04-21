@@ -1,0 +1,10 @@
+{
+  "luminance": [
+    {
+      "type": "chargedcharms:charged_glowup_charm"
+    }
+  ],
+  "match": {
+    "type": "minecraft:player"
+  }
+}

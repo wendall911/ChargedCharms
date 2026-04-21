@@ -5,6 +5,5 @@
       "config_disabled": "disableAbsorptionCharm"
     }
   ],
-  "type": "chargedcharms:recharge_absorption_charm",
-  "category": "misc"
+  "type": "chargedcharms:recharge_absorption_charm"
 }

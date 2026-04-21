@@ -5,6 +5,5 @@
       "config_disabled": "disableSpeedCharm"
     }
   ],
-  "type": "chargedcharms:charge_speed_charm",
-  "category": "misc"
+  "type": "chargedcharms:charge_speed_charm"
 }
