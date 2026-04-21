@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Registry;
@@ -20,7 +19,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -28,14 +26,9 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import technology.roughness.whitenoise.platform.Services;
 
 import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.CuriosSlotTypes;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.client.ICurioRenderer;
 import top.theillusivec4.curios.api.type.capability.ICurio;
 
-import chargedcharms.client.ChargedCharmLayerDefinitions;
-import chargedcharms.client.CurioCharmRenderer;
-import chargedcharms.client.model.ChargedCharmModel;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.component.ChargedCharmsComponents;
 import chargedcharms.common.crafting.ChargedCharmsCrafting;
@@ -55,27 +48,11 @@ public class ChargedCharmsNeoForge {
         ChargedCharms.init();
         eventBus.addListener(this::registerCapabilities);
         eventBus.addListener(this::clientSetup);
-        eventBus.addListener(this::registerLayers);
         eventBus.addListener(this::buildCreativeTabContents);
     }
 
     private void clientSetup(final FMLClientSetupEvent evt) {
         ChargedCharmsClient.init();
-
-        for (Identifier loc : CharmEffectProviders.getItems()) {
-            Map<Identifier, Item> allItems = ChargedCharmsItems.getAll();
-            Item item = allItems.get(loc);
-
-            // TODO: add renderer when I actually understand how to create the model for this.
-            //ICurioRenderer.register(item, () -> new CurioCharmRenderer(ChargedCharmLayerDefinitions.ALL.get(item)));
-        }
-    }
-
-    private void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        for (ModelLayerLocation layer : ChargedCharmLayerDefinitions.ALL.values()) {
-            // TODO: enable once the model is correct
-            //event.registerLayerDefinition(layer, ChargedCharmModel::createLayer);
-        }
     }
 
     private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent evt) {

@@ -6,7 +6,6 @@ import java.util.Set;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,15 +28,6 @@ public class ChargedCharmsClientFabric implements ClientModInitializer {
         Set<Identifier> remove = new HashSet<>();
 
         ChargedCharmsClient.init();
-
-        RegistryEntryAddedCallback.event(BuiltInRegistries.ITEM).register((rawId, id, object) -> {
-            if (!charms.isEmpty()) {
-                if (charms.contains(id)) {
-                    FabricClientHooks.registerTrinketRenderer(object);
-                    charms.remove(id);
-                }
-            }
-        });
 
         for (Identifier charm : charms) {
             Optional<Holder.Reference<Item>> itemReference = BuiltInRegistries.ITEM.get(charm);
