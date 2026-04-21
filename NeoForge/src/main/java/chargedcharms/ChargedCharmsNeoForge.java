@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.Registry;
@@ -44,8 +45,6 @@ import chargedcharms.data.recipe.ConfigResourceCondition;
 import chargedcharms.data.integration.ModIntegration;
 import chargedcharms.registries.ChargedCharmsNeoForgeRegistries;
 
-import static chargedcharms.util.ResourceLocationHelper.prefix;
-
 @Mod(ChargedCharms.MODID)
 @EventBusSubscriber(modid = ChargedCharms.MODID)
 public class ChargedCharmsNeoForge {
@@ -67,12 +66,16 @@ public class ChargedCharmsNeoForge {
             Map<Identifier, Item> allItems = ChargedCharmsItems.getAll();
             Item item = allItems.get(loc);
 
-            ICurioRenderer.register(item, CurioCharmRenderer::new);
+            // TODO: add renderer when I actually understand how to create the model for this.
+            //ICurioRenderer.register(item, () -> new CurioCharmRenderer(ChargedCharmLayerDefinitions.ALL.get(item)));
         }
     }
 
     private void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ChargedCharmLayerDefinitions.CHARGED_CHARM, ChargedCharmModel::createLayer);
+        for (ModelLayerLocation layer : ChargedCharmLayerDefinitions.ALL.values()) {
+            // TODO: enable once the model is correct
+            //event.registerLayerDefinition(layer, ChargedCharmModel::createLayer);
+        }
     }
 
     private void buildCreativeTabContents(BuildCreativeModeTabContentsEvent evt) {
@@ -116,14 +119,6 @@ public class ChargedCharmsNeoForge {
         ChargedCharmsNeoForgeRegistries.CONDITION_SERIALIZERS_DEFERRED_REGISTER.register(ConfigResourceCondition.ID, () -> ConfigResourceCondition.CODEC);
         ChargedCharmsNeoForgeRegistries.COMPONENT_TYPE_DEFERRED_REGISTER.register(eventBus);
         ChargedCharmsComponents.registerDataComponents();
-
-        for (Identifier loc : CharmEffectProviders.getItems()) {
-            Map<Identifier, Item> allItems = ChargedCharmsItems.getAll();
-            Item item = allItems.get(loc);
-
-            CuriosSlotTypes.registerPredicate(prefix("charged_charm"),
-                ((slotContext, itemStack) -> itemStack.getItem() == item));
-        }
     }
 
     @SubscribeEvent

@@ -24,9 +24,11 @@ public class ChargedCharmsItemTagProvider extends IntrinsicHolderTagsProvider<It
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CHARGED_CHARMS);
+        TagBuilder curiosTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CURIOS);
 
         CharmEffectProviders.init();
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(charmTagBuilder, loc));
+        CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(curiosTagBuilder, loc));
 
         this.tag(TagManager.Items.CHARM_FOODS_BLACKLIST)
             .add(Items.ROTTEN_FLESH)

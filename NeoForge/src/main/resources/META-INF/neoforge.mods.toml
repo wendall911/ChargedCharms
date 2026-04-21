@@ -16,6 +16,8 @@ issueTrackerURL="https://github.com/${mod_author}/${mod_name}/issues"
     '''
 [[mixins]]
     config = "${mod_id}.mixins.json"
+[modproperties."${mod_id}"."yumi:entrypoints"]
+	"lambdynlights:initializer" = "${mod_id}.client.integration.dynamiclights.ChargedCharmsLighting"
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"

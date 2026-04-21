@@ -28,6 +28,9 @@
     "fabric-datagen": [
       "${mod_id}.data.FabricDatagenInitializer"
     ],
+    "lambdynlights:initializer": [
+      "${mod_id}.client.integration.dynamiclights.ChargedCharmsLighting"
+    ],
     "rei_client": [
       "${mod_id}.client.integration.rei.REIPlugin"
     ],

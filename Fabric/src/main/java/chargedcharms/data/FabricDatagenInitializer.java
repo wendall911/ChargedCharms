@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.data.integration.DynamicLightsDataProvider;
+import chargedcharms.data.integration.DynamicLightsEntityDataProvider;
 import chargedcharms.data.recipe.FabricModRecipeProvider;
 
 public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
@@ -25,6 +26,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
         pack.addProvider(ChargedCharmsItemTagProvider::new);
         pack.addProvider((dataOutput, registryFuture) -> new ChargedCharmsItemModelProvider(dataOutput));
         pack.addProvider(DynamicLightsDataProvider::new);
+        pack.addProvider(DynamicLightsEntityDataProvider::new);
         pack.addProvider(ChargedCharmsLanguageProvider::new);
     }
 

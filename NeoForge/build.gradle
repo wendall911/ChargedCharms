@@ -45,6 +45,8 @@ dependencies {
 
     compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
+    compileOnly "dev.lambdaurora.lambdynamiclights:lambdynamiclights-api:${dynamiclights_version}"
+
     //compileOnly("com.hollingsworth.ars_nouveau:ars_nouveau-${minecraft_version}:${ars_nouveau_version}")
     //compileOnly "curse.maven:ryoamiclights-913587:${ryoamiclights_version}"
 
