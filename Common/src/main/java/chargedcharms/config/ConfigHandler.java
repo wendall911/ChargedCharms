@@ -77,25 +77,25 @@ public class ConfigHandler {
         public Common(WhiteNoiseConfigSpec.Builder builder) {
             builder.push("charms");
 
-            disableRegenCharm = builder.comment(getTranslation("disableregencharm"))
+            disableRegenCharm = builder.comment(getTranslation("disableregencharm")).worldRestart()
                 .define("disableRegenCharm", false);
 
-            disableAbsorptionCharm = builder.comment(getTranslation("disableabsorptioncharm"))
+            disableAbsorptionCharm = builder.comment(getTranslation("disableabsorptioncharm")).worldRestart()
                 .define("disableAbsorptionCharm", false);
 
-            disableGlowupCharm = builder.comment(getTranslation("disableglowupcharm"))
+            disableGlowupCharm = builder.comment(getTranslation("disableglowupcharm")).worldRestart()
                 .define("disableGlowupCharm", false);
 
-            disableTotemCharm = builder.comment(getTranslation("disabletotemcharm"))
+            disableTotemCharm = builder.comment(getTranslation("disabletotemcharm")).worldRestart()
                 .define("disableTotemCharm", false);
 
-            disableEnchTotemCharm = builder.comment(getTranslation("disableenchtotemcharm"))
+            disableEnchTotemCharm = builder.comment(getTranslation("disableenchtotemcharm")).worldRestart()
                 .define("disableEnchTotemCharm", false);
 
-            disableSpeedCharm = builder.comment(getTranslation("disablespeedcharm"))
+            disableSpeedCharm = builder.comment(getTranslation("disablespeedcharm")).worldRestart()
                 .define("disableSpeedCharm", false);
 
-            disableWaterBreathingCharm = builder.comment(getTranslation("disablewaterbreathingcharm"))
+            disableWaterBreathingCharm = builder.comment(getTranslation("disablewaterbreathingcharm")).worldRestart()
                 .define("disableWaterBreathingCharm", false);
 
             builder.pop();
