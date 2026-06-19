@@ -12,6 +12,7 @@ Multi-loader: `Common/` + `NeoForge/` (+ `Forge/` on older branches) + `Fabric/`
 | Branch | Modloaders        |
 |--------|-------------------|
 | 1.18.2 | Forge + Fabric    |
+| 1.19.2 | Forge + Fabric    |
 | 1.20.1 | Forge + Fabric    |
 | 1.21.1 | NeoForge + Fabric |
 | 26.1   | NeoForge + Fabric |
