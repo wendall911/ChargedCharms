@@ -10,6 +10,7 @@ import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger.TriggerInstance;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -32,11 +33,11 @@ import static chargedcharms.util.ResourceLocationHelper.prefix;
 
 public class RecipeProviderBase {
 
-    private static Criterion<TriggerInstance> has(HolderLookup.RegistryLookup<Item> itemRegistry, TagKey<Item> pTag) {
+    private static Criterion<TriggerInstance> has(HolderGetter<Item> itemRegistry, TagKey<Item> pTag) {
         return inventoryTrigger(ItemPredicate.Builder.item().of(itemRegistry, pTag).build());
     }
 
-    private static Criterion<InventoryChangeTrigger.TriggerInstance> has(HolderLookup.RegistryLookup<Item> itemRegistry, ItemLike pItemLike) {
+    private static Criterion<InventoryChangeTrigger.TriggerInstance> has(HolderGetter<Item> itemRegistry, ItemLike pItemLike) {
         return inventoryTrigger(ItemPredicate.Builder.item().of(itemRegistry, pItemLike).build());
     }
 
@@ -57,7 +58,7 @@ public class RecipeProviderBase {
             exporter, prefix("dynamic/" + Objects.requireNonNull(name).getPath()).toString());
     }
 
-    protected static ShapedRecipeBuilder enchantedTotemCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder enchantedTotemCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.enchantedTotemCharm)
             .define('N', Items.IRON_NUGGET)
             .define('S', TagManager.Items.ENCHANTED_TOTEMS)
@@ -67,7 +68,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, TagManager.Items.ENCHANTED_TOTEMS));
     }
 
-    protected static ShapedRecipeBuilder regenerationCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder regenerationCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.regenerationCharm)
             .define('N', Items.IRON_NUGGET)
             .define('S', Items.APPLE)
@@ -77,7 +78,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, Items.APPLE));
     }
 
-    protected static ShapedRecipeBuilder absorptionCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder absorptionCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.absorptionCharm)
             .define('N', Items.IRON_NUGGET)
             .define('A', Items.COOKED_BEEF)
@@ -87,7 +88,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, Items.COOKED_BEEF));
     }
 
-    protected static ShapedRecipeBuilder glowupCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder glowupCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.glowupCharm)
             .define('N', Items.GOLD_NUGGET)
             .define('G', Items.GLOW_BERRIES)
@@ -97,7 +98,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, Items.GLOW_BERRIES));
     }
 
-    protected static ShapedRecipeBuilder totemCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder totemCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.totemCharm)
             .define('N', Items.IRON_NUGGET)
             .define('U', Items.TOTEM_OF_UNDYING)
@@ -107,7 +108,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, Items.TOTEM_OF_UNDYING));
     }
 
-    protected static ShapedRecipeBuilder speedCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder speedCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.speedCharm)
             .define('N', Items.IRON_NUGGET)
             .define('S', Items.SUGAR)
@@ -118,7 +119,7 @@ public class RecipeProviderBase {
             .unlockedBy("has_item", has(itemRegistry, Items.SUGAR));
     }
 
-    protected static ShapedRecipeBuilder waterBreathingCharm(HolderLookup.RegistryLookup<Item> itemRegistry) {
+    protected static ShapedRecipeBuilder waterBreathingCharm(HolderGetter<Item> itemRegistry) {
         return ShapedRecipeBuilder.shaped(itemRegistry, RecipeCategory.MISC, ChargedCharmsItems.waterBreathingCharm)
             .define('N', Items.IRON_NUGGET)
             .define('K', Items.KELP)

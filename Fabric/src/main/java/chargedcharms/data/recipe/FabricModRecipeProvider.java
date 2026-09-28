@@ -8,11 +8,15 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.common.crafting.recipe.AbsorptionChargeRecipe;
@@ -35,66 +39,71 @@ public class FabricModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput recipeOutput) {
-        HolderLookup.RegistryLookup<Item> itemRegistry = registries.lookupOrThrow(Registries.ITEM);
-        RecipeOutput bmoWrapped = withConditions(
-            recipeOutput,
-            ResourceConditions.allModsLoaded(ModIntegration.BMO_MODID),
-            new ConfigResourceCondition("disableEnchTotemCharm")
-        );
+    protected @NonNull RecipeProvider createRecipeProvider(@NonNull Provider registries,
+            @NonNull BootstrapContext<Recipe<?>> recipes, @NonNull BootstrapContext<Advancement> advancements) {
+        return new RecipeProvider(recipes, advancements) {
+            @Override
+            public void buildRecipes() {
+                HolderLookup.RegistryLookup<Item> itemRegistry = registries.lookupOrThrow(Registries.ITEM);
 
-        RecipeProviderBase.regenerationCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableRegenCharm")
-        ));
-        RecipeProviderBase.absorptionCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableAbsorptionCharm")
-        ));
-        RecipeProviderBase.glowupCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableGlowupCharm")
-        ));
-        RecipeProviderBase.totemCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableTotemCharm")
-        ));
-        RecipeProviderBase.enchantedTotemCharm(itemRegistry).save(bmoWrapped);
-        RecipeProviderBase.speedCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableSpeedCharm")
-        ));
-        RecipeProviderBase.waterBreathingCharm(itemRegistry).save(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableWaterBreathingCharm")
-        ));
-        RecipeProviderBase.specialRecipe(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableRegenCharm")
-        ), RegenerationChargeRecipe.SERIALIZER, RegenerationChargeRecipe::new);
-        RecipeProviderBase.specialRecipe(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableTotemCharm")
-        ), TotemChargeRecipe.SERIALIZER, TotemChargeRecipe::new);
-        RecipeProviderBase.specialRecipe(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableAbsorptionCharm")
-        ), AbsorptionChargeRecipe.SERIALIZER, AbsorptionChargeRecipe::new);
-        RecipeProviderBase.specialRecipe(
-            bmoWrapped,
-            EnchantedTotemChargeRecipe.SERIALIZER,
-            EnchantedTotemChargeRecipe::new
-        );
-        RecipeProviderBase.specialRecipe(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableSpeedCharm")
-        ), SpeedChargeRecipe.SERIALIZER, SpeedChargeRecipe::new);
-        RecipeProviderBase.specialRecipe(withConditions(
-            recipeOutput,
-            new ConfigResourceCondition("disableWaterBreathingCharm")
-        ), WaterBreathingChargeRecipe.SERIALIZER, WaterBreathingChargeRecipe::new);
+                RecipeOutput bmoWrapped = withConditions(
+                    output,
+                    ResourceConditions.allModsLoaded(ModIntegration.BMO_MODID),
+                    new ConfigResourceCondition("disableEnchTotemCharm")
+                );
 
-        return new CommonRecipeProvider(registries, recipeOutput);
+                RecipeProviderBase.regenerationCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableRegenCharm")
+                ));
+                RecipeProviderBase.absorptionCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableAbsorptionCharm")
+                ));
+                RecipeProviderBase.glowupCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableGlowupCharm")
+                ));
+                RecipeProviderBase.totemCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableTotemCharm")
+                ));
+                RecipeProviderBase.enchantedTotemCharm(itemRegistry).save(bmoWrapped);
+                RecipeProviderBase.speedCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableSpeedCharm")
+                ));
+                RecipeProviderBase.waterBreathingCharm(itemRegistry).save(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableWaterBreathingCharm")
+                ));
+                RecipeProviderBase.specialRecipe(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableRegenCharm")
+                ), RegenerationChargeRecipe.SERIALIZER, RegenerationChargeRecipe::new);
+                RecipeProviderBase.specialRecipe(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableTotemCharm")
+                ), TotemChargeRecipe.SERIALIZER, TotemChargeRecipe::new);
+                RecipeProviderBase.specialRecipe(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableAbsorptionCharm")
+                ), AbsorptionChargeRecipe.SERIALIZER, AbsorptionChargeRecipe::new);
+                RecipeProviderBase.specialRecipe(
+                    bmoWrapped,
+                    EnchantedTotemChargeRecipe.SERIALIZER,
+                    EnchantedTotemChargeRecipe::new
+                );
+                RecipeProviderBase.specialRecipe(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableSpeedCharm")
+                ), SpeedChargeRecipe.SERIALIZER, SpeedChargeRecipe::new);
+                RecipeProviderBase.specialRecipe(withConditions(
+                    output,
+                    new ConfigResourceCondition("disableWaterBreathingCharm")
+                ), WaterBreathingChargeRecipe.SERIALIZER, WaterBreathingChargeRecipe::new);
+            }
+        };
     }
 
 }
