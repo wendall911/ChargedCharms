@@ -12,10 +12,10 @@ neoForge {
     version = neoforge_version
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
         }
         client {
+            jvmArgument("-Dneoforge.warnings.logofile.hide=true")
             client()
         }
         server {

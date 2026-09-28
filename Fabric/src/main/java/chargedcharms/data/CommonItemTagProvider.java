@@ -2,27 +2,30 @@ package chargedcharms.data;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.jspecify.annotations.NonNull;
+
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
+import net.minecraft.references.ItemIds;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 import chargedcharms.common.TagManager;
 import chargedcharms.data.integration.ModIntegration;
 
-public class ChargedCharmsItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+public class CommonItemTagProvider extends FabricTagsProvider<Item> {
 
-    public ChargedCharmsItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(packOutput, Registries.ITEM, lookupProvider, (item) -> item.builtInRegistryHolder().key());
+    public CommonItemTagProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, Registries.ITEM, lookupProvider);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NonNull Provider provider) {
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CHARGED_CHARMS);
         TagBuilder curiosTagBuilder = this.getOrCreateRawBuilder(TagManager.Items.CURIOS);
 
@@ -31,11 +34,11 @@ public class ChargedCharmsItemTagProvider extends IntrinsicHolderTagsProvider<It
         CharmEffectProviders.getItems().forEach(loc -> DataHelper.addElement(curiosTagBuilder, loc));
 
         this.tag(TagManager.Items.CHARM_FOODS_BLACKLIST)
-            .add(Items.ROTTEN_FLESH)
-            .add(Items.CHICKEN)
-            .add(Items.SPIDER_EYE)
-            .add(Items.SUSPICIOUS_STEW)
-            .add(Items.PUFFERFISH);
+            .add(ItemIds.ROTTEN_FLESH)
+            .add(ItemIds.CHICKEN)
+            .add(ItemIds.SPIDER_EYE)
+            .add(ItemIds.SUSPICIOUS_STEW)
+            .add(ItemIds.PUFFERFISH);
 
         getOrCreateRawBuilder(TagManager.Items.ENCHANTED_TOTEMS)
             .addOptionalElement(ModIntegration.Items.BMO_ENCHANTED_TOTEM);

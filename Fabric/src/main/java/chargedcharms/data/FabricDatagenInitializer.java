@@ -23,7 +23,7 @@ public class FabricDatagenInitializer implements DataGeneratorEntrypoint {
     }
 
     public static void configureCommonDatagen(FabricDataGenerator.Pack pack) {
-        pack.addProvider(ChargedCharmsItemTagProvider::new);
+        pack.addProvider(CommonItemTagProvider::new);
         pack.addProvider((dataOutput, registryFuture) -> new ChargedCharmsItemModelProvider(dataOutput));
         pack.addProvider(DynamicLightsDataProvider::new);
         pack.addProvider(DynamicLightsEntityDataProvider::new);

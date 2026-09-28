@@ -2,11 +2,13 @@ package chargedcharms.data;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.jspecify.annotations.NonNull;
+
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
@@ -15,14 +17,14 @@ import net.minecraft.world.item.Item;
 import chargedcharms.common.CharmEffectProviders;
 import chargedcharms.common.DataHelper;
 
-public class FabricItemTagProvider extends IntrinsicHolderTagsProvider<Item> {
+public class FabricItemTagProvider extends FabricTagsProvider<Item> {
 
     public FabricItemTagProvider(FabricPackOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(dataGenerator, Registries.ITEM, registriesFuture, (item) -> item.builtInRegistryHolder().key());
+        super(dataGenerator, Registries.ITEM, registriesFuture);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NonNull Provider provider) {
         TagKey<Item> charms = trinket("charged_charm/charm");
         TagBuilder charmTagBuilder = this.getOrCreateRawBuilder(charms);
 

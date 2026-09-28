@@ -6,7 +6,7 @@ import dev.lambdaurora.lambdynlights.api.data.EntityLightSourceDataProvider;
 
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.client.integration.dynamiclights.GlowUpCharmEntity;
@@ -19,7 +19,7 @@ public class DynamicLightsEntityDataProvider extends EntityLightSourceDataProvid
 
     @Override
     protected void generate(Context context) {
-        context.add(EntityType.PLAYER, GlowUpCharmEntity.INSTANCE);
+        context.add(EntityTypes.PLAYER, GlowUpCharmEntity.INSTANCE);
     }
 
 }

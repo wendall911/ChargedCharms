@@ -21,10 +21,9 @@ public class FabricPlatform implements IPlatform {
     @Override
     public Set<ItemStack> findCharms(LivingEntity livingEntity) {
         Set<ItemStack> results = Sets.newHashSet();
-
-        TrinketsApi.getAttachment(livingEntity).getAllEquipped().iterator().forEachRemaining(component -> {
-            if (CharmEffectProviders.IS_CHARM.test(component.getB().getItem())) {
-                results.add(component.getB());
+        TrinketsApi.getAttachment(livingEntity).allEquipped(true).iterator().forEachRemaining(component -> {
+            if (CharmEffectProviders.IS_CHARM.test(component.get().getItem())) {
+                results.add(component.get());
             }
         });
 
