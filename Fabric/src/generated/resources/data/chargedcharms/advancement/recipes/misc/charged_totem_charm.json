@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_totem_charm"
+        "recipes": "chargedcharms:charged_totem_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

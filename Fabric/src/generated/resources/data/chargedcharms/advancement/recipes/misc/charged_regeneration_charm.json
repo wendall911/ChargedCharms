@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_regeneration_charm"
+        "recipes": "chargedcharms:charged_regeneration_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

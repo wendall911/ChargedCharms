@@ -6,7 +6,6 @@
     }
   ],
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "K": "minecraft:kelp",
     "N": "minecraft:iron_nugget"

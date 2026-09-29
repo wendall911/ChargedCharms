@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "chargedcharms:charged_absorption_charm"
+        "recipes": "chargedcharms:charged_absorption_charm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
