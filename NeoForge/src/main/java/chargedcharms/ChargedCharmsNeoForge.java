@@ -49,6 +49,10 @@ public class ChargedCharmsNeoForge {
         eventBus.addListener(this::registerCapabilities);
         eventBus.addListener(this::clientSetup);
         eventBus.addListener(this::buildCreativeTabContents);
+
+        if (Services.WN_PLATFORM.isPhysicalClient()) {
+            new ChargedCharmsClientNeoForge().init(eventBus);
+        }
     }
 
     private void clientSetup(final FMLClientSetupEvent evt) {

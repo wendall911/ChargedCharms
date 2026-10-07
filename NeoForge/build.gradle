@@ -35,7 +35,7 @@ neoForge {
 
 dependencies {
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}:api"
 
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
     jarJar group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-neoforge", version: "${whitenoise_version}"
