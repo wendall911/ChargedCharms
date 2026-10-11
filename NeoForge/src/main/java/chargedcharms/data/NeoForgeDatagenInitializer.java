@@ -3,14 +3,13 @@ package chargedcharms.data;
 import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 
-import net.minecraft.data.recipes.RecipeProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.data.event.GatherDataRegistryEntriesEvent;
 
 import chargedcharms.ChargedCharms;
 import chargedcharms.data.integration.ChargedCharmsCuriosProvider;
@@ -26,8 +25,11 @@ public class NeoForgeDatagenInitializer {
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getWorldLookupProvider();
 
         gen.addProvider(true, new ChargedCharmsCuriosProvider(packOutput, lookupProvider));
-        event.createReloadableRegistryObjects(new RegistrySetBuilder()
-            .add(RecipeProvider.asBootstrap(NeoForgeRecipeProvider::new)));
+    }
+
+    @SubscribeEvent
+    public static void gatherRegistries(GatherDataRegistryEntriesEvent event) {
+        event.gatherFor("minecraft", ChargedCharms.MODID).recipe(NeoForgeRecipeProvider::new);
     }
 
 }
